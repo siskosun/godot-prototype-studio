@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 3,
+  "artifactSha256": "REPLACE_WITH_64_HEX_SHA256",
+  "target": "REPLACE_WITH_TARGET",
+  "testedArtifact": "path/to/artifact",
+  "testedTree": null,
+  "pairedArtifacts": [],
+  "environment": {
+    "godotVersion": "",
+    "platform": ""
+  },
+  "reviewer": {
+    "kind": "self",
+    "identity": "agent"
+  },
+  "requiredChecks": [],
+  "checks": [],
+  "completedLoop": false,
+  "errors": [],
+  "captures": [],
+  "limitations": [],
+  "humanReview": null,
+  "qualityProfile": "PRESENTABLE_PROTOTYPE",
+  "shareMode": null,
+  "buildId": null,
+  "webPreflight": null,
+  "qualityReview": null,
+  "webAudioExpected": null,
+  "threadSupport": null
+}

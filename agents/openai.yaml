@@ -1,0 +1,11 @@
+interface:
+  display_name: Godot Prototype Studio
+  short_description: Complete Godot slices with art, UX and QA
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - codex
+  - chatgpt
+  - api
+  allow_implicit_invocation: true

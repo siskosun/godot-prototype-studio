@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 2,
+  "status": "PROPOSED",
+  "sourceOfTruth": "brief constraints and one canonical visual baseline",
+  "references": [],
+  "paletteAndContrast": [],
+  "shapeAndSilhouette": [],
+  "uiHierarchy": [],
+  "motionPrinciples": [],
+  "forbiddenDirections": [],
+  "accessibilityConstraints": [],
+  "currentFidelityTarget": "NEAR_RELEASE_SLICE",
+  "selectedBy": "user or agent within recorded delegation",
+  "canonicalReferences": [],
+  "cameraScaleAndLighting": [],
+  "typographyAndUi": [],
+  "animationAndAudio": [],
+  "runtimeQualityExemplar": null
+}

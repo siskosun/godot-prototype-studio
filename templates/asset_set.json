@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "",
+      "path": "",
+      "kind": "sprite",
+      "expectedSize": [
+        64,
+        64
+      ],
+      "requireTransparency": true,
+      "pivot": [
+        32,
+        56
+      ]
+    }
+  ]
+}

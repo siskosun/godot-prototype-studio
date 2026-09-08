@@ -1,0 +1,405 @@
+[
+  {
+    "id": "S01",
+    "title": "Godot official download archive",
+    "url": "https://godotengine.org/download/archive/",
+    "sourceType": "official release archive",
+    "publicationOrVersion": "4.7.2 stable released 2026-08-18; 4.8 dev4 dated 2026-08-26",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Latest stable observed at lookup was 4.7.2; preserve existing project version and verify before changes.",
+    "landing": [
+      "godot-production-lessons.md"
+    ],
+    "limitation": "A release listing does not prove compatibility with a particular project."
+  },
+  {
+    "id": "S02",
+    "title": "Exporting for the Web",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html",
+    "sourceType": "official documentation",
+    "publicationOrVersion": "rolling stable documentation",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Verify actual language/renderer/thread/audio/storage and served browser export behavior.",
+    "landing": [
+      "godot-production-lessons.md",
+      "release-evidence.md"
+    ],
+    "limitation": "Read the documentation for the installed version; restrictions can change."
+  },
+  {
+    "id": "S03",
+    "title": "Pipeline compilations",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/performance/pipeline_compilations.html",
+    "sourceType": "official documentation",
+    "publicationOrVersion": "rolling stable documentation",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Inspect first-use stutter and pipeline behavior as well as warm-cache performance.",
+    "landing": [
+      "godot-production-lessons.md"
+    ],
+    "limitation": "Optimization needs a measured target-device problem; not a mandate for shader infrastructure."
+  },
+  {
+    "id": "S04",
+    "title": "Physics interpolation quick start",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/physics/interpolation/physics_interpolation_quick_start_guide.html",
+    "sourceType": "official documentation",
+    "publicationOrVersion": "rolling stable documentation",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Keep physics and presentation timing coherent; check interpolation/reset behavior when applicable.",
+    "landing": [
+      "godot-production-lessons.md"
+    ],
+    "limitation": "Do not change an existing time model without reproducing the issue."
+  },
+  {
+    "id": "S05",
+    "title": "Scenario consistency skill",
+    "url": "https://github.com/scenario-labs/skills/blob/main/skills/scenario-consistency/SKILL.md",
+    "sourceType": "provider-authored workflow",
+    "publicationOrVersion": "main branch viewed 2026-09-07; no commit pinned",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Reuse canonical references and stable baseline plus controlled deltas; a seed alone is not identity.",
+    "landing": [
+      "art-direction.md"
+    ],
+    "limitation": "Vendor guidance, not an independent experiment proving superior art; no provider dependency or code copied."
+  },
+  {
+    "id": "S06",
+    "title": "GUI skinning / Theme resources",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/ui/gui_skinning.html",
+    "sourceType": "official documentation",
+    "publicationOrVersion": "rolling stable documentation",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Shared Theme and controlled variations support UI consistency; inspect local overrides.",
+    "landing": [
+      "art-direction.md"
+    ],
+    "limitation": "A consistent theme can still have poor composition or readability."
+  },
+  {
+    "id": "S07",
+    "title": "Multiple resolutions",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/rendering/multiple_resolutions.html",
+    "sourceType": "official documentation",
+    "publicationOrVersion": "rolling stable documentation",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Choose stretch/scaling deliberately and test actual aspect ratios and pixel density.",
+    "landing": [
+      "art-direction.md",
+      "godot-production-lessons.md"
+    ],
+    "limitation": "No one viewport setup suits every art style and target."
+  },
+  {
+    "id": "S08",
+    "title": "Importing images",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/importing_images.html",
+    "sourceType": "official documentation",
+    "publicationOrVersion": "rolling stable documentation",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Inspect texture import, filtering, alpha and compression in the runtime scene.",
+    "landing": [
+      "art-direction.md"
+    ],
+    "limitation": "Image dimensions and palette consistency do not establish aesthetic quality."
+  },
+  {
+    "id": "S09",
+    "title": "Xbox Accessibility Guideline 107: Input",
+    "url": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/107",
+    "sourceType": "platform-holder guideline",
+    "publicationOrVersion": "live page viewed 2026-09-07",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Support intended input consistently across play and menus, with applicable remap/alternatives.",
+    "landing": [
+      "gameplay-and-ux.md"
+    ],
+    "limitation": "Apply relevant needs, not every platform feature; conformance requires testing."
+  },
+  {
+    "id": "S10",
+    "title": "Game Accessibility Guidelines: Basic",
+    "url": "https://gameaccessibilityguidelines.com/basic/",
+    "sourceType": "guideline authors",
+    "publicationOrVersion": "live page viewed 2026-09-07",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Readable information, non-color-only cues, configurable relevant input/audio, and settings persistence.",
+    "landing": [
+      "gameplay-and-ux.md",
+      "quality-bar.md"
+    ],
+    "limitation": "A checklist is not validation with disabled players; applicability is genre/platform-specific."
+  },
+  {
+    "id": "S11",
+    "title": "Riot Art Education: Visual Effects",
+    "url": "https://www.riotgames.com/en/artedu/visual-effects",
+    "sourceType": "studio art education",
+    "publicationOrVersion": "publication date not established",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Use VFX to communicate gameplay hierarchy and fit the visual language; subordinate decoration.",
+    "landing": [
+      "art-direction.md"
+    ],
+    "limitation": "Professional instruction, not evidence that more effects improve play."
+  },
+  {
+    "id": "S12",
+    "title": "Juicy attack in Godot",
+    "url": "https://www.gdquest.com/library/juicy_attack/",
+    "sourceType": "author tutorial",
+    "publicationOrVersion": "updated 2025-10-09",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Synchronize anticipation, impact and recovery; exaggerated hit-stop is demonstration, not universal default.",
+    "landing": [
+      "gameplay-and-ux.md",
+      "art-direction.md"
+    ],
+    "limitation": "Anticipation may feel delayed; code MIT does not grant rights to the tutorial game assets. No assets copied."
+  },
+  {
+    "id": "S13",
+    "title": "Audio buses",
+    "url": "https://docs.godotengine.org/en/stable/tutorials/audio/audio_buses.html",
+    "sourceType": "official documentation",
+    "publicationOrVersion": "rolling stable documentation",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Use buses and actual playback to test priority, mix, mute and clipping.",
+    "landing": [
+      "art-direction.md"
+    ],
+    "limitation": "A silent video cannot establish audible quality; no sound assets bundled."
+  },
+  {
+    "id": "S14",
+    "title": "GameCraft-Bench",
+    "url": "https://arxiv.org/html/2606.17861v1",
+    "sourceType": "research paper, arXiv version",
+    "publicationOrVersion": "2026-06, version 1",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Separate engine grounding, artifact completeness and interaction-based evaluation.",
+    "landing": [
+      "game-qa-and-replay.md",
+      "quality-bar.md"
+    ],
+    "limitation": "Limited 2D Godot tasks; model judges have bias/drift, audio and subjective fun not fully evaluated. No transfer of scores to this skill."
+  },
+  {
+    "id": "S15",
+    "title": "GUI Agents for Continual Game Generation / Play2Code",
+    "url": "https://arxiv.org/html/2605.28258v1",
+    "sourceType": "research paper, arXiv version",
+    "publicationOrVersion": "2026-05, version 1",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Use actual GUI play feedback to revise instead of stopping after generation.",
+    "landing": [
+      "gameplay-and-ux.md",
+      "game-qa-and-replay.md"
+    ],
+    "limitation": "Web-game benchmark, not this Godot skill; no claimed numerical uplift for our workflow."
+  },
+  {
+    "id": "S16",
+    "title": "Evaluating Language Models Evaluations of Games",
+    "url": "https://arxiv.org/html/2510.10930v3",
+    "sourceType": "research paper, arXiv version",
+    "publicationOrVersion": "identifier dated 2025-10; version 3 inspected",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Do not treat model ratings as a substitute for human experience judgments.",
+    "landing": [
+      "gameplay-and-ux.md",
+      "quality-bar.md"
+    ],
+    "limitation": "Constrained grid-game study, including expected fun before play; not a universal evaluator ranking."
+  },
+  {
+    "id": "S17",
+    "title": "GameGen-Verifier",
+    "url": "https://arxiv.org/html/2605.07442v1",
+    "sourceType": "research paper, arXiv version",
+    "publicationOrVersion": "2026-05, version 1",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Target critical runtime states for diagnosis while preserving normal-path reachability checks.",
+    "landing": [
+      "game-qa-and-replay.md"
+    ],
+    "limitation": "State injection cannot prove that normal input reaches the state; method results not reproduced here."
+  },
+  {
+    "id": "S18",
+    "title": "CreativeGame",
+    "url": "https://arxiv.org/html/2604.19926v1",
+    "sourceType": "research paper, arXiv version",
+    "publicationOrVersion": "2026-04-21, version 1",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Track actual mechanic changes and runtime constraints instead of rewarding superficial novelty.",
+    "landing": [
+      "gameplay-and-ux.md"
+    ],
+    "limitation": "Proxy evaluation and bounded cases do not certify creativity or player fun."
+  },
+  {
+    "id": "S19",
+    "title": "Theory, Experience, and Instinct: AAA UX pre-production",
+    "url": "https://arxiv.org/html/2608.00313v1",
+    "sourceType": "primary interview study; arXiv author text",
+    "publicationOrVersion": "page states 2026-07-31; DOI shown but publisher record not separately checked",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Keep guidance modular and grounded in the game, not a rigid universal recipe.",
+    "landing": [
+      "instruction-audit.md",
+      "gameplay-and-ux.md"
+    ],
+    "limitation": "Senior AAA retrospective self-reports; no outcome or intervention effectiveness measured; do not transfer studio structure to a tiny prototype."
+  },
+  {
+    "id": "S20",
+    "title": "Beyond Asking: personalized game generation from behavior",
+    "url": "https://arxiv.org/html/2608.16196v1",
+    "sourceType": "research paper, arXiv version",
+    "publicationOrVersion": "2026-08-17, version 1",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Record what actions were available before inferring a preference from action counts.",
+    "landing": [
+      "gameplay-and-ux.md"
+    ],
+    "limitation": "Controlled synthetic shooter agents and exploratory 12-person pilot; not conclusive player preference or universal personalization effectiveness."
+  },
+  {
+    "id": "S21",
+    "title": "Porting Without the Pain: GodotCon 2026",
+    "url": "https://godotporting.com/blog/porting-without-the-pain-godotcon-2026/",
+    "sourceType": "engineering practitioner report",
+    "publicationOrVersion": "2026-05-31",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Exercise weakest target, exports, input, fonts, audio and saves early rather than only on the development machine.",
+    "landing": [
+      "godot-production-lessons.md"
+    ],
+    "limitation": "Practitioner account, not controlled comparison; platform middleware is excessive for many small slices."
+  },
+  {
+    "id": "S22",
+    "title": "Godot Maskarade jam postmortem",
+    "url": "https://virostek.xyz/blog/godot-maskarade-postmortem/",
+    "sourceType": "developer postmortem",
+    "publicationOrVersion": "2026-02-02",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Reserve effort for exports and audio; cut unrelated breadth before losing delivery quality.",
+    "landing": [
+      "godot-production-lessons.md",
+      "scope-discipline.md"
+    ],
+    "limitation": "One team/project anecdote, not a universal project estimate."
+  },
+  {
+    "id": "S23",
+    "title": "Godot Shaders license",
+    "url": "https://godotshaders.com/license/",
+    "sourceType": "site licensing statement",
+    "publicationOrVersion": "live page viewed 2026-09-07",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Record each shader license separately from preview imagery and additional assets.",
+    "landing": [
+      "shader-sourcing.md"
+    ],
+    "limitation": "Do not infer a complete asset license from shader-code terms; no shader compile performed this turn."
+  },
+  {
+    "id": "S24",
+    "title": "Control class reference",
+    "url": "https://docs.godotengine.org/en/stable/classes/class_control.html",
+    "sourceType": "official documentation",
+    "publicationOrVersion": "rolling stable documentation",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Inspect focus, input propagation and mouse filtering for actual interface behavior.",
+    "landing": [
+      "gameplay-and-ux.md",
+      "godot-production-lessons.md"
+    ],
+    "limitation": "Input.action_press alone may not exercise GUI event dispatch; test the real intended route."
+  },
+  {
+    "id": "S25",
+    "title": "GameForge-Harness",
+    "url": "https://github.com/AlbusChen/GameForge-Harness",
+    "sourceType": "maintainer repository",
+    "publicationOrVersion": "main/readme viewed 2026-09-07; no commit pinned",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Separate implementation freedom, runtime checks and final evaluation; identify failure ownership.",
+    "landing": [
+      "codex-harness.md",
+      "game-qa-and-replay.md"
+    ],
+    "limitation": "Repository claims are not benchmark replication; no required framework installation."
+  },
+  {
+    "id": "S26",
+    "title": "godot-agent",
+    "url": "https://github.com/godot-fun/godot-agent",
+    "sourceType": "maintainer repository",
+    "publicationOrVersion": "main/readme viewed 2026-09-07; no commit pinned",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Preserve the asset-to-scene processing chain and runtime integration evidence.",
+    "landing": [
+      "assets-and-visuals.md"
+    ],
+    "limitation": "Do not import zfoo or replace existing conventions solely to follow the repository."
+  },
+  {
+    "id": "S27",
+    "title": "Scenario: Building workflows",
+    "url": "https://help.scenario.com/articles/7094354401-building-workflows-in-scenario",
+    "sourceType": "provider-authored guidance",
+    "publicationOrVersion": "last updated 2026-05-26",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Select generation/edit/reuse steps appropriate to the actual production need.",
+    "landing": [
+      "art-direction.md"
+    ],
+    "limitation": "Provider documentation is not independent quality validation; no mandatory training, service or purchase."
+  },
+  {
+    "id": "S28",
+    "title": "godogen",
+    "url": "https://github.com/htdt/godogen",
+    "sourceType": "maintainer repository",
+    "publicationOrVersion": "repository/readme viewed 2026-09-07; no commit pinned",
+    "accessed": "2026-09-07",
+    "readState": "Relevant source text opened; not an experimental replication",
+    "finding": "Cross-check agent pipeline patterns while retaining bounded implementation and actual runtime evidence.",
+    "landing": [
+      "codex-harness.md"
+    ],
+    "limitation": "Not executed here; do not adopt automation claims, dependency stack or cost estimates as proven."
+  }
+]

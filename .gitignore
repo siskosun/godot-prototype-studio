@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.godot/
+*.translation
+.DS_Store
+Thumbs.db
+*.zip
+!assets/**

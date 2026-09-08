@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 2,
+  "profile": "NEAR_RELEASE_SLICE",
+  "artifactSha256": "REPLACE_AFTER_FREEZE",
+  "reviewer": {
+    "kind": "self",
+    "identity": ""
+  },
+  "dimensions": [
+    {
+      "id": "gameplay",
+      "criterionRefs": [],
+      "status": "UNVERIFIED",
+      "observation": "",
+      "evidence": []
+    },
+    {
+      "id": "ux",
+      "criterionRefs": [],
+      "status": "UNVERIFIED",
+      "observation": "",
+      "evidence": []
+    },
+    {
+      "id": "art",
+      "criterionRefs": [],
+      "status": "UNVERIFIED",
+      "observation": "",
+      "evidence": []
+    },
+    {
+      "id": "motion_audio",
+      "criterionRefs": [],
+      "status": "UNVERIFIED",
+      "observation": "",
+      "evidence": []
+    },
+    {
+      "id": "reliability",
+      "criterionRefs": [],
+      "status": "UNVERIFIED",
+      "observation": "",
+      "evidence": []
+    },
+    {
+      "id": "performance",
+      "criterionRefs": [],
+      "status": "UNVERIFIED",
+      "observation": "",
+      "evidence": []
+    },
+    {
+      "id": "platform_access",
+      "criterionRefs": [],
+      "status": "UNVERIFIED",
+      "observation": "",
+      "evidence": []
+    },
+    {
+      "id": "text_render",
+      "criterionRefs": [],
+      "status": "UNVERIFIED",
+      "observation": "",
+      "evidence": []
+    },
+    {
+      "id": "delivery_rights",
+      "criterionRefs": [],
+      "status": "UNVERIFIED",
+      "observation": "",
+      "evidence": []
+    }
+  ],
+  "findings": [],
+  "humanExperience": {
+    "status": "UNVERIFIED",
+    "limitation": "No actual human playtest has been performed."
+  }
+}

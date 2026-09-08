@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "prototypeQuestion": "",
+  "buildHash": "",
+  "evidence": [
+    {
+      "id": "EV-001",
+      "level": "STATIC | LOGIC | HEADLESS_RUNTIME | INTERACTION | PRESENTATION | HUMAN_EXPERIENCE",
+      "claim": "",
+      "path": "",
+      "executedAt": "",
+      "result": "PASS | FAIL | PARTIAL | SKIPPED",
+      "limitations": []
+    }
+  ]
+}

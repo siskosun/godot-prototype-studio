@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "DG-001",
+  "type": "DIRECTION_GATE",
+  "status": "OPEN",
+  "owner": "human",
+  "decision": "Replace with one material decision",
+  "whyNow": "Explain what work would fork or be wasted",
+  "evidence": [],
+  "recommendation": {
+    "optionId": "A",
+    "reason": "Explain the default in player or product terms"
+  },
+  "options": [
+    {
+      "id": "A",
+      "label": "Recommended direction",
+      "tradeoff": "Main player-facing or project consequence"
+    },
+    {
+      "id": "B",
+      "label": "Alternative direction",
+      "tradeoff": "Main player-facing or project consequence"
+    }
+  ],
+  "downstreamImpact": "State what becomes locked or changes",
+  "humanDecision": null,
+  "resolvedAt": null,
+  "authorityReference": null,
+  "supersededAt": null
+}

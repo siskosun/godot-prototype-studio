@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.0",
+  "id": "",
+  "question": "",
+  "baseline": {
+    "identity": "",
+    "hash": "",
+    "scenario": "",
+    "conditions": ""
+  },
+  "changedDimension": "",
+  "invariants": [
+    "player promise",
+    "primary question",
+    "scenario/replay",
+    "build conditions",
+    "evidence ladder"
+  ],
+  "metrics": [
+    {
+      "name": "",
+      "objective": "MAXIMIZE",
+      "unit": "",
+      "meaning": ""
+    }
+  ],
+  "variants": [
+    {
+      "id": "A",
+      "change": "",
+      "isolation": "",
+      "rollback": "",
+      "run": {
+        "identity": "",
+        "evidence": [],
+        "measurements": {},
+        "artifactSha256": "",
+        "baselineIdentity": "",
+        "scenario": "",
+        "conditions": ""
+      },
+      "humanObservations": []
+    },
+    {
+      "id": "B",
+      "change": "",
+      "isolation": "",
+      "rollback": "",
+      "run": {
+        "identity": "",
+        "evidence": [],
+        "measurements": {},
+        "artifactSha256": "",
+        "baselineIdentity": "",
+        "scenario": "",
+        "conditions": ""
+      },
+      "humanObservations": []
+    }
+  ],
+  "selection": {
+    "status": "PENDING_EVIDENCE",
+    "rationale": "",
+    "selectedVariant": "",
+    "authorityReference": ""
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "example",
+      "sourceFile": "assets/example.png",
+      "runtimePath": "res://assets/example.png",
+      "type": "image",
+      "role": "example",
+      "sourceOrGenerator": "user-supplied | generated | external-source",
+      "provenanceReference": "",
+      "licenseStatus": "unknown | prototype-only | cleared | restricted",
+      "humanEdits": "",
+      "expectedScene": "res://scenes/main.tscn",
+      "expectedNode": "Example",
+      "required": false
+    }
+  ]
+}

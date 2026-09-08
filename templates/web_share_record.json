@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "mode": "WEB_SHARE",
+  "exportDir": "export/web",
+  "exportSha256": "REPLACE_WITH_64_HEX_SHA256",
+  "buildId": "WEB-REPLACE",
+  "url": "https://LAN_IP:8443/",
+  "preflight": {
+    "path": "path/to/web-preflight.json",
+    "sha256": "REPLACE_WITH_64_HEX_SHA256"
+  },
+  "limitations": [],
+  "handoff": [
+    "Open the documented HTTPS URL from the receiving device.",
+    "Allow/trust the local certificate and confirm secure-context behavior.",
+    "Allow the firewall port and keep both devices on the same reachable LAN.",
+    "Hard refresh after a re-export if the old BUILD_ID remains."
+  ]
+}

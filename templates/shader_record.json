@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "effect": "",
+  "source": {
+    "url": "",
+    "title": "",
+    "author": "",
+    "retrievedAt": "",
+    "license": "",
+    "licenseNoticePath": "",
+    "originalSha256": null
+  },
+  "localPath": "",
+  "dependencies": [],
+  "adaptations": [],
+  "testedEnvironment": {
+    "godotVersion": "",
+    "renderer": "",
+    "platform": ""
+  },
+  "evidence": [],
+  "fallback": ""
+}

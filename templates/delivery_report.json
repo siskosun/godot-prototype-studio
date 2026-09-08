@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "",
+  "skillVersion": "",
+  "visualJudgmentRequired": true,
+  "project": "",
+  "sourceTree": {
+    "path": "",
+    "sha256": "REPLACE_WITH_64_HEX_SHA256",
+    "fileCount": 0
+  },
+  "sourceZip": {
+    "path": "",
+    "sha256": "REPLACE_WITH_64_HEX_SHA256",
+    "size": 0
+  },
+  "webExport": null,
+  "buildId": null,
+  "identities": {
+    "gameContent": {
+      "sha256": "REPLACE_WITH_64_HEX_SHA256",
+      "fileCount": 0
+    },
+    "testHarness": {
+      "sha256": "REPLACE_WITH_64_HEX_SHA256",
+      "fileCount": 0
+    },
+    "displaySet": {
+      "sha256": "REPLACE_WITH_64_HEX_SHA256",
+      "fileCount": 0
+    },
+    "packaging": {
+      "sha256": "REPLACE_WITH_64_HEX_SHA256",
+      "fileCount": 0
+    },
+    "package": {
+      "path": "",
+      "sha256": "REPLACE_WITH_64_HEX_SHA256",
+      "size": 0
+    }
+  },
+  "validators": [],
+  "commands": [],
+  "nextStep": "Inspect player-facing visuals; do not infer PASS from hashes."
+}

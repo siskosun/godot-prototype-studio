@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": null,
+  "projectRoot": null,
+  "godot": {
+    "detected": false,
+    "path": null,
+    "version": null,
+    "versionCommandSucceeded": false
+  },
+  "project": {
+    "projectFile": null,
+    "configVersion": null,
+    "features": [],
+    "mainScene": null,
+    "language": "unknown",
+    "addons": [],
+    "testSignals": [],
+    "exportPresets": false
+  },
+  "runtimeObservation": {
+    "displayEnvironment": false,
+    "gdaDetected": false,
+    "godotMcpMentionedInCodexConfig": false,
+    "qaBridgeDetected": false
+  },
+  "recommendedExecutionTier": "E1_EDIT_AND_STATIC",
+  "provenExecutionTier": "E1_EDIT_AND_STATIC",
+  "limitations": []
+}
