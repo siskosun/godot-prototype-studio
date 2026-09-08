@@ -1,5 +1,7 @@
 # Godot Prototype Studio 0.4.4
 
+[English](README.md) · [中文](README.zh-CN.md)
+
 Turn an idea into a small, complete, near-release-quality Godot 2D slice when the user asks for a finished/high-completion playable result. Mechanic spikes, grayboxes, technical proofs and narrow fixes keep their natural scope. Completion, runtime/package form, and evidence are judged separately: high craft does not automatically mean a source ZIP plus Web export. The near-release path covers complete design, an early target smoke, integrated quality exemplar, full session, art/UX/feel, real input, repair, and tested delivery of the requested artifacts. It does not promise a full commercial game or validated audience appeal.
 
 ## Use
