@@ -13,13 +13,15 @@ Use the cheapest adequate check for the affected claim, not a full suite after e
 | PRESENTATION | Observed runtime frames/motion/audio | Unobserved sessions/platforms |
 | HUMAN_EXPERIENCE | Stated participant's observations | Market demand |
 
-For a presentable new prototype, final evidence normally includes successful import/runtime, actual input through the principal loop and retry, and inspected presentation. An experiment or isolated fix needs only affected evidence plus relevant regression. Headless and logic checks never replace required visual/interaction evidence.
+For a presentable new prototype, final evidence normally includes successful import/runtime, actual input through the principal loop and retry, and inspected presentation. A new-mechanic claim also needs a demonstrated causal difference under real input, a falsifying or degenerate-strategy probe, and honest separation of machine observations from human experience. An experiment or isolated fix needs only affected evidence plus relevant regression. Headless and logic checks never replace required visual/interaction evidence.
 
 Use existing tests, a small GDScript runner, or a proven runtime bridge. `scripts/run_godot_checks.py PROJECT --mode import|test|smoke|all` is a convenience for engine checks, not a complete playtest. Inspect both exit status and actionable log errors. The runner returns 0 for PASS, 1 for failed checks, 2 for unavailable/invalid execution, and 3 for PARTIAL with skipped checks. A missing optional unit-test file does not require inventing a suite; choose applicable checks and record coverage.
 
 ## Real interaction
 
 Drive normal InputMap/OS/touch events through the game, not privileged calls that jump to the expected outcome. Setup hooks may construct a scenario but cannot stand in for player actions. Record input source, scenario/seed, observation, and resulting state. Inspect representative states: first action, differentiating choice, success or session completion, failure, retry, and stressful layout. Sandbox loops need creation/use/reset rather than arbitrary victory.
+
+For a novel mechanic, expose enough authoritative state to distinguish legal opportunities from selections, action preconditions from outcomes, and local fixtures from normal-path reachability. Test at least one plausible alternative action and one degenerate policy such as spam, waiting, or the apparent dominant move when those could collapse the intended decision.
 
 ## Separate construction from final review
 
@@ -29,4 +31,4 @@ If only one agent is available, perform a distinct fresh-start final check again
 
 Categorize failures: implementation, import/build, runtime behavior, input/presentation, host/tooling, evaluator, or unknown. An evaluator failure is not evidence that the game passed or failed gameplay. Keep raw evidence to support the classification.
 
-A JSON validator checks consistency and hashes, not the truth of logs or fun. Protect evaluation evidence from casual rewrites; distinguish trusted external tests from agent-authored tests. No skill-level protocol alone makes hostile code safe.
+A JSON validator checks consistency and hashes, not the truth of logs, pixel similarity, novelty, or fun. Protect evaluation evidence from casual rewrites; distinguish trusted external tests from agent-authored tests. No skill-level protocol alone makes hostile code safe.
