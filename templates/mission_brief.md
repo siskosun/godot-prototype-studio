@@ -3,6 +3,14 @@
 ## Outcome
 [One player-facing result; identify user constraints and decisions delegated to the agent.]
 
+## Visual Reference Intent
+- Images: [List supplied image identities, or none supplied.]
+- Mode: [PARTIAL_REFERENCE | PIXEL_ACCURATE_REFERENCE | ORIGINAL_DELEGATED | NOT_APPLICABLE]
+- Partial scope: [For PARTIAL_REFERENCE, name the properties retained from each image; otherwise state not applicable.]
+- Pixel targets: [For PIXEL_ACCURATE_REFERENCE, name each target frame/view, state, crop, viewport and backing resolution; otherwise state not applicable.]
+- Rights status: [For PIXEL_ACCURATE_REFERENCE, record ownership or reproduction authorization; otherwise state not applicable.]
+- Reason: [Required only for NOT_APPLICABLE.]
+
 ## Delivery
 - Quality profile: [NEAR_RELEASE_SLICE when the user asks to finish a playable/high-completion game without another fidelity target; this is craft, not a package list. Preserve mechanic spikes, quick grayboxes, technical proofs, isolated fixes, and explicitly rough experiments.]
 - Target: [Choose from the request: LOCAL_PROJECT, GODOT_PROJECT_ZIP, WEB_EXPORT, DESKTOP_BUILD, ANDROID_BUILD. High completion does not imply Web or ZIP. If no package is requested, default to the tested in-place Godot project.]

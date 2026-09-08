@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.5.0 - 2026-09-08
+
+- Added one-time visual-reference intake for new prototypes and material visual redesigns. Missing images prompt for 1-3 references plus `PARTIAL_REFERENCE` or `PIXEL_ACCURATE_REFERENCE`; existing images prompt only for how they should be used; an already answered mode is never reopened.
+- Defined `ORIGINAL_DELEGATED` and `NOT_APPLICABLE` paths so the intake does not stall original-art delegation or genuinely visual-irrelevant diagnostic work.
+- Added frame-, viewport-, crop-, asset/font-, allowed-difference-, and rights-bound requirements for pixel-accurate targets.
+- Added a novel-gameplay protocol: player-facing causal thesis, familiar anchor plus one design delta, theme-removal test, falsifier, decision trace, counterfactual choice, dominant/spam/wait probes, and recovery checks.
+- Added an optional `templates/mechanic_lab.md` and `init_workspace.py --novel-gameplay`; the mission brief remains the single acceptance contract.
+- Added authoritative-observability guidance so strong agents can reproduce, inspect state/screenshots, trace owning rules, modify, and rerun through real input.
+- Preserved 0.4.4's completion/delivery/evidence split, early first-target smoke, Web display-fit checks, first-sample asset checks, change-impact/package tooling, and resumable session status.
+- Updated English/Chinese README and added 0.5.0 regression tests while keeping legacy mission briefs valid.
+
 ## 0.4.4 - 2026-09-08
 
 - Split completion, delivery, and evidence: NEAR_RELEASE_SLICE is a craft bar, not an automatic source-ZIP-plus-Web bundle.
@@ -12,7 +23,7 @@
 ## 0.4.3 - 2026-09-07
 
 - Re-audited the skill for stronger-agent/GPT-6-style instruction economy: keep outcome and evidence boundaries hard, move judgment-heavy routing back to the agent.
-- Made NEAR_RELEASE_SLICE intent-sensitive: it defaults for requests to finish a playable/high-completion game, not merely because a new task is called a prototype.
+- Made NEAR_RELEASE_SLICE intent-sensitive: it defaults for requests to finish a playable/high-completion game, not merely because the task is a new “prototype”.
 - Decoupled near-release Web quality from LAN delivery. Final Web browser verification remains mandatory; LAN_SHARE is enforced only when the brief selects it.
 - Added quality-review schema v2 with PASS, FAIL, UNVERIFIED and NOT_APPLICABLE. Inapplicable requirements need a brief-linked rationale; unavailable evidence cannot masquerade as N/A.
 - Downgraded current comparable-game research from a universal DONE dependency to a default design aid, except when research is explicitly contracted or needed to resolve rights/feasibility.
@@ -51,7 +62,6 @@
 - Bound quality review, current retests and clean delivery to the final artifact; old failure traces remain identifiable.
 - Added multiwave research ledger, contrary evidence, negative utility tests and behavioral audits.
 - No claim of actual account installation, Godot runtime playtesting, independent-agent evaluation or perfection.
-
 
 ## 0.2.0 - 2026-09-07
 
