@@ -1,0 +1,48 @@
+name: Skill checks
+on:
+  push:
+    branches: [main, 'upgrade/**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: skill-checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  utilities:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Prepare Python
+        run: |
+          python3 -m venv "${RUNNER_TEMP}/gps-venv"
+          "${RUNNER_TEMP}/gps-venv/bin/python" -m pip install Pillow==11.3.0 PyYAML==6.0.2
+      - name: Utility regression (not a live Godot playtest)
+        run: |
+          set -o pipefail
+          "${RUNNER_TEMP}/gps-venv/bin/python" -m unittest discover -s tests -v 2>&1 | tee "${RUNNER_TEMP}/utility-tests.txt"
+      - name: Capture exact tracked source and provenance
+        if: always()
+        run: |
+          git archive --format=zip --prefix=godot-prototype-studio/ HEAD > "${RUNNER_TEMP}/source.zip"
+          git rev-parse HEAD > "${RUNNER_TEMP}/commit.txt"
+          git rev-parse HEAD^{tree} > "${RUNNER_TEMP}/tree.txt"
+          sha256sum "${RUNNER_TEMP}/source.zip" > "${RUNNER_TEMP}/archive-sha256.txt"
+      - name: Retain source and actual test output
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: source-and-checks-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/source.zip
+            ${{ runner.temp }}/utility-tests.txt
+            ${{ runner.temp }}/commit.txt
+            ${{ runner.temp }}/tree.txt
+            ${{ runner.temp }}/archive-sha256.txt
+          retention-days: 1
+          if-no-files-found: error

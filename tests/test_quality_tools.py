@@ -249,13 +249,14 @@ class AssetTests(Fixture):
         self.assertEqual(self.check(self.manifest(alpha=255))['status'], 'FAIL')
 
     def test_baked_checkerboard_fails_required_transparency(self):
+        # manifest() writes a baseline image; create it before the target fixture.
+        data = self.manifest(size=(64, 64))
         image = Image.new('RGBA', (64, 64), (255, 255, 255, 255))
         pixels = image.load()
         for y in range(64):
             for x in range(64):
                 pixels[x, y] = (255, 255, 255, 255) if ((x // 8) + (y // 8)) % 2 == 0 else (192, 192, 192, 255)
         image.save(self.project / 'a.png')
-        data = self.manifest()
         result = self.check(data)
         self.assertEqual(result['status'], 'FAIL')
         self.assertTrue(any('checkerboard' in error for error in result['errors']))

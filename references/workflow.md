@@ -8,11 +8,15 @@ Read applicable repository instructions, current brief and relevant progress if 
 
 For a new prototype, perform the one-time visual reference intake in the first response. Ask for images plus `PARTIAL_REFERENCE` versus `PIXEL_ACCURATE_REFERENCE` when none are present; when images are already present, ask only for the mode and scope. Do not repeat an already answered question. Branch-independent inspection, research, and design may continue, but do not lock or mass-produce art before the reference intent is resolved.
 
+## Choose the next evidence-producing action
+
+Let the unresolved claim determine the next step: clarify a rule, build a small kernel, repair input or presentation, verify a known scenario, or deliver. A new label/state machine is not required. Keep work on an existing artifact; do not restart discovery after every edit. Use [verification separation](verification-loop.md) for consequential reviews and [project memory](project-memory.md) when resuming durable findings. Inconclusive tests call for better evidence, not automatic design rejection.
+
 ## NEW_PROTOTYPE
 
 Align the brief, research released mechanic references, resolve visual reference intent, and complete a buildable design. Use the optional starter only if it saves work; it is instrumentation, not a finished game.
 
-When originality or differentiation is material, read `novel-gameplay.md`. Define one familiar anchor, one primary causal design delta, invariants, and a falsifier. Sketch causally distinct kernels, reject cosmetic variants, and implement only the few that need actual play to resolve. Use `templates/mechanic_lab.md` when the experiment benefits from a durable record; it is not a second acceptance contract.
+When originality or differentiation is material, read `novel-gameplay.md`. Define an understandable anchor when useful, a primary causal delta or inseparable bundle, invariants, and a falsifier. Sketch causally distinct kernels, reject cosmetic variants, and implement only the few that need actual play to resolve. Use `templates/mechanic_lab.md` when the experiment benefits from a durable record; it is not a second acceptance contract.
 
 Build the differentiating interaction as the smallest repeatable playable kernel. Add enough authoritative state, named scenarios, input traces, screenshots, and outcome reasons for the agent to inspect its own work. Test counterfactual choices, dominant/spam/wait strategies, recovery, and whether feedback lets the player form a useful model. Preserve a clean real-input path; local state fixtures accelerate diagnosis but do not establish reachability.
 

@@ -14,6 +14,8 @@ Create one **in-engine quality exemplar**: hero/primary object, representative b
 
 Before multiplying a generated series, inspect **one** sample with `inspect_asset_set.py` and a live scene placement. Require real alpha (not a painted checkerboard or a prompt that says "transparent PNG"), a foot/contact pivot, intended in-engine scale, correct occlusion, and a readable action pose. Only then generate siblings from the same anchors. A chroma-key/green-screen plate is a fallback after that sample fails real alpha, and only with an explicit `chromaKey` color; it is not the default production path.
 
+When identity remains ambiguous, use the visual-identity section of [conditional design heuristics](design-heuristics.md): experience intent, executable choices, and relevant positive/negative examples. These aid the existing canon and live exemplar; they do not impose a style, fixed word count or second approval gate.
+
 ## Generate around one stable anchor
 
 Prefer reuse, authored edits and native procedural elements where they fit. When using generative assets, keep a stable baseline description and the same canonical source images; specify only the intended delta for a new pose/prop. Never chain each new asset to the previous generated variant as the sole reference. Seeds help reproducibility of supported generators, not cross-asset identity by themselves.

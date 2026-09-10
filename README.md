@@ -1,95 +1,84 @@
-# Godot Prototype Studio 0.5.0
+# Godot Prototype Studio 0.6.0
 
-[English](README.md) · [中文](README.zh-CN.md)
+[English](README.md) | [Chinese](README.zh-CN.md)
 
-Turn an idea into a small, complete Godot 2D prototype or near-release slice. Version 0.5.0 adds two strong-agent workflows on top of 0.4.4's delivery/evidence split: a one-time visual-reference contract for every new prototype, and a mechanic lab for discovering and falsifying genuinely different gameplay instead of merely reskinning familiar loops.
+Build a small, complete Godot 2D prototype or near-release slice, with task-sized design, implementation, repair and verified delivery. The skill is model-agnostic. It does not promise a full commercial game, historical originality or validated audience appeal.
 
-The skill remains model-agnostic. It gives capable agents room to choose ordinary implementation details, drive Godot, inspect runtime state and captures, compare variants, and repair failures. It does not let the model certify its own fun, historical originality, pixel accuracy, or player preference.
+## What changed
 
-## First-turn visual reference intake
+0.6.0 builds on the exact GitHub 0.5.0 source. It adds evidence continuity and conditional design guidance without turning every task into a multi-agent production pipeline.
 
-For every new prototype or material visual redesign, resolve visual intent once before locking the art direction.
+- **Project memory, optional:** retain narrow findings with sources, dependency hashes and revisit conditions. A hypothesis stays a hypothesis; a failed attempt is not a permanent ban. The read-only checker flags stale/unverified records.
+- **Verification checkpoints, optional:** bind the existing brief, scenario plan and artifact before consequential review. Detect drift; do not confuse matching hashes with execution or sandbox enforcement. Separate reviewer responsibilities when useful, with a labeled self-review fallback.
+- **Actual engine capabilities:** use existing CLI/editor/QA interfaces and probe the operations a task needs. Distinguish state injection, engine events and OS/browser input. The starter is still an instrumentation fixture, not an autonomous game-playing or remote-editor system.
+- **Conditional design heuristics:** apply experience-to-visual rules, positive/negative examples, guidance transfer and session closure to relevant problems. No universal keyword count, style, tutorial cadence, permanent progression or fun score.
 
-When no usable image is present, ask the user to provide one to three reference images and choose one mode:
+See the [upgrade and evaluation record](audit/v0.6.0-evaluation.md), [verification loop](references/verification-loop.md), [project memory](references/project-memory.md) and [design heuristics](references/design-heuristics.md).
 
-- `PARTIAL_REFERENCE`: retain only named properties such as composition, camera, proportions, palette, UI hierarchy, material, lighting, animation timing, or effects. Everything outside that scope remains original.
-- `PIXEL_ACCURATE_REFERENCE`: reproduce declared target frames at declared resolutions. Record the exact state, camera, crop, viewport, authorized assets/fonts, allowed differences, and ownership or reproduction permission.
-- `ORIGINAL_DELEGATED`: the user supplies no image and delegates an original visual baseline.
-- `NOT_APPLICABLE`: only for a genuinely visual-irrelevant task or an explicitly diagnostic graybox.
+## Use
 
-When images are already attached, do not ask for them again. Ask only whether they are partial or pixel-accurate references and what each image controls. When the user already supplied the mode and scope, proceed without repeating the question.
+Load `SKILL.md`, not the entire reference directory. Import the complete `skill.zip` through the host's supported skill flow; downloading or updating GitHub does not install it into an account. Preserve existing projects and history.
 
-Pixel matching applies only to the declared frame and viewport. Runtime overlays or image diffs can support the claim, but one screenshot cannot prove motion, responsiveness, input, readability during play, or other aspect ratios. Unknown rights block exact copying of protected third-party expression, not safe partial reference or original gameplay work.
+Example: "Build this idea as a small but complete Godot slice. Keep the core interaction, clarify the visual reference once, choose reversible details, test the actual target, repair observed issues and finish the requested delivery."
 
-See [visual reference intake](references/visual-reference-intake.md), [art direction](references/art-direction.md), and [assets and visuals](references/assets-and-visuals.md).
+A rough mechanic probe or narrow repair stays narrow. Ordinary reversible choices are delegated within intent; retained creative decisions, explicit approval stops, paid actions, destructive changes, private-data uploads and public publishing keep their authorization boundaries.
 
-## New gameplay workflow
+## Visual references: resolve once
 
-A new mechanic is treated as a causal change in what the player perceives, decides, does, changes, or can do next. A different theme, content set, reward number, or VFX treatment is not gameplay novelty by itself.
+For a new prototype or material visual redesign, ask for one to three usable reference images when none are supplied, and clarify partial versus pixel-accurate use. If images already exist, ask only how each should be used. If mode and scope are already clear, do not ask again.
 
-The workflow is deliberately small:
+| Mode | Contract |
+|---|---|
+| `PARTIAL_REFERENCE` | Identify the properties each image controls; keep unspecified parts original |
+| `PIXEL_ACCURATE_REFERENCE` | Fix target frame/state, viewport, resolution, crop, permitted assets/fonts, rights and allowed differences |
+| `ORIGINAL_DELEGATED` | User delegates an original visual baseline without images |
+| `NOT_APPLICABLE` | Genuinely visual-irrelevant work or an explicitly diagnostic graybox |
 
-1. State the mechanic thesis as information -> action under constraint -> state or relationship change -> feedback -> changed next decision.
-2. Name one familiar anchor, one primary causal design delta, the invariants, and the smallest falsifying observation.
-3. Apply the theme-removal test and reject candidates whose difference disappears without their presentation.
-4. Trace a few turns before production. Check counterfactual choice, state consequence, teachability, recovery, and dominant spam/wait strategies.
-5. Build the shortest repeatable Godot mechanic kernel. Expose legal actions, state deltas, outcome reasons, opportunities, timing edges, and a repeatable scenario or seed.
-6. Let the agent reproduce, inspect state/screenshots, trace the owning code, change it, and rerun through real input.
-7. Compare only causally different variants under equivalent scenarios, art readability, content opportunities, target, and input.
-8. Use a small playable human comparison for feel and preference when available. Keep enjoyment unvalidated when it is absent.
+Pixel matching is scoped to the declared frame and environment, not proof of animation, responsiveness or every aspect ratio. Preserve reference scope when applying general design advice. See [intake](references/visual-reference-intake.md) and [art direction](references/art-direction.md).
 
-Use claim levels honestly: `DISTINCT_IN_THIS_PROJECT`, `DISTINCT_AMONG_VERIFIED_REFERENCES`, or `HISTORICALLY_NOVEL`. The last requires dedicated broad research; model confidence is not evidence.
+## New gameplay
 
-See [novel gameplay discovery](references/novel-gameplay.md), [task workflow](references/workflow.md), [variant experiments](references/variant-experiments.md), and the optional [mechanic lab template](templates/mechanic_lab.md).
+Define a player-facing causal difference, invariants and a falsifying observation. Use a familiar anchor when helpful, without forcing invention into an existing genre. Make the smallest repeatable kernel; inspect authoritative state, available actions, outcomes and real-input paths before multiplying content.
 
-## Scope, delivery, and evidence
+Remove cosmetic framing in the theme-removal test, not sensory information that causes the mechanic. Diagnose implementation, presentation, opportunity and harness failures before rejecting a design. Repetition or waiting may be intentional. Compare meaningful variants under comparable conditions, and preserve the scope and reason for rejected attempts.
 
-Completion, runtime/package form, and evidence are separate decisions. A request to finish a playable or high-completion prototype with no narrower fidelity target defaults to `NEAR_RELEASE_SLICE`: one bounded, coherent session with integrated gameplay, art, UI, motion/audio, recovery, and real input. High craft does **not** automatically imply a source ZIP or Web export. If no package is requested, the default handoff is the tested in-place Godot project. Add `GODOT_PROJECT_ZIP`, `WEB_EXPORT`, `DESKTOP_BUILD`, `ANDROID_BUILD`, or `LAN_SHARE` only when the request needs that runtime or receiver.
+A mechanically distinct candidate is not proven fun. Human observations, participant statements and interpretation remain separate. `DISTINCT_IN_THIS_PROJECT` and `DISTINCT_AMONG_VERIFIED_REFERENCES` require their respective evidence; `HISTORICALLY_NOVEL` needs dedicated research. See [novel gameplay](references/novel-gameplay.md) and the optional [mechanic lab](templates/mechanic_lab.md).
 
-A chosen Web artifact must still be served and browser-tested. LAN sharing is selected only when another device/person needs it. Public hosting/release, purchases, private-data uploads, destructive changes, and exact third-party visual reproduction retain their authorization boundaries.
+## Completion, delivery and evidence
 
-For a new build, run an early first-target smoke as soon as one character, one required-language string, one button, and one sound exist; do not wait for a complete level. Before batching generated art, inspect one real sample for alpha, pivot, scale, occlusion, and action. Keep the short session status current so interrupted work resumes instead of restarting.
+A finished/high-completion request defaults to `NEAR_RELEASE_SLICE` when no narrower fidelity is given. This is a craft bar, not a package list. Without a requested package, hand off the tested in-place Godot project. Add `GODOT_PROJECT_ZIP`, `WEB_EXPORT`, desktop, Android or `LAN_SHARE` only for the requested runtime/receiver.
 
-One mission brief owns acceptance and delegation. The optional mechanic lab records discovery evidence without becoming a second acceptance contract. Human playtests do not automatically block a deliverable, but their absence prevents claims about audience enjoyment or preference.
+Preserve early first-target smoke, a live quality exemplar, real-alpha/pivot/scale checks before asset batches, complete-session UX/recovery, and final normal-input verification. Chosen Web builds need actual served-browser checks including display-fit/clickability, required text/audio and separate source/Web identities. LAN is optional; non-loopback LAN delivery uses HTTPS. Source staging excludes generated `export/web`.
+
+The brief owns acceptance; progress supports resumption; optional memory indexes reusable knowledge. Human playtests do not routinely block delivery, but absent evidence cannot support enjoyment/preference claims. `DONE` requires the requested artifact and applicable evidence. `BLOCKED` reports a genuine unmet condition and the strongest usable partial result. Inapplicability needs a reason; unavailable evidence is `UNVERIFIED`.
 
 ## Optional utilities
 
-Python 3 is used by the bundled scripts. The asset-inspection utility and its test module use Pillow; the environment must provide it. No utility installs dependencies, publishes to the public Internet, or calls paid services.
+Python 3 is required for bundled scripts; asset inspection/tests need Pillow. The LAN server can use an existing certificate or `openssl`. Scripts do not install dependencies, publish games or call paid services. Repository CI separately provisions its isolated test dependencies.
+
+From the skill directory:
 
 ```bash
 python scripts/init_workspace.py PROJECT
-python scripts/init_workspace.py PROJECT --novel-gameplay
-python scripts/init_workspace.py PROJECT --with-starter --novel-gameplay
-python scripts/detect_capabilities.py PROJECT --write
+python scripts/init_workspace.py PROJECT --novel-gameplay --with-memory
 python scripts/run_godot_checks.py PROJECT --mode import
-python scripts/inspect_engine_context.py PROJECT --write
-python scripts/inspect_asset_set.py MANIFEST --root PROJECT --contact-sheet REVIEW.png
-python scripts/stamp_web_build.py export/web
-python scripts/serve_web_export.py export/web
-python scripts/web_preflight.py export/web --url http://127.0.0.1:8000/ --profile FIRST_TARGET --browser-report BROWSER.json --project-root PROJECT --require-glyphs --require-audio
-python scripts/web_preflight.py export/web --url http://127.0.0.1:8000/ --profile NEAR_RELEASE --browser-report BROWSER.json --project-root PROJECT --max-backing-width 1920 --max-backing-height 1080
-python scripts/package_and_report.py PROJECT --out release
+python scripts/check_project_memory.py PROJECT
+python scripts/verification_checkpoint.py freeze PROJECT --plan .prototype/spec/mechanic_lab.md --out .prototype/evidence/review-01.json
+python scripts/verification_checkpoint.py check PROJECT --record .prototype/evidence/review-01.json
 python scripts/change_impact.py --before-tree OLD --after-tree NEW
-python scripts/validate_quality_review.py REVIEW.json --artifact ARTIFACT
-python scripts/validate_release_evidence.py ARTIFACT --evidence RELEASE.json
+python scripts/package_and_report.py PROJECT --out RELEASE_DIR
 ```
 
-The initializer creates only the mission brief and progress record by default. `--novel-gameplay` additionally creates `.prototype/spec/mechanic_lab.md`; `--legacy-full` retains the detailed legacy records. Existing files are preserved. The commands above are examples, not a compulsory sequence.
+Default initialization still creates only brief/progress. `--novel-gameplay` adds the mechanic lab; `--with-memory` adds an empty memory record; `--with-starter` is for blank projects; `--legacy-full` preserves detailed legacy records. Existing files are not overwritten. Fill the brief/plan before checkpointing. These commands are examples, not a required sequence.
 
-`run_godot_checks` exits 0 for PASS, 1 for failure, 2 for unavailable/invalid execution, and 3 for PARTIAL. Static and headless checks do not establish actual interaction, rendered quality, audible output, pixel identity, novelty, or player enjoyment.
+Memory checker exit codes: 0 current/empty, 1 stale/unverified, 2 invalid. Checkpoint exit codes: 0 created/matching, 1 drift, 2 invalid. Neither reports game-quality PASS. Godot runner exit codes remain 0 PASS, 1 failure, 2 unavailable/invalid, 3 PARTIAL. See [tool contracts](references/tool-contracts.md) and [Web delivery](references/web-delivery.md) for existing utilities.
 
-## Evidence and limits
-
-`DONE` requires the requested artifact and its applicable evidence. A genuine unresolved required capability or defect yields `BLOCKED` with the strongest verified partial result and a precise unblock condition.
-
-For a chosen Web build, preserve 0.4.4's delivery discipline: first-target smoke, display-fit/clickability checks, BUILD_ID stamping, separate source/Web hashes, and browser verification of the required player path. Near-release Web verification may run on served localhost; non-loopback LAN routes use HTTPS. Source staging must omit generated `export/web` files.
-
-Validators check structure, records, hashes, and basic media signatures. They do not prove that a log is truthful, a scene is beautiful, a visual is pixel-identical, an idea is historically original, a reviewer is independent, or a player enjoyed the game. State injection helps diagnosis but does not prove normal-path reachability.
-
-## Maintenance
+## Validation and limits
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-See the [0.5.0 upgrade audit](audit/novel-gameplay-upgrade.md), [strong-agent overconstraint audit](audit/gpt6-overconstraint-audit.md), [research basis](references/research-basis.md), [behavioral scenarios](tests/scenarios.md), and [tool contracts](references/tool-contracts.md). Recorded tests are utility fixtures and static instruction checks, not live Godot, GPT-6/Astra, Codex, browser, or target-player trials.
+CI runs utility tests and retains exact tracked-source/log artifacts. A pre-existing 0.5.0 checkerboard fixture overwrote its own test image; this release fixes setup order without changing the detector or relaxing assertions.
+
+Utility/static/HTTP fixture tests are not live Godot, browser, agent or target-player trials. Checksums establish identity, not truth, authority, independent judgment, beauty or fun. The [controlled live-evaluation plan](audit/v0.6.0-evaluation.md) is explicitly not yet run; creative uplift is not claimed.

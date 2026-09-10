@@ -25,15 +25,15 @@ Brief: [link; delivery acceptance remains in the mission brief]
 
 Keep only causally different candidates. Reject theme, quantity, reward, content, or VFX-only variants.
 
-- K1:
-- K2:
-- K3:
+- Candidate and causal difference (repeat only as useful):
 
 ## Adversarial reduction
 
 - Trivial policy attempted:
+- Failure category (mechanic / implementation / presentation / opportunity / harness / host):
 - Structural weakness found:
-- Revision or rejection:
+- Revision or rejection within tested conditions:
+- Evidence or changed conditions that would reopen it:
 
 ## Fast falsification
 
