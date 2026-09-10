@@ -57,6 +57,7 @@ def main() -> int:
     parser.add_argument("--with-starter", action="store_true", help="Copy the thin 2D starter into a blank directory.")
     parser.add_argument("--legacy-full", action="store_true", help="Create optional detailed research records (not needed for normal tasks).")
     parser.add_argument("--novel-gameplay", action="store_true", help="Add the optional mechanic-lab record for a new or unsettled gameplay idea.")
+    parser.add_argument("--with-memory", action="store_true", help="Add an empty optional project-memory record; no facts are inferred.")
     args = parser.parse_args()
 
     root = Path(args.project_root).expanduser().resolve()
@@ -76,6 +77,8 @@ def main() -> int:
     template_map = {"mission_brief.md": ".prototype/spec/mission_brief.md"}
     if args.novel_gameplay:
         template_map["mechanic_lab.md"] = ".prototype/spec/mechanic_lab.md"
+    if args.with_memory:
+        template_map["project_memory.json"] = ".prototype/project_memory.json"
     if args.legacy_full:
         template_map.update(LEGACY_TEMPLATE_MAP)
     created: list[str] = []

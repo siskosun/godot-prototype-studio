@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.6.0 - 2026-09-10
+
+- Preserve the 0.5.0 visual-reference intake and the 0.4.4 completion/delivery/evidence split; use the exact remote 0.5.0 tree as the baseline.
+- Add optional source/dependency-bound project memory and a read-only freshness checker. CURRENT_RECORD is file consistency, not truth or authority; rejected attempts retain scope and revisit conditions.
+- Add optional verification checkpoints binding the existing brief, plan and artifact. Detect drift without pretending to enforce a sandbox or certify execution.
+- Clarify builder/reviewer responsibilities, single-agent fallback, actual bridge capabilities and input provenance. No compulsory multi-agent scheduler or universal remote controller is added.
+- Add conditional art, guidance and session-design heuristics; keep fixed keyword counts, tutorial cadence, universal meta progression and automatic fun/novelty scores out of acceptance.
+- Preserve perceptual mechanics during theme-removal tests and classify implementation/presentation/opportunity/harness failures before rejecting a mechanic.
+- Add `init_workspace.py --with-memory` without changing default workspace files or overwriting existing records.
+- Add utility CI with exact tracked-source artifacts, new negative regression coverage and a controlled live-evaluation plan. These checks do not establish creative uplift or player enjoyment.
+- Fix the pre-existing checkerboard test fixture: manifest setup had overwritten the intended image before inspection. The detector and failure assertions are unchanged.
+
 ## 0.5.0 - 2026-09-08
 
 - Added one-time visual-reference intake for new prototypes and material visual redesigns. Missing images prompt for 1-3 references plus `PARTIAL_REFERENCE` or `PIXEL_ACCURATE_REFERENCE`; existing images prompt only for how they should be used; an already answered mode is never reopened.

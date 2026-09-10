@@ -16,6 +16,8 @@ Show interactable, focused, pressed, disabled and selected states as applicable.
 
 Use the same input modality across gameplay, menus, results and settings. Check focus return, hover-free touch operation, accidental double activation, pointer cancellation, hold/release behavior and interrupted input. For timing-critical actions, choose and communicate the actuation edge deliberately; generic release-on-click menu advice must not silently move a timing mechanic's activation to a different instant.
 
+For observed first-use confusion or an unclear session ending, use only the relevant section of [conditional design heuristics](design-heuristics.md). Preserve simultaneous goals, recoverable help and genre-appropriate endings; short rounds do not require permanent progression.
+
 ## Feel with causal discipline
 
 Map input -> anticipation when intended -> execution -> impact -> recovery. Align animation, hit detection, sound, particles, camera and HUD with those events. Anticipation adds weight but can also create input lag; extra hit-stop or shake can hide information. Adjust within the designed response window, use fewer stronger semantic cues, and compare the same play path before/after. Keep accessibility alternatives for intense motion/flash when relevant.

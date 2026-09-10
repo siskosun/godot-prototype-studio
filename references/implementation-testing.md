@@ -23,6 +23,8 @@ Drive normal InputMap/OS/touch events through the game, not privileged calls tha
 
 For a novel mechanic, expose enough authoritative state to distinguish legal opportunities from selections, action preconditions from outcomes, and local fixtures from normal-path reachability. Test at least one plausible alternative action and one degenerate policy such as spam, waiting, or the apparent dominant move when those could collapse the intended decision.
 
+For a consequential review, [verification-loop.md](verification-loop.md) defines responsibility separation, optional hash checkpoints and actual bridge-capability probes. A checksum detects drift; it does not enforce a sandbox or certify a test.
+
 ## Separate construction from final review
 
 When a separate agent/evaluator is available and justified, give it the brief, immutable artifact, run path, and clean fixtures. Let it report failures against requirements without editing the implementation or silently lowering the bar. Preserve that report; return to implementation to repair, then rerun affected checks and final artifact review. Do not require installing GameForge for every task.
