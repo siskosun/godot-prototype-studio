@@ -20,7 +20,7 @@ If the user declines to provide images or explicitly delegates the visual direct
 
 After the prototype content is sufficiently concrete, resolve the `Pre-development Route` before formal implementation. If the user has not locked the technology, compare Godot with a simple H5/browser-native route against the same acceptance contract. Ask only when H5 is materially simpler/faster without losing a required capability. A recommendation to switch is a real user decision, not delegated taste. Once resolved, run the reuse-before-build scan and record whether the project will copy/adapt a compatible pinned source, use a candidate only as reference, build new, or change stack by user choice. See `prototype-routing-and-reuse.md`.
 
-If no package form is specified, keep the tested in-place Godot project. Add a source ZIP, Web export, desktop/Android build, or LAN share only when the request asks for that runtime, receiver, or handoff. When Web is chosen, verify it in an actual served browser path and pick LOCAL_WEB_TEST or LAN_SHARE from the receiver context; LAN is not implied by near-release quality. Do not infer public web deployment, account upload, Android signing, or store release.
+If no package form is specified, keep the tested in-place project for the selected stack. Add a Godot source ZIP, H5 source ZIP, Web export, desktop/Android build, or LAN share only when the request asks for that runtime, receiver, or handoff and the selected stack supports it. When Web is chosen, verify it in an actual served browser path and pick LOCAL_WEB_TEST or LAN_SHARE from the receiver context; LAN is not implied by near-release quality. Do not infer public web deployment, account upload, Android signing, or store release.
 
 ## Authority boundary
 
