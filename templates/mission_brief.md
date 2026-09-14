@@ -22,7 +22,7 @@
 
 ## Delivery
 - Quality profile: [NEAR_RELEASE_SLICE when the user asks to finish a playable/high-completion game without another fidelity target; this is craft, not a package list. Preserve mechanic spikes, quick grayboxes, technical proofs, isolated fixes, and explicitly rough experiments.]
-- Target: [Choose from the request: LOCAL_PROJECT, GODOT_PROJECT_ZIP, WEB_EXPORT, DESKTOP_BUILD, ANDROID_BUILD. High completion does not imply Web or ZIP. If no package is requested, default to the tested in-place Godot project.]
+- Target: [Choose from the request and selected stack: LOCAL_PROJECT, GODOT_PROJECT_ZIP, H5_SOURCE_ZIP, WEB_EXPORT, DESKTOP_BUILD, ANDROID_BUILD. High completion does not imply Web or ZIP. If no package is requested, default to the tested in-place project for the selected stack.]
 - Web share: [Only when Web is a chosen target. Use LOCAL_WEB_TEST for local final browser verification, LAN_SHARE when another device needs access, and WEB_SHARE for lightweight interim sharing. Public hosting requires separate authorization.]
 - Required languages/scripts: [List player-facing locales/scripts. Bundled font coverage and target-runtime text evidence are required for those scripts on the chosen deliveries.]
 - Web audio: [If Web is a target: expected after a player gesture | intentionally silent.]
