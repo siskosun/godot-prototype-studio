@@ -1,19 +1,19 @@
-# Godot Prototype Studio 0.6.0
+# Godot Prototype Studio 0.7.0
 
 [English](README.md) | [Chinese](README.zh-CN.md)
 
-Build a small, complete Godot 2D prototype or near-release slice, with task-sized design, implementation, repair and verified delivery. The skill is model-agnostic. It does not promise a full commercial game, historical originality or validated audience appeal.
+Build a small, complete game prototype or near-release slice with task-sized design, implementation, repair and verified delivery. Godot remains the primary engine, but new prototypes can route to simple browser-native H5 when that is clearly cheaper and sufficient. The skill is model-agnostic. It does not promise a full commercial game, historical originality or validated audience appeal.
 
 ## What changed
 
-0.6.0 builds on the exact GitHub 0.5.0 source. It adds evidence continuity and conditional design guidance without turning every task into a multi-agent production pipeline.
+0.7.0 keeps the 0.6 evidence/verification architecture and adds two pre-development decisions plus a stronger multiplayer/LAN completion model.
 
-- **Project memory, optional:** retain narrow findings with sources, dependency hashes and revisit conditions. A hypothesis stays a hypothesis; a failed attempt is not a permanent ban. The read-only checker flags stale/unverified records.
-- **Verification checkpoints, optional:** bind the existing brief, scenario plan and artifact before consequential review. Detect drift; do not confuse matching hashes with execution or sandbox enforcement. Separate reviewer responsibilities when useful, with a labeled self-review fallback.
-- **Actual engine capabilities:** use existing CLI/editor/QA interfaces and probe the operations a task needs. Distinguish state injection, engine events and OS/browser input. The starter is still an instrumentation fixture, not an autonomous game-playing or remote-editor system.
-- **Conditional design heuristics:** apply experience-to-visual rules, positive/negative examples, guidance transfer and session closure to relevant problems. No universal keyword count, style, tutorial cadence, permanent progression or fun score.
+- **Choose the lightest adequate stack:** once the prototype content is clear, compare Godot with a simple browser-native H5 implementation. If H5 is materially faster/simpler without losing a requirement and the stack is open, recommend it and ask once; never silently switch.
+- **Reuse before rebuilding:** before formal implementation, search current source by mechanic/state model, especially GPT-6/Astra indexes and close Godot/H5 projects. A compatible same-stack source can be copied at a pinned revision, baselined, and adapted; unknown licenses are reference-only. An extremely similar cross-stack project triggers one stack-change question.
+- **Joint multiplayer evidence:** rooms/LAN/two-device projects now verify service, distinct clients, same session, synchronized state, lifecycle/recovery and required physical-device play as separate layers. One green browser does not imply the next layer.
+- **Runtime instance identity:** the bundled LAN server can write a process/build/source record and exposes `X-GPS-Instance-ID`; preflight can bind the observed endpoint to that instance. Post-export files are finalized before BUILD_ID stamping.
 
-See the [upgrade and evaluation record](audit/v0.6.0-evaluation.md), [verification loop](references/verification-loop.md), [project memory](references/project-memory.md) and [design heuristics](references/design-heuristics.md).
+See [route and reuse](references/prototype-routing-and-reuse.md), [multi-client verification](references/multiplayer-session-verification.md), and the [0.7.0 audit](audit/v0.7.0-upgrade.md).
 
 ## Use
 
@@ -60,16 +60,18 @@ From the skill directory:
 
 ```bash
 python scripts/init_workspace.py PROJECT
-python scripts/init_workspace.py PROJECT --novel-gameplay --with-memory
+python scripts/init_workspace.py PROJECT --novel-gameplay --with-memory --reuse-scan
+python scripts/init_workspace.py PROJECT --multiplayer
 python scripts/run_godot_checks.py PROJECT --mode import
 python scripts/check_project_memory.py PROJECT
 python scripts/verification_checkpoint.py freeze PROJECT --plan .prototype/spec/mechanic_lab.md --out .prototype/evidence/review-01.json
 python scripts/verification_checkpoint.py check PROJECT --record .prototype/evidence/review-01.json
 python scripts/change_impact.py --before-tree OLD --after-tree NEW
+python scripts/serve_web_export.py export/web --runtime-record .prototype/evidence/web-server.json
 python scripts/package_and_report.py PROJECT --out RELEASE_DIR
 ```
 
-Default initialization still creates only brief/progress. `--novel-gameplay` adds the mechanic lab; `--with-memory` adds an empty memory record; `--with-starter` is for blank projects; `--legacy-full` preserves detailed legacy records. Existing files are not overwritten. Fill the brief/plan before checkpointing. These commands are examples, not a required sequence.
+Default initialization still creates only brief/progress. `--novel-gameplay` adds the mechanic lab; `--with-memory` adds an empty memory record; `--reuse-scan` adds the pre-development search record; `--multiplayer` adds the joint-session matrix; `--with-starter` is for blank projects; `--legacy-full` preserves detailed legacy records. Existing files are not overwritten. Fill the brief/plan before checkpointing. These commands are examples, not a required sequence.
 
 Memory checker exit codes: 0 current/empty, 1 stale/unverified, 2 invalid. Checkpoint exit codes: 0 created/matching, 1 drift, 2 invalid. Neither reports game-quality PASS. Godot runner exit codes remain 0 PASS, 1 failure, 2 unavailable/invalid, 3 PARTIAL. See [tool contracts](references/tool-contracts.md) and [Web delivery](references/web-delivery.md) for existing utilities.
 

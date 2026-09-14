@@ -1,6 +1,6 @@
 # Exact delivery and completion
 
-The brief defines the target and required claims. NEAR_RELEASE_SLICE is the craft bar for the chosen player-facing artifact; it does not by itself require a source ZIP or a Web export. Keep source and Web identities separate when both exist. A chosen Web artifact must be served and browser-verified, including display fit and clickability; LAN_SHARE is required only when that route is chosen. Read [web delivery](web-delivery.md) for share modes and WEB_PREFLIGHT, [change impact](change-impact.md) before reusing suites, and [text rendering](text-rendering.md) when localized/non-Latin text exists.
+The brief defines the target and required claims. NEAR_RELEASE_SLICE is the craft bar for the chosen player-facing artifact; it does not by itself require a source ZIP or a Web export. If the promise includes rooms, shared state or multiple devices, completion also binds the joint client/server session required by the brief; single-client artifacts cannot substitute for it. Keep source and Web identities separate when both exist. A chosen Web artifact must be served and browser-verified, including display fit and clickability; LAN_SHARE is required only when that route is chosen. Read [web delivery](web-delivery.md) for share modes and WEB_PREFLIGHT, [change impact](change-impact.md) before reusing suites, and [text rendering](text-rendering.md) when localized/non-Latin text exists.
 
 Use `package_and_report.py PROJECT --out DIR` as the freeze/hash/ZIP/report entry. It stages clean source, writes identities, packages the ZIP, restamps Web when asked, and links validator outputs. Hashes and file associations are generated; visual PASS is not.
 
@@ -17,7 +17,7 @@ Do not hash source files and generated `export/web` together. If Web output live
 
 Finish implementation and required polish. Remove secrets, caches, unused downloaded code, and unrelated artifacts. Freeze source and Web separately.
 
-For the source ZIP, package a clean source-only staging tree, extract it to another clean directory, then test/hash the extracted copy; record both archive SHA-256 and extracted tree hash. For Web, export from the same frozen source, run `stamp_web_build.py`, serve it, run the applicable browser path, and hash the Web directory. Gameplay/content/export changes invalidate affected evidence. Re-exporting Web changes its BUILD_ID and Web identity even when source did not change. Record `gameContent`, `testHarness`, and `package` hashes so a harness-only edit cannot force a full rules battery.
+For the source ZIP, package a clean source-only staging tree, extract it to another clean directory, then test/hash the extracted copy; record both archive SHA-256 and extracted tree hash. For Web, export from the same frozen source, finish declared post-export copies/patches, run `stamp_web_build.py`, serve/restart the current server instance, run the applicable browser path, and hash the Web directory. Gameplay/content/export changes invalidate affected evidence. Re-exporting Web changes its BUILD_ID and Web identity even when source did not change. Record `gameContent`, `testHarness`, and `package` hashes so a harness-only edit cannot force a full rules battery.
 
 The bundled tree hash excludes `.git`, `.godot`, `__pycache__`, `.DS_Store`, and root `.prototype` workflow records. Do not place promised game files under an excluded path. Symlinks are rejected.
 
@@ -50,6 +50,10 @@ The validator checks consistency, not whether Godot or a human truly performed t
 ## Handoff to another computer
 
 When the selected delivery is LAN_SHARE, follow the second-computer instructions in `web-delivery.md`: use the HTTPS LAN URL, handle the local certificate, allow the firewall port, remain on a reachable LAN, hard-refresh after re-export, and state the native fallback if Web limitations matter. Do not include LAN instructions for a local-only delivery merely to satisfy a template.
+
+## Multiplayer completion
+
+When the brief requires two clients/devices, use `multiplayer-session-verification.md` and `templates/multiplayer_session_matrix.md`. Record the exact Web/source identity, server runtime identity, client identities, room/session and highest jointly verified layer. A successful service probe, one browser, localhost run or two independent clients is not synchronized multiplayer evidence. Required physical-device rounds, lifecycle transitions and reconnect/restart behavior remain UNVERIFIED until observed on the contracted route.
 
 ## Completion language
 

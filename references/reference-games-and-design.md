@@ -1,6 +1,6 @@
 # Current reference games and complete prototype design
 
-Use for new game ideas and meaningful mechanic redesigns, not typo fixes, isolated bugs, or already-settled polish. The purpose is to improve a concrete design decision, not produce a market report.
+Use for new game ideas and meaningful mechanic redesigns, not typo fixes, isolated bugs, or already-settled polish. The purpose is to improve a concrete design decision, not produce a market report. For a new prototype, run the separate reuse-before-build scan in `prototype-routing-and-reuse.md` before assuming a fresh implementation; design references and reusable source are related but not the same decision.
 
 ## Find the closest released comparisons
 

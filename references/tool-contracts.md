@@ -4,7 +4,7 @@ Read when running or maintaining a listed utility. Scripts are conveniences, not
 
 | Tool | Purpose / invocation | Limit |
 |---|---|---|
-| init_workspace.py | `PROJECT [--with-starter]` | Minimal brief/progress; starter is instrumentation, not finished art |
+| init_workspace.py | `PROJECT [--with-starter] [--reuse-scan] [--multiplayer]` | Minimal brief/progress by default; optional route/session records; starter is instrumentation, not finished art |
 | detect_capabilities.py | `PROJECT --write` | Detection is not a successful runtime/input test |
 | inspect_engine_context.py | `PROJECT --write` | Text declarations, not full engine parsing/live observation |
 | run_godot_checks.py | `PROJECT --mode import|test|smoke|all` | Engine/log checks, not an end-to-end player test |
@@ -15,8 +15,8 @@ Read when running or maintaining a listed utility. Scripts are conveniences, not
 | validate_quality_review.py | `REVIEW.json --artifact ARTIFACT` | Minimum dimensions, evidence hashes, defects and human-label consistency |
 | tree_hash.py | `ARTIFACT --write HASH.json` | Identity only; root .prototype and caches excluded for project trees |
 | stamp_web_build.py | `export/web` | Deterministic payload BUILD_ID + visible HTML stamp; rerun after every export |
-| serve_web_export.py | `export/web [--port N] [--cross-origin-isolation]` | LAN development HTTPS server, not public hosting; COOP/COEP only when requested |
-| web_preflight.py | `export/web --url URL --profile ... --browser-report REPORT --project-root PROJECT ...` | File/preset/HTTP consistency plus supplied browser observations; does not launch/perceive the browser |
+| serve_web_export.py | `export/web [--port N] [--runtime-record FILE] [--cross-origin-isolation]` | LAN development HTTPS server; optional observed-instance identity; not an authoritative game server or public host |
+| web_preflight.py | `export/web --url URL --profile ... --browser-report REPORT [--runtime-record FILE] --project-root PROJECT ...` | File/preset/HTTP consistency plus supplied browser observations and optional server-instance binding; does not launch/perceive the browser |
 | validate_release_evidence.py | `ARTIFACT --evidence RECORD.json [--required-profile NEAR_RELEASE_SLICE] [--required-share-mode LAN_SHARE]` | Exact artifact/pair/preflight/evidence agreement, not proof of test honesty |
 
 Other retained validators support optional experiments, saves, assets and human reports. They are not a list of forms every game must fill. Main behavioral rules and delegation are authoritative over legacy template vocabulary.
@@ -35,9 +35,9 @@ A findings item has unique id, dimension, severity BLOCKER/MAJOR/MINOR, status O
 
 ## Web delivery records
 
-`stamp_web_build.py` derives the visible BUILD_ID from the exported payload while excluding its own stamp, so restamping an unchanged export is idempotent. `serve_web_export.py` refuses missing Web payloads and accidental Godot project roots, serves `/` as `index.html`, disables directory listing/caching, uses HTTPS on LAN, and can generate a short-lived SAN certificate with `openssl`. It does not make a public deployment.
+`stamp_web_build.py` derives the visible BUILD_ID from the exported payload while excluding its own stamp, so restamping an unchanged export is idempotent. `serve_web_export.py` refuses missing Web payloads and accidental Godot project roots, serves `/` as `index.html`, disables directory listing/caching, uses HTTPS on LAN, and can generate a short-lived SAN certificate with `openssl`. With `--runtime-record`, it writes a start-time process/build/source record outside the served payload and exposes the same random instance ID in `X-GPS-Instance-ID`. It does not make a public deployment or verify project-specific authoritative multiplayer behavior.
 
-`web_preflight.py` supports LOCAL_WEB_TEST, FIRST_TARGET, WEB_SHARE, LAN_SHARE and NEAR_RELEASE. It reads the selected Web preset when a project root is supplied, verifies thread/mobile-VRAM/canvas choices, checks nonempty HTML/WASM/PCK/JS and MIME/service behavior, and compares a supplied real-browser report with the delivered BUILD_ID. Player-facing profiles require CSS size, viewport size, full visibility, unclipped canvas, and a clickable primary control. A backing-canvas budget PASS is not display-fit. NEAR_RELEASE also requires the project preset, an explicit backing-canvas budget, a served real-browser path, a browser capture, and glyph/layout integrity; LAN HTTPS is required only for LAN_SHARE/non-loopback delivery; audio is required when the brief says so. Thread support triggers cross-origin-isolation requirements. A custom template must be explicitly allowed only after version compatibility is checked outside the script.
+`web_preflight.py` supports LOCAL_WEB_TEST, FIRST_TARGET, WEB_SHARE, LAN_SHARE and NEAR_RELEASE. When a runtime record is supplied it also verifies that the observed endpoint returns the recorded instance ID and that the record matches the current server/helper source hashes, URL and BUILD_ID. It reads the selected Web preset when a project root is supplied, verifies thread/mobile-VRAM/canvas choices, checks nonempty HTML/WASM/PCK/JS and MIME/service behavior, and compares a supplied real-browser report with the delivered BUILD_ID. Player-facing profiles require CSS size, viewport size, full visibility, unclipped canvas, and a clickable primary control. A backing-canvas budget PASS is not display-fit. NEAR_RELEASE also requires the project preset, an explicit backing-canvas budget, a served real-browser path, a browser capture, and glyph/layout integrity; LAN HTTPS is required only for LAN_SHARE/non-loopback delivery; audio is required when the brief says so. Thread support triggers cross-origin-isolation requirements. A custom template must be explicitly allowed only after version compatibility is checked outside the script.
 
 The browser report is an observation record, not an automation claim. `missingFeatures` is optional because no undocumented Godot JavaScript method is assumed. Secure-context and cross-origin isolation are browser facts; a self-signed certificate warning does not by itself prove either one.
 

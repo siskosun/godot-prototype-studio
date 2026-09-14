@@ -1,6 +1,6 @@
 interface:
   display_name: Godot Prototype Studio
-  short_description: Complete Godot slices with art, UX and QA
+  short_description: Route, reuse, build and verify game prototypes
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
 policy:

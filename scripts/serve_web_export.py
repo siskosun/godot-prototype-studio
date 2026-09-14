@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import functools
+import hashlib
 import http.server
 import json
 import os
@@ -12,14 +13,17 @@ import ssl
 import subprocess
 import tempfile
 import threading
+import uuid
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from _common import sha256_file, utc_now, write_json
 from _web import detect_lan_ip, read_build_id, web_files
 
 
 class GodotHandler(http.server.SimpleHTTPRequestHandler):
     cross_origin_isolation = False
+    runtime_instance_id = ""
     extensions_map = {
         **http.server.SimpleHTTPRequestHandler.extensions_map,
         ".wasm": "application/wasm",
@@ -47,6 +51,8 @@ class GodotHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header("Cross-Origin-Opener-Policy", "same-origin")
             self.send_header("Cross-Origin-Embedder-Policy", "require-corp")
             self.send_header("Cross-Origin-Resource-Policy", "same-origin")
+        if self.runtime_instance_id:
+            self.send_header("X-GPS-Instance-ID", self.runtime_instance_id)
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Cache-Control", "no-store")
         super().end_headers()
@@ -92,6 +98,36 @@ def generate_certificate(cert: Path, key: Path, ip: str, days: int) -> None:
         pass
 
 
+def certificate_fingerprint_sha256(cert: Path) -> str:
+    pem = cert.read_text(encoding="utf-8", errors="strict")
+    der = ssl.PEM_cert_to_DER_cert(pem)
+    return hashlib.sha256(der).hexdigest()
+
+
+def build_runtime_record(root: Path, build_id: str, ip: str, port: int, cert: Path,
+                         cross_origin_isolation: bool, instance_id: str) -> dict[str, object]:
+    script = Path(__file__).resolve()
+    helper = script.parent / "_web.py"
+    return {
+        "schemaVersion": 1,
+        "status": "SERVING",
+        "processId": os.getpid(),
+        "startedAt": utc_now(),
+        "instanceId": instance_id,
+        "buildId": build_id,
+        "webPayloadDir": str(root),
+        "bindAddress": "0.0.0.0",
+        "lanIp": ip,
+        "port": port,
+        "lanUrl": f"https://{ip}:{port}/",
+        "localUrl": f"https://localhost:{port}/",
+        "certificateSha256": certificate_fingerprint_sha256(cert),
+        "serverScriptSha256": sha256_file(script),
+        "webHelperSha256": sha256_file(helper),
+        "crossOriginIsolation": bool(cross_origin_isolation),
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("export_dir")
@@ -103,6 +139,7 @@ def main() -> int:
     parser.add_argument("--cert-days", type=int, default=7)
     parser.add_argument("--http-redirect-port", type=int, default=0)
     parser.add_argument("--cross-origin-isolation", action="store_true", help="Send COOP/COEP for a threaded Web export")
+    parser.add_argument("--runtime-record", help="Write current server-instance identity outside the served Web payload")
     args = parser.parse_args()
 
     temp_cert_dir = None
@@ -133,7 +170,9 @@ def main() -> int:
             cert, key = cert_dir / "lan-cert.pem", cert_dir / "lan-key.pem"
             generate_certificate(cert, key, ip, args.cert_days)
 
+        instance_id = uuid.uuid4().hex
         GodotHandler.cross_origin_isolation = bool(args.cross_origin_isolation)
+        GodotHandler.runtime_instance_id = instance_id
         handler = functools.partial(GodotHandler, directory=str(root))
         server = http.server.ThreadingHTTPServer(("0.0.0.0", args.port), handler)
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
@@ -151,15 +190,27 @@ def main() -> int:
             redirect_thread = threading.Thread(target=redirect_server.serve_forever, daemon=True)
             redirect_thread.start()
 
+        runtime_record = build_runtime_record(root, build_id, ip, args.port, cert,
+                                              bool(args.cross_origin_isolation), instance_id)
+        runtime_path = None
+        if args.runtime_record:
+            runtime_path = Path(args.runtime_record).expanduser().resolve()
+            try:
+                runtime_path.relative_to(root)
+            except ValueError:
+                pass
+            else:
+                raise ValueError("--runtime-record must be outside the served Web payload so it cannot change BUILD_ID")
+            if runtime_path.is_symlink():
+                raise ValueError("--runtime-record must not be a symlink")
+            write_json(runtime_path, runtime_record)
+
         print(json.dumps({
-            "status": "SERVING",
+            **runtime_record,
             "scope": "LAN development share; not public hosting",
             "root": str(root),
-            "buildId": build_id,
-            "lanUrl": f"https://{ip}:{args.port}/",
-            "localUrl": f"https://localhost:{args.port}/",
             "certificate": str(cert),
-            "crossOriginIsolation": bool(args.cross_origin_isolation),
+            "runtimeRecord": str(runtime_path) if runtime_path else None,
             "certificateTrust": "Receiver must trust/accept the local certificate and then confirm window.isSecureContext=true.",
             "firewall": f"Allow inbound TCP {args.port} on the trusted LAN if the receiver cannot connect.",
             "httpRedirect": f"http://{ip}:{args.http_redirect_port}/" if args.http_redirect_port else None,

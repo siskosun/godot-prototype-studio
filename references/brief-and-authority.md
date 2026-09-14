@@ -18,6 +18,8 @@ Ask at most three coupled questions when the answers materially change the promi
 
 If the user declines to provide images or explicitly delegates the visual direction, record `ORIGINAL_DELEGATED`, select a coherent original baseline, and proceed. Do not keep requesting references. If pixel-accurate use targets third-party protected expression and rights are unconfirmed, exact copying remains unresolved; continue only with safe original or partial-reference work.
 
+After the prototype content is sufficiently concrete, resolve the `Pre-development Route` before formal implementation. If the user has not locked the technology, compare Godot with a simple H5/browser-native route against the same acceptance contract. Ask only when H5 is materially simpler/faster without losing a required capability. A recommendation to switch is a real user decision, not delegated taste. Once resolved, run the reuse-before-build scan and record whether the project will copy/adapt a compatible pinned source, use a candidate only as reference, build new, or change stack by user choice. See `prototype-routing-and-reuse.md`.
+
 If no package form is specified, keep the tested in-place Godot project. Add a source ZIP, Web export, desktop/Android build, or LAN share only when the request asks for that runtime, receiver, or handoff. When Web is chosen, verify it in an actual served browser path and pick LOCAL_WEB_TEST or LAN_SHARE from the receiver context; LAN is not implied by near-release quality. Do not infer public web deployment, account upload, Android signing, or store release.
 
 ## Authority boundary
@@ -27,6 +29,9 @@ If no package form is specified, keep the tested in-place Godot project. Add a s
 | Reversible local edits, permitted tests, scenario runs, capture, fixes | Proceed |
 | Delegated game design, coherent art direction, tuning inside the promise | Decide, record, proceed |
 | Ask once for visual references/mode on a new prototype | Required intake; do not repeat after resolution |
+| Offer H5 when materially simpler and stack is open | Ask once; do not switch silently or reopen after the user decides |
+| Copy compatible public prototype source | Inspect license/source, pin revision, preserve attribution, baseline before editing |
+| Extremely similar reusable project in another stack | Ask once whether to change stack; respect the answer |
 | Public reference lookup or licensed local asset acquisition without secrets/spend | Proceed within available network permissions; inspect before execution |
 | Tool/environment setup | Use existing tools first; local setup only within current permissions and policy |
 | Changing audience, core promise, reserved decisions, or contracted platform | Needs authorization unless explicitly delegated |
