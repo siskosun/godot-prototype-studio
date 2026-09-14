@@ -12,7 +12,7 @@ Compute them with `package_and_report.py` or `artifact_identities` in `_identiti
 | `testHarness` | `tests/`, `qa/`, browser/harness scripts | Harness edits do not invalidate game rules |
 | `package` | source ZIP or delivery archive | Packaging/docs edits need contents/hash checks |
 
-Also record `displaySet` (fonts, themes, UI) and `packaging` (docs, release notes) so a theme change does not look like a mechanic change.
+Also record `displaySet` (fonts, themes, UI) and `packaging` (docs, release notes) so a theme change does not look like a mechanic change. For a running Web/LAN service, also track its runtime-instance record separately from package identity.
 
 ## Suites
 
@@ -25,7 +25,7 @@ Also record `displaySet` (fonts, themes, UI) and `packaging` (docs, release note
 
 `python <skill-root>/scripts/change_impact.py --before-tree OLD --after-tree NEW` lists `rerun` and `reused`. `--changed-paths` is enough when the file list is already known; supply before/after identity JSON to prove reuse.
 
-Two source packages that differ only in browser test scripts keep the same `gameContent` hash. Record that hash and rerun the harness, not an unchanged 200-seed rules battery.
+Two source packages that differ only in browser test scripts keep the same `gameContent` hash. Editing `serve_web_export.py`, a project-specific authoritative server, its routing/configuration, or a delivered client networking file invalidates the corresponding runtime/session evidence even when gameplay rules are otherwise unchanged; restart the process and rerun the affected network path. Record that hash and rerun the harness, not an unchanged 200-seed rules battery.
 
 ## Resume
 

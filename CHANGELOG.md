@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.0 - 2026-09-14
+
+- Add a pre-development engine-route gate for new prototypes. Compare the same accepted experience in Godot versus simple browser-native H5; when H5 is materially faster/simpler and the stack is open, recommend it and ask once rather than silently defaulting to Godot.
+- Add a reuse-before-build gate. Search user-provided sources, current GPT-6/Astra indexes (including `MartinDelophy/awesome-gpt-6-astra`), GitHub/GitLab and engine/community examples by mechanic/state model before scaffolding from scratch.
+- Reuse very close same-stack code only from an identifiable compatible-license source: copy a pinned revision into a fresh working directory, preserve license/provenance, baseline it unmodified, then adapt. Unknown/incompatible licenses stay reference-only.
+- When an extremely similar reusable project exists in another stack, ask once whether to change stack; respect the answer and avoid mechanical full-code translation.
+- Add optional `reuse_scan.md` and `multiplayer_session_matrix.md` records plus `init_workspace.py --reuse-scan` and `--multiplayer`. Legacy/default workspaces remain lean.
+- Add multi-client/session verification for rooms, LAN and shared state. Treat service, one client, two identities, same session, synchronized interaction, lifecycle recovery and physical-device proof as separate evidence layers.
+- Add LAN server runtime-instance records and `X-GPS-Instance-ID`; Web preflight can bind BUILD_ID/URL/current server-source hashes to the actually observed server instance.
+- Require project-specific post-export files/patches to be finalized before BUILD_ID stamping; any later delivered-file mutation requires restamping and affected retest.
+- Keep certificate trust a user/browser action and add explicit mixed Godot-canvas/HTML-input IME/focus verification guidance.
+
 ## 0.6.0 - 2026-09-10
 
 - Preserve the 0.5.0 visual-reference intake and the 0.4.4 completion/delivery/evidence split; use the exact remote 0.5.0 tree as the baseline.

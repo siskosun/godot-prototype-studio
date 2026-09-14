@@ -88,7 +88,7 @@ def validate(root: Path, url: str | None, profile: str, browser: Any | None,
              preset_name: str | None = None, allow_threads: bool = False,
              allow_mobile_vram: bool = False, require_cross_origin_isolation: bool = False,
              allow_custom_template: bool = False, min_axis_fill: float = 0.9,
-             min_css_area: float = 0.5) -> dict[str, Any]:
+             min_css_area: float = 0.5, runtime_record: Any | None = None) -> dict[str, Any]:
     errors: list[str] = []
     warnings: list[str] = []
     checks: dict[str, Any] = {}
@@ -213,10 +213,50 @@ def validate(root: Path, url: str | None, profile: str, browser: Any | None,
                     errors.append("threaded/cross-origin-isolated Web build is missing Cross-Origin-Opener-Policy: same-origin")
                 if served_headers.get("cross-origin-embedder-policy", "").lower() != "require-corp":
                     errors.append("threaded/cross-origin-isolated Web build is missing Cross-Origin-Embedder-Policy: require-corp")
+            if runtime_record is not None:
+                if not isinstance(runtime_record, dict):
+                    errors.append("runtime record must be a JSON object")
+                else:
+                    if runtime_record.get("schemaVersion") != 1:
+                        errors.append("runtime record has unsupported schemaVersion")
+                    if runtime_record.get("status") != "SERVING":
+                        errors.append("runtime record status is not SERVING")
+                    process_id = runtime_record.get("processId")
+                    if not isinstance(process_id, int) or isinstance(process_id, bool) or process_id <= 0:
+                        errors.append("runtime record processId must be a positive integer")
+                    instance_id = runtime_record.get("instanceId")
+                    checks["runtimeInstance"] = {
+                        "instanceId": instance_id,
+                        "servedInstanceId": served_headers.get("x-gps-instance-id"),
+                        "buildId": runtime_record.get("buildId"),
+                        "lanUrl": runtime_record.get("lanUrl"),
+                        "localUrl": runtime_record.get("localUrl"),
+                        "processId": runtime_record.get("processId"),
+                    }
+                    if not isinstance(instance_id, str) or not instance_id.strip():
+                        errors.append("runtime record missing instanceId")
+                    elif served_headers.get("x-gps-instance-id") != instance_id:
+                        errors.append("served X-GPS-Instance-ID does not match runtime record; restart or use the current server record")
+                    if runtime_record.get("buildId") != recorded_build:
+                        errors.append("runtime record BUILD_ID does not match the delivered Web build")
+                    allowed_urls: set[str] = set()
+                    for key in ("lanUrl", "localUrl"):
+                        value = runtime_record.get(key)
+                        if isinstance(value, str) and value.strip():
+                            allowed_urls.add(normalize_url(value))
+                    if url_norm not in allowed_urls:
+                        errors.append("runtime record URL does not match the probed URL")
+                    script_dir = Path(__file__).resolve().parent
+                    if runtime_record.get("serverScriptSha256") != sha256_file(script_dir / "serve_web_export.py"):
+                        errors.append("runtime record serverScriptSha256 is stale relative to the current server source")
+                    if runtime_record.get("webHelperSha256") != sha256_file(script_dir / "_web.py"):
+                        errors.append("runtime record webHelperSha256 is stale relative to the current Web helper source")
         except (OSError, urllib.error.URLError, urllib.error.HTTPError, ssl.SSLError) as exc:
             errors.append(f"HTTP(S) probe failed: {exc}")
     elif profile != "LOCAL_WEB_TEST":
         errors.append(f"{profile} requires a served --url")
+    elif runtime_record is not None:
+        errors.append("runtime record requires a served --url so the process instance can be bound to an observed endpoint")
 
     if min_axis_fill <= 0 or min_axis_fill > 1:
         errors.append("--min-axis-fill must be in (0, 1]")
@@ -310,6 +350,7 @@ def validate(root: Path, url: str | None, profile: str, browser: Any | None,
             "canvasBudget": max_backing_width is not None and max_backing_height is not None,
             "displayFit": profile in PLAYER_FACING and isinstance(browser, dict),
             "customTemplateExplicitlyAllowed": bool(allow_custom_template),
+            "runtimeInstanceBound": runtime_record is not None and bool(url_norm),
         },
         "checks": checks,
         "warnings": warnings,
@@ -324,6 +365,7 @@ def main() -> int:
     parser.add_argument("--url")
     parser.add_argument("--profile", choices=sorted(PROFILES), default="LOCAL_WEB_TEST")
     parser.add_argument("--browser-report")
+    parser.add_argument("--runtime-record", help="Optional server runtime record from serve_web_export.py")
     parser.add_argument("--allow-self-signed", action="store_true")
     parser.add_argument("--require-audio", action="store_true")
     parser.add_argument("--require-glyphs", action="store_true")
@@ -347,12 +389,13 @@ def main() -> int:
             bpath = Path(args.browser_report).expanduser().resolve()
             browser = load_json(bpath)
             browser_base = bpath.parent
+        runtime_record = load_json(Path(args.runtime_record).expanduser().resolve()) if args.runtime_record else None
         result = validate(Path(args.export_dir), args.url, args.profile, browser,
                           args.allow_self_signed, args.require_audio, args.require_glyphs,
                           args.allow_adaptive, args.max_backing_width, args.max_backing_height,
                           browser_base, Path(args.project_root) if args.project_root else None, args.preset_name,
                           args.allow_threads, args.allow_mobile_vram, args.require_cross_origin_isolation,
-                          args.allow_custom_template, args.min_axis_fill, args.min_css_area)
+                          args.allow_custom_template, args.min_axis_fill, args.min_css_area, runtime_record)
     except (OSError, ValueError, TypeError) as exc:
         result = {"status": "FAIL", "errors": [str(exc)]}
     if args.write:

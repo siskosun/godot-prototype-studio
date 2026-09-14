@@ -1,23 +1,24 @@
-# Godot Prototype Studio 0.6.0
+# Godot Prototype Studio 0.7.0
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-把一个想法做成小而完整的 Godot 2D 原型或接近发行品质的切片。本版保留 0.5.0 的基础：0.5.0 在 0.4.4“完成度、交付形式、证据分离”的基础上增加两条强智能体工作流：所有新原型都进行一次性的视觉参考约定；对新玩法则使用机制实验流程，主动寻找并证伪真正改变决策关系的玩法，而不是只给熟悉循环换皮。
+把一个想法做成小而完整的游戏原型或接近发行品质的切片：默认擅长 Godot 2D，但当简单 H5 明显更合适时先让用户选择技术路线。本版保留 0.5.0 的基础：0.5.0 在 0.4.4“完成度、交付形式、证据分离”的基础上增加两条强智能体工作流：所有新原型都进行一次性的视觉参考约定；对新玩法则使用机制实验流程，主动寻找并证伪真正改变决策关系的玩法，而不是只给熟悉循环换皮。
 
 技能保持模型无关。它允许能力较强的智能体自行决定普通实现细节、操作 Godot、读取运行状态和截图、比较变体并修复失败；但模型不能用自己的评价证明玩法好玩、历史原创、像素级一致或玩家偏好。
 
-## 0.6.0 升级内容
+## 0.7.0 升级内容
 
-保留既有工作流，补强证据连续性，不增加通用设计套路。
+本版保留 0.6 的证据连续性、项目记忆和按需验证框架，新增两个正式开发前判断，以及多人/LAN 的联合验收。
 
-- **可选项目记忆**：记录来源、依赖文件哈希、适用范围和重新评估条件。假设不会自动变成事实，失败尝试不是永久禁令。
-- **验证检查点**：绑定已有简报、实验计划和待测产物，检测审查前后的变更。哈希不代表测试已执行，也不是沙箱。独立评审者按需使用；单代理可进行明确标注的自查。
-- **引擎观察能力约定**：使用真正可用的 CLI、编辑器和 QA 接口，区分状态注入、引擎事件与系统输入。本版不包含全能远程编辑器或自动玩游戏系统。
-- **按需设计启发**：针对实际问题调用体验目标、可执行视觉规则、正反例、信息层级和引导渐退。不要求固定关键词数、固定教学次数或永久成长。感知本身属于玩法时，去主题测试不删除必要信息。
+- **先判断是否真的需要 Godot**：原型内容与验收路径确认后，用同一份验收合同比较 Godot 与简单 H5（HTML/CSS/JavaScript + DOM/Canvas/WebAudio 等）。如果 H5 明显更快、更简单且不损失关键要求，并且用户没有锁死技术栈，先明确推荐并询问是否改用 H5，绝不静默切换。
+- **开发前先查有没有现成原型代码**：按玩法、输入、视角、状态机和联网关系检索，而不是只按题材。优先检查用户提供的仓库、当前 GPT-6/Astra 项目索引（特别是 `MartinDelophy/awesome-gpt-6-astra`）、GitHub/GitLab 和 Godot 社区示例。
+- **同栈高相似源码优先复制改造**：只有原始源码可获得、版本可固定且许可证允许复用时才复制。先在新工作目录保留上游 commit 与 LICENSE/NOTICE，跑通未修改基线，再做最小改造。许可证未知或不兼容时只作参考。
+- **跨栈极相似项目先问用户**：如果找到极其类似、可复用但不是当前技术栈的项目，说明节省点与代价，询问是否改变技术栈；用户拒绝后不反复追问。
+- **多人/LAN 不再用单层证据推完成**：把“服务启动、单浏览器、两个独立身份、同一房间、跨端同步、离开/掉线/刷新/关页/重连/服务重启、两台实体设备”分为不同证据层；下层通过不能推出上层。
+- **绑定正在运行的服务实例**：局域网服务器可写运行实例记录，并通过 `X-GPS-Instance-ID` 暴露实例 ID；预检可核对 BUILD_ID、URL 和当前服务器源码哈希，避免“Python 已改但旧进程还在跑”。
+- **BUILD_ID 盖章顺序收紧**：字体、`network.js`、HTML/JS 补丁等所有会进入玩家包的后处理必须先完成，再盖 BUILD_ID；盖章后的任何文件变化都需要重新盖章并重测。
 
-默认工作区仍只生成简报和进度记录。不强制多代理组织、向量数据库或乐趣评分。
-
-参见[验证循环](references/verification-loop.md)、[项目记忆](references/project-memory.md)、[设计启发](references/design-heuristics.md)和[升级与评估记录](audit/v0.6.0-evaluation.md)。
+参见[技术路线与复用门](references/prototype-routing-and-reuse.md)、[多客户端验收](references/multiplayer-session-verification.md)和[0.7.0 升级审计](audit/v0.7.0-upgrade.md)。
 
 ## 首轮视觉参考约定
 
@@ -46,7 +47,7 @@
 2. 按需选择易理解的参考玩法，说明主要因果变化或不可分割的组合、不变项与证伪条件；不强行归入既有品类。
 3. 去主题测试只移除表面包装，不移除构成玩法的信息、感知或反馈。
 4. 在生产前推演少量具体回合，检查反事实选择、状态后果、可教学性、恢复路径，以及连点/等待/单一动作是否形成支配策略。
-5. 在 Godot 中先做最短、可重复玩的机制内核，并暴露合法动作、状态变化、结果原因、机会次数、时间边界以及可重复场景或种子。
+5. 在选定技术栈中先做最短、可重复玩的机制内核，并暴露合法动作、状态变化、结果原因、机会次数、时间边界以及可重复场景或种子。
 6. 让智能体通过真实输入反复执行“复现 -> 看状态/截图 -> 找到负责规则 -> 修改 -> 重跑”。
 7. 只在场景、美术可读性、机会数、平台和输入条件等基本一致时比较因果不同的版本。
 8. 条件允许时，用可玩的版本进行小规模真人比较来判断手感和偏好；没有真人证据时，不宣称已验证好玩。
@@ -71,15 +72,17 @@
 
 ```bash
 python scripts/init_workspace.py PROJECT
-python scripts/init_workspace.py PROJECT --novel-gameplay
+python scripts/init_workspace.py PROJECT --novel-gameplay --reuse-scan
+python scripts/init_workspace.py PROJECT --multiplayer
 python scripts/init_workspace.py PROJECT --with-starter --novel-gameplay
 python scripts/detect_capabilities.py PROJECT --write
 python scripts/run_godot_checks.py PROJECT --mode import
 python scripts/inspect_engine_context.py PROJECT --write
 python scripts/inspect_asset_set.py MANIFEST --root PROJECT --contact-sheet REVIEW.png
 python scripts/stamp_web_build.py export/web
-python scripts/serve_web_export.py export/web
+python scripts/serve_web_export.py export/web --runtime-record .prototype/evidence/web-server.json
 python scripts/web_preflight.py export/web --url http://127.0.0.1:8000/ --profile FIRST_TARGET --browser-report BROWSER.json --project-root PROJECT --require-glyphs --require-audio
+# 多人/LAN 需要绑定正在运行的服务实例时，再加 --runtime-record .prototype/evidence/web-server.json
 python scripts/web_preflight.py export/web --url http://127.0.0.1:8000/ --profile NEAR_RELEASE --browser-report BROWSER.json --project-root PROJECT --max-backing-width 1920 --max-backing-height 1080
 python scripts/package_and_report.py PROJECT --out release
 python scripts/change_impact.py --before-tree OLD --after-tree NEW
@@ -87,7 +90,7 @@ python scripts/validate_quality_review.py REVIEW.json --artifact ARTIFACT
 python scripts/validate_release_evidence.py ARTIFACT --evidence RELEASE.json
 ```
 
-初始化器默认只生成任务简报和进度记录；`--novel-gameplay` 额外生成 `.prototype/spec/mechanic_lab.md`；`--legacy-full` 保留详细的旧式记录。已有文件不会被覆盖。以上命令是示例，不是固定执行顺序。
+初始化器默认只生成任务简报和进度记录；`--novel-gameplay` 额外生成 `.prototype/spec/mechanic_lab.md`；`--reuse-scan` 生成开发前复用检索记录；`--multiplayer` 生成多客户端联合验收矩阵；`--legacy-full` 保留详细的旧式记录。已有文件不会被覆盖。以上命令是示例，不是固定执行顺序。
 
 `run_godot_checks` 退出码：0 通过，1 失败，2 无法/无效执行，3 部分完成。静态和无头测试不能证明真实交互、画面品质、声音输出、像素一致性、原创性或玩家乐趣。
 

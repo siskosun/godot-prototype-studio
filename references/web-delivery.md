@@ -30,11 +30,11 @@ Export to a dedicated directory such as `export/web/` with `index.html` as the e
 
 ## BUILD_ID and separate identities
 
-Before browser evidence, run:
+Before browser evidence, finish every declared post-export mutation first: copy required external JavaScript/fonts/configuration, apply HTML/loader patches, and verify those files. **Then** run:
 
 `python <skill-root>/scripts/stamp_web_build.py export/web`
 
-The script derives a BUILD_ID from the Web payload, writes `BUILD_ID.txt`, and stamps the HTML with the same visible identifier. Re-run it after every export. Then hash the Web directory. Hash the editable source/ZIP separately; never use one mixed source-plus-39MB-WASM tree hash as the identity for both artifacts. If `export/web/` lives under the working project, create the final source staging/ZIP **without** that generated directory before hashing it. The release validator rejects a source identity that contains generated `export/web` payloads.
+The script derives a BUILD_ID from the final player-delivered Web payload, writes `BUILD_ID.txt`, and stamps the HTML with the same visible identifier. Re-run it after every export or any post-export file change. Nothing may mutate the delivered Web payload after stamping without restamping and affected retest. Then hash the Web directory. Hash the editable source/ZIP separately; never use one mixed source-plus-39MB-WASM tree hash as the identity for both artifacts. If `export/web/` lives under the working project, create the final source staging/ZIP **without** that generated directory before hashing it. The release validator rejects a source identity that contains generated `export/web` payloads.
 
 Browser screenshots/logs must show or record the BUILD_ID and URL. A native/headless capture can support rule regression but cannot prove the page the player opened.
 
@@ -44,9 +44,15 @@ Use the bundled server rather than hand-writing `python -m http.server`:
 
 `python <skill-root>/scripts/serve_web_export.py export/web`
 
+When server-process identity matters (especially multiplayer/LAN debugging), write a record outside the served payload:
+
+`python <skill-root>/scripts/serve_web_export.py export/web --runtime-record .prototype/evidence/web-server.json`
+
+The record is written only after the HTTPS bind succeeds and includes process/start identity, BUILD_ID, advertised URL, current server/helper hashes, certificate fingerprint and a random instance ID. The server returns the same ID in `X-GPS-Instance-ID`; this lets preflight distinguish an old still-running server from newly edited Python source. The record is start evidence, not proof of gameplay or authoritative session behavior.
+
 It refuses a directory without the required Web payload (and refuses an accidental Godot project root), binds `0.0.0.0`, disables directory listings, serves `/` as the game entry point, sets WebAssembly MIME, disables development caching, generates a short-lived certificate with SANs for localhost and the selected LAN IP when no certificate is supplied, and prints the HTTPS LAN URL. It sends COOP/COEP only with `--cross-origin-isolation`, which should match a Web preset that actually enables threads or another isolation-dependent feature. It is a development/LAN server, not a public-production host.
 
-A certificate warning is not itself evidence of a secure context. On the receiving browser, accept/trust the local certificate as appropriate, then verify `window.isSecureContext === true`. If it stays false, install/trust an appropriate local CA/certificate or provide a trusted certificate; do not fall back to LAN HTTP and call it verified.
+A certificate warning is not itself evidence of a secure context. Certificate trust is a receiver/browser action. If the browser stops at a certificate error, report that state and wait for the user to accept/trust it or provide an appropriate trusted certificate; do not automate trust installation, bypass a hard browser error, or fall back to LAN HTTP and call it verified. After the user completes the trust flow, verify `window.isSecureContext === true`.
 
 For LAN sharing also check:
 
@@ -61,6 +67,8 @@ For LAN sharing also check:
 Run the service first, then:
 
 `python <skill-root>/scripts/web_preflight.py export/web --url https://<LAN-IP>:8443/ --profile LAN_SHARE --browser-report <report.json> --project-root <project> --allow-self-signed`
+
+When a runtime record was created, add `--runtime-record .prototype/evidence/web-server.json`. Preflight then requires the served `X-GPS-Instance-ID`, BUILD_ID, URL and current server/helper source hashes to match that record.
 
 For the first playable Web slice use `--profile FIRST_TARGET` with a real browser report. For a near-release Web artifact use `--profile NEAR_RELEASE`, pass the actual project root/preset, and declare a backing-canvas budget with `--max-backing-width` / `--max-backing-height`. Player-facing profiles also require CSS display size, viewport fit, full visibility, and a clickable primary control. A backing-canvas budget PASS does not prove the page fills the window. Near-release always enforces text-render integrity; add `--require-audio` when the brief promises audio. If the selected preset enables threads, use `--allow-threads` and serve with `--cross-origin-isolation`; otherwise do not require COOP/COEP. Enable `--allow-mobile-vram` only for an explicit ETC2/ASTC-capable target/import path. A custom Web release template requires separate version-compatibility verification before `--allow-custom-template`.
 
@@ -78,6 +86,12 @@ The preflight checks what can be established deterministically from files and HT
 Browser-only facts come from a browser report produced by the available real-browser harness or a deliberate manual inspection. For WEB_SHARE/LAN_SHARE/NEAR_RELEASE, require `engineStarted=true`, a normal-input smoke path, no fatal console errors, matching URL/BUILD_ID, and `isSecureContext=true` for LAN. Require `crossOriginIsolated=true` only when the selected preset needs it. If the exported loader exposes a version-specific missing-feature API, record it and require no missing features; otherwise record equivalent capability checks rather than inventing an API. Require post-gesture audible output when audio is in scope. Near-release always records text/glyph/layout integrity; non-Latin/localized projects must use bundled font coverage rather than desktop system-font success.
 
 `web_preflight.py` validates the report; it does not launch a browser itself. A PASS therefore means the supplied browser observations and service/file probes are mutually consistent, not that Python independently perceived the game.
+
+## Multiplayer and mixed-surface Web clients
+
+When rooms, two browsers/devices, shared authoritative state or LAN multiplayer are part of the promise, use [multi-client verification](multiplayer-session-verification.md). Two separately valid browser reports do not prove the clients joined the same session or synchronized state. Bind final evidence to the required joint path and server instance.
+
+When HTML inputs/overlays sit on top of the Godot canvas, separately test browser focus, required IME composition, confirm/cancel behavior, resize/DPR alignment and mobile keyboard where targeted. Godot text rendering and canvas layout do not establish DOM input correctness.
 
 ## Lightweight WEB_SHARE versus final release
 

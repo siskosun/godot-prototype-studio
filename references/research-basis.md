@@ -357,6 +357,16 @@ Applied: Use explicit font fallbacks for multiple scripts and account for differ
 
 Limit: Font coverage does not establish translation quality, typography quality, or runtime layout correctness; inspect the final Web build.
 
+### S35 - MartinDelophy/awesome-gpt-6-astra
+
+Source: https://github.com/MartinDelophy/awesome-gpt-6-astra
+
+Type/date: community-maintained discovery index; Chinese README checked 2026-09-14.
+
+Applied: Use as an early search seed for GPT-6/Astra game prototypes, then follow promising entries to the original author/repository and verify source availability, stack, revision and license before reuse. Landing: prototype-routing-and-reuse.md.
+
+Limit: Inclusion is not a benchmark, license grant or independent audit of model attribution. Many entries are hosted experiences or screenshots rather than reusable source; the index's own notes distinguish author statements from independent verification.
+
 ## Contrary evidence and decisions not adopted
 
 Do not use a model fun/creativity score, number of features, code length, or survival rate as the final quality objective. Do not equate bot policies with actual novice/expert humans. Do not silently replace user-retained design with a model-rated winner. A simpler native solution can outperform more generative tooling; choose it when it meets the intended identity and experience.
