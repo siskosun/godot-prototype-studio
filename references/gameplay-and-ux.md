@@ -8,6 +8,8 @@ Explain the main action, information available before it, consequence, feedback,
 
 Choose the smallest complete session that demonstrates that promise. Plan purposeful encounters or situations: introduce a rule, use it, vary a relevant constraint, and combine or resolve it. A palette swap or larger health number alone is not proof of a new decision. Avoid mandatory content quotas and random complication. Reuse a mechanic in situations that change what the player does.
 
+For work spanning several systems or iterations, use the lightweight experience spine in [experience validation](experience-validation-loop.md). Trace only the loop layers the game actually has. A reward, inventory, economy or progression system should change later decisions or intentionally change the core tension; do not keep it merely because it adds content, numbers or retention structure.
+
 ## First play and return play
 
 Start a clean build without the designer's internal explanation. Can a player tell what to do, act, see the result and recover? Put guidance at the moment of need; teach through a safe action before pressure where appropriate. Do not frontload all rules, add compulsory long intro animation, or use instructions to conceal an unclear affordance.
@@ -38,4 +40,4 @@ When real participants are available, observe unassisted first action, confusion
 
 Finish all agent-verifiable improvements without waiting for optional participants. Report remaining experience hypotheses explicitly. Never simulate humans by role-playing them and record the output as user testing.
 
-Evidence basis: S14-S19 support interaction-based evaluation and its limits; S09/S10 address input/access; S20 addresses opportunity-aware inference. Specific design decisions here are contextual recommendations, not empirically guaranteed improvements.
+Evidence basis: S14-S19 support interaction-based evaluation and its limits; S09/S10 address input/access; S20 addresses opportunity-aware inference; S36-S40 inform the experience-spine, hypothesis, behavior-contract and playtest separation used in the 0.8 workflow. Specific design decisions here are contextual recommendations, not empirically guaranteed improvements.
