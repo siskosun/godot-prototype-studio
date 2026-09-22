@@ -17,6 +17,8 @@ For a presentable new prototype, final evidence normally includes successful imp
 
 Use existing tests, a small GDScript runner, or a proven runtime bridge. `scripts/run_godot_checks.py PROJECT --mode import|test|smoke|all` is a convenience for engine checks, not a complete playtest. Inspect both exit status and actionable log errors. The runner returns 0 for PASS, 1 for failed checks, 2 for unavailable/invalid execution, and 3 for PARTIAL with skipped checks. A missing optional unit-test file does not require inventing a suite; choose applicable checks and record coverage.
 
+When a rule can violate its contract temporarily and still end in a valid final state, test the relevant transitions/ticks rather than only the terminal state. Use baseline plus meaningful perturbations from the same declared rule family. For consequential automated acceptance, confirm the oracle rejects a disposable known-bad fixture or mutant; one passing implementation does not prove that the evaluator has teeth. See [runtime gameplay-logic verification](runtime-logic-verification.md).
+
 ## Real interaction
 
 Drive normal InputMap/OS/touch events through the game, not privileged calls that jump to the expected outcome. Setup hooks may construct a scenario but cannot stand in for player actions. Record input source, scenario/seed, observation, and resulting state. Inspect representative states: first action, differentiating choice, success or session completion, failure, retry, and stressful layout. Sandbox loops need creation/use/reset rather than arbitrary victory.
@@ -33,4 +35,4 @@ If only one agent is available, perform a distinct fresh-start final check again
 
 Categorize failures: implementation, import/build, runtime behavior, input/presentation, host/tooling, evaluator, or unknown. An evaluator failure is not evidence that the game passed or failed gameplay. Keep raw evidence to support the classification.
 
-A JSON validator checks consistency and hashes, not the truth of logs, pixel similarity, novelty, or fun. Protect evaluation evidence from casual rewrites; distinguish trusted external tests from agent-authored tests. No skill-level protocol alone makes hostile code safe.
+A JSON validator checks consistency and hashes, not the truth of logs, pixel similarity, novelty, or fun. Protect evaluation evidence from casual rewrites; distinguish trusted external tests from agent-authored tests. Treat required core behaviors as all-or-nothing acceptance rather than averaging them into a reassuring score. No skill-level protocol alone makes hostile code safe.
