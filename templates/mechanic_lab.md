@@ -2,6 +2,14 @@
 
 Brief: [link; delivery acceptance remains in the mission brief]
 
+## Experience spine (only if useful across systems/iterations)
+
+- Player promise:
+- Core tension / core verb:
+- Existing loop layers:
+- Retained design pillars:
+- Explicit non-goals:
+
 ## Mechanic thesis
 
 - Player information:
@@ -54,13 +62,26 @@ Keep only causally different candidates. Reject theme, quantity, reward, content
 - Visual reference mode:
 - Scope intentionally excluded:
 
-## Observability
+## Behavior contract and observability
 
-- State and legal actions:
+- Legal start/precondition:
+- Player-level actions:
+- Stable observable state/snapshot:
+- Core required outcomes (all must pass):
+- Rejection/illegal-action behavior:
+- Runtime/transition invariants where intermediate state matters:
 - Action/state-delta/outcome log:
 - Opportunity counts:
 - Timing/position/resource fields:
 - Terminal and recovery events:
+
+## Perturbation and evaluator sanity (only as useful)
+
+- Baseline scenario:
+- Perturbations from the same rule family:
+- Same-rule harder scenario/evaluator-selected case:
+- Known-bad disposable fixture or mutant:
+- Did the oracle reject it for the intended reason?:
 
 ## Comparison and decision
 
