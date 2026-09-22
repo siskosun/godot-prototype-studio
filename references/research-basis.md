@@ -367,13 +367,63 @@ Applied: Use as an early search seed for GPT-6/Astra game prototypes, then follo
 
 Limit: Inclusion is not a benchmark, license grant or independent audit of model attribution. Many entries are hosted experiences or screenshots rather than reusable source; the index's own notes distinguish author statements from independent verification.
 
+### S36 - saschb2b/skills game-design
+
+Source: https://github.com/saschb2b/skills/blob/main/skills/productivity/game-design/SKILL.md
+
+Type/date: maintainer repository; current skill inspected 2026-09-22.
+
+Applied: Preserve a lightweight experience identity across long-running implementation, and reason across the loop layers that actually exist instead of treating each feature as isolated. Landing: experience-validation-loop.md, gameplay-and-ux.md.
+
+Limit: Its pattern catalog and design lenses are editorial guidance, not a benchmark showing that the workflow improves player outcomes. This skill does not import the whole concept/GDD bundle or make its framework mandatory.
+
+### S37 - abagames/agentic-gamedev-skills
+
+Source: https://github.com/abagames/agentic-gamedev-skills
+
+Type/date: maintainer repository; `exploring-game-design-space` and `implementing-gameplay-invariants` inspected 2026-09-22.
+
+Applied: Treat candidate mechanics as falsifiable hypotheses, prefer causal/structural variation over cosmetic breadth, translate design promises into testable invariants, and avoid a universal model-generated fun score. Landing: novel-gameplay.md, experience-validation-loop.md, runtime-logic-verification.md.
+
+Limit: The repository grows from particular game-development practices and does not establish a universal design curriculum or target-audience preference. Do not import fixed search budgets or genre-specific assumptions as defaults.
+
+### S38 - AlterLab GameForge game-playtest
+
+Source: https://github.com/roohe/agentic-super-skills/blob/master/skills_library/game-playtest/SKILL.md
+
+Type/date: maintainer repository; current public skill inspected 2026-09-22.
+
+Applied: Define playtest questions before the session, observe unassisted behavior, separate observation from interpretation, and use post-session questions to explain behavior rather than replacing it. Landing: playtest-and-player-qa.md, experience-validation-loop.md, templates/playtest_plan.md.
+
+Limit: Do not adopt its fixed five-tester minimum, fixed vote thresholds, mandatory waiting period, or facial-expression/emotion inference as universal evidence rules. Sample size and evidence strength must match the actual claim.
+
+### S39 - GameASG-Bench
+
+Sources: https://arxiv.org/abs/2609.21293 and https://github.com/areal-project/GameASG-Bench
+
+Type/date: research paper submitted 2026-09-18 plus public benchmark repository; inspected 2026-09-22.
+
+Applied: Make consequential game behavior externally observable through legal scenarios, player-level actions, stable snapshots, rejection behavior and invariants while leaving internal implementation open. Keep core acceptance conjunctive rather than hiding a failed required behavior inside a high mean pass rate. Landing: runtime-logic-verification.md, implementation-testing.md, templates/mechanic_lab.md.
+
+Limit: The benchmark covers browser-game behavioral compliance. Its strict task-success results do not measure fun, aesthetics, player preference or the end-to-end quality of this skill, and its exact public test interface is not required for every Godot project.
+
+### S40 - GameLogicBench
+
+Sources: https://arxiv.org/abs/2609.21562 and https://github.com/NJU-LINK/GameLogicBench
+
+Type/date: research paper submitted 2026-09-18 plus public Godot benchmark repository; inspected 2026-09-22.
+
+Applied: Check temporal game rules at the relevant simulation ticks/transitions when final-state checks can miss violations; perturb disclosed rule families across seeds/scales/scenarios; isolate composite axes where useful; and validate consequential evaluators against deliberately broken mutants. Landing: runtime-logic-verification.md, implementation-testing.md, templates/mechanic_lab.md.
+
+Limit: Benchmark correctness is not player experience. Hidden/evaluator-selected scenarios require real evaluation separation; this skill must not pretend a scenario is hidden or freeze a judge that the host cannot actually isolate.
+
 ## Contrary evidence and decisions not adopted
 
 Do not use a model fun/creativity score, number of features, code length, or survival rate as the final quality objective. Do not equate bot policies with actual novice/expert humans. Do not silently replace user-retained design with a model-rated winner. A simpler native solution can outperform more generative tooling; choose it when it meets the intended identity and experience.
 
 Canonical asset references reduce one form of drift; they do not prove good composition, animation, typography or runtime integration. More anticipation can feel sluggish, more VFX can hide actions, and more content can dilute the main interaction. Test these tradeoffs in the actual game.
 
-No paper above establishes that this skill reliably produces near-release games. This release changes executable checks and workflow obligations; live-agent and target-player validation remain separate evidence.
+No paper or public skill above establishes that this skill reliably produces near-release games or better player experience. This release tightens design continuity, runtime logic evidence and human-observation boundaries; live-agent and target-player validation remain separate evidence.
 
 ## Previous provenance
 
