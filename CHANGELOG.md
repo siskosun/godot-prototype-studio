@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0 - 2026-09-22
+
+- Add a conditional experience-validation loop: lightweight player promise/core tension/loop-stack memory for multi-system work, causal experience hypotheses, and explicit separation between design intent, observable behavior, runtime correctness and human experience.
+- Add runtime gameplay-logic verification inspired by GameASG-Bench and GameLogicBench: observable behavior contracts, relevant tick/transition invariants, baseline + perturbation scenarios, conjunctive core requirements, and mutant/known-bad evaluator sanity checks when consequential.
+- Strengthen human playtest guidance around predeclared questions, unassisted behavior, expectation mismatch, strategy change and observation-vs-interpretation separation. Reject universal tester counts, fixed vote thresholds and facial-expression inference as hard evidence rules.
+- Extend the mechanic lab with optional experience-spine, behavior-contract, perturbation and evaluator-sanity fields without making another mandatory document stack.
+- Record saschb2b/game-design, abagames agentic-gamedev-skills, AlterLab game-playtest, GameASG-Bench and GameLogicBench as bounded research inputs rather than wholesale frameworks.
+
 ## 0.7.0 - 2026-09-14
 
 - Add a pre-development engine-route gate for new prototypes. Compare the same accepted experience in Godot versus simple browser-native H5; when H5 is materially faster/simpler and the stack is open, recommend it and ask once rather than silently defaulting to Godot.
