@@ -2,7 +2,9 @@
 
 - Playtest ID:
 - Build or Tree Hash:
-- Prototype Question:
+- Prototype Question / decision to inform:
+- Expected behavior if hypothesis holds:
+- Disconfirming behavior worth acting on:
 - Session Type: SELF_PLAY | EXPERT_REVIEW | NAIVE_PLAYER | TARGET_PLAYER | PUBLISHER_REVIEW
 - Participant Profile and Prior Familiarity:
 - What Is Deliberately Unfinished:
@@ -14,11 +16,14 @@
 
 ## Observe
 
+Record behavior before interpretation. Log facilitator intervention separately.
+
 - First meaningful action:
 - Hesitation or ignored affordance:
+- Expectation mismatch:
 - Failure and recovery understanding:
 - Strategy change or experimentation:
-- Spontaneous retry/continue behavior:
+- Spontaneous retry/continue/stop behavior:
 - Technical/environmental failures:
 
 ## Ask After Play
