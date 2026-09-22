@@ -1,4 +1,4 @@
-# Godot Prototype Studio 0.7.0
+# Godot Prototype Studio 0.8.0
 
 [English](README.md) | [Chinese](README.zh-CN.md)
 
@@ -6,14 +6,15 @@ Build a small, complete game prototype or near-release slice with task-sized des
 
 ## What changed
 
-0.7.0 keeps the 0.6 evidence/verification architecture and adds two pre-development decisions plus a stronger multiplayer/LAN completion model.
+0.8.0 keeps the 0.7 routing, reuse and multiplayer baseline and closes the gap between "the feature runs" and "the intended player experience is actually supported."
 
-- **Choose the lightest adequate stack:** once the prototype content is clear, compare Godot with a simple browser-native H5 implementation. If H5 is materially faster/simpler without losing a requirement and the stack is open, recommend it and ask once; never silently switch.
-- **Reuse before rebuilding:** before formal implementation, search current source by mechanic/state model, especially GPT-6/Astra indexes and close Godot/H5 projects. A compatible same-stack source can be copied at a pinned revision, baselined, and adapted; unknown licenses are reference-only. An extremely similar cross-stack project triggers one stack-change question.
-- **Joint multiplayer evidence:** rooms/LAN/two-device projects now verify service, distinct clients, same session, synchronized state, lifecycle/recovery and required physical-device play as separate layers. One green browser does not imply the next layer.
-- **Runtime instance identity:** the bundled LAN server can write a process/build/source record and exposes `X-GPS-Instance-ID`; preflight can bind the observed endpoint to that instance. Post-export files are finalized before BUILD_ID stamping.
+- **Experience spine, only when useful:** preserve the player promise, core tension/verb, existing loop layers, retained design pillars and non-goals across repeated multi-system edits. Do not create a second GDD or force progression/meta onto games that do not need it.
+- **Experience claims become hypotheses:** connect design intent -> observable player behavior -> correct runtime behavior -> human evidence when the claim is subjective. Model opinion, a bot policy or a green logic test cannot certify fun.
+- **Runtime logic can be temporal:** for consequential stateful rules, define observable behavior contracts and inspect relevant ticks/transitions so a valid final state cannot hide an invalid path. Use baseline plus meaningful perturbations and treat every core requirement as required.
+- **Test the evaluator too:** when an automated oracle materially controls acceptance, confirm it rejects a disposable deliberately broken fixture/mutant. Do not require this ceremony for narrow low-risk edits.
+- **Behavior-first human playtests:** predeclare the question, observe cold-start behavior and expectation mismatches, and keep observations, participant statements, runtime facts and interpretation separate. No universal tester count or vote threshold is imposed.
 
-See [route and reuse](references/prototype-routing-and-reuse.md), [multi-client verification](references/multiplayer-session-verification.md), and the [0.7.0 audit](audit/v0.7.0-upgrade.md).
+See [experience validation](references/experience-validation-loop.md), [runtime logic verification](references/runtime-logic-verification.md), and the [0.8.0 audit](audit/v0.8.0-experience-validation.md). The 0.7 routing/reuse and multiplayer guidance remains in place.
 
 ## Use
 
