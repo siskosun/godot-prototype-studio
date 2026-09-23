@@ -1,0 +1,79 @@
+name: game-exp target validation
+on:
+  push:
+    branches:
+      - test/game-exp-phase1
+    paths:
+      - 'tools/game-exp-phase1/**'
+      - '.github/workflows/game-exp-target-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cross-platform:
+    name: cross-platform protocol probe (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5a5b9e67f8f353d3a86b3af243f059f06027134a
+        with:
+          python-version: '3.12'
+      - name: Run target probe
+        shell: bash
+        run: |
+          python tools/game-exp-phase1/target_probe.py --output "game-exp-evidence/${RUNNER_OS}.json"
+      - name: Upload evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: game-exp-target-${{ runner.os }}-${{ github.sha }}
+          path: game-exp-evidence/*.json
+          retention-days: 7
+          if-no-files-found: error
+
+  repository-observation:
+    name: repository observation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Capture repository facts
+        shell: bash
+        run: |
+          mkdir -p game-exp-evidence
+          python - <<'PY'
+          import json, os, subprocess
+          def run(*args):
+              p=subprocess.run(args,text=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+              return {"code":p.returncode,"stdout":p.stdout.strip(),"stderr":p.stderr.strip()}
+          data={
+            "repository":os.environ.get("GITHUB_REPOSITORY"),
+            "sha":os.environ.get("GITHUB_SHA"),
+            "ref":os.environ.get("GITHUB_REF"),
+            "run_id":os.environ.get("GITHUB_RUN_ID"),
+            "run_attempt":os.environ.get("GITHUB_RUN_ATTEMPT"),
+            "git_version":run("git","--version"),
+            "head":run("git","rev-parse","HEAD"),
+            "tree":run("git","rev-parse","HEAD^{tree}"),
+            "remote":run("git","remote","-v"),
+            "lfs":run("git","lfs","version"),
+          }
+          open("game-exp-evidence/repository.json","w",encoding="utf-8").write(json.dumps(data,ensure_ascii=False,indent=2)+"\n")
+          print(json.dumps(data,ensure_ascii=False,indent=2))
+          PY
+      - name: Upload repository evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: game-exp-repository-${{ github.sha }}
+          path: game-exp-evidence/repository.json
+          retention-days: 7
+          if-no-files-found: error
