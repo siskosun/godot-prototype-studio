@@ -7,6 +7,8 @@ on:
       - 'tools/game-exp-phase1/**'
       - '.github/workflows/game-exp-target-validation.yml'
   workflow_dispatch:
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
