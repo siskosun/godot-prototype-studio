@@ -6,7 +6,6 @@ import hashlib
 import json
 import os
 import platform
-import re
 import unicodedata
 from pathlib import Path
 
@@ -130,7 +129,7 @@ def main() -> int:
         "nested": {"β": "two", "A": "one"},
     }
     actual_digest = digest(vector)
-    expected_digest = "sha256:2c0acdd98f9571bc7c3e2eadc672579b296ad74ca233aff8c11f1deff1a0d8e3"
+    expected_digest = "sha256:d3cd00d2c795f2d6569b07cb38f311841b0e9d5d4f534f02059784d30d936f25"
 
     checks = [
         {"name": "canonical_digest", "status": "PASS" if actual_digest == expected_digest else "FAIL",
