@@ -1,6 +1,10 @@
 # Brief and delegated authority
 
-## One contract, before implementation
+## Authority before implementation
+
+For ordinary GPS work, the mission brief is the delivery acceptance contract. For a game-exp-managed project, the protected game-exp Manifest/Ledger remains authoritative for experiment identity, lifecycle, scope, Candidate and human promotion/selection gates; the GPS brief only specifies implementation and delivery inside that boundary. See `game-exp-integration.md`.
+
+## One implementation contract, before implementation
 
 Use `templates/mission_brief.md` for a new prototype or substantial redesign; write a short inline equivalent for a small change. Recover user decisions and the relevant project baseline first. Research may inform the design before implementation; it does not make a reference game authoritative.
 
@@ -8,7 +12,7 @@ For every new prototype, ask the visual-reference question in the first response
 
 When the user asks for a finished playable game, high-completion prototype, or release-like slice and gives no fidelity target, use NEAR_RELEASE_SLICE and concretize quality-bar.md. That profile is the craft bar, not a delivery bundle. A mechanic spike, quick graybox, technical proof, isolated fix, or explicitly rough experiment does not inherit the full bar merely because it is a new project. The brief states the outcome, observable success, falsifying evidence, hard boundaries, non-goals, and authority. Record quality profile, chosen runtime/package targets, visual-reference intent, and the evidence those targets need as separate decisions. Do not prescribe architecture or a tool itinerary. Preserve an existing contract instead of replacing it with this template.
 
-A design document explains *how the game works*. The brief explains *what this delivery must achieve*. Acceptance lives only in the brief; the design links to it. Mark statements as user constraints, observed project facts, or agent choices within delegated scope. Do not turn discussion examples or discarded ideas into obligations.
+A design document explains *how the game works*. The brief explains *what this delivery must achieve*. Outside game-exp, acceptance lives in the brief and the design links to it. Inside game-exp, experiment-level acceptance/lifecycle stays in game-exp while the brief owns implementation and delivery details. Mark statements as user constraints, observed project facts, or agent choices within delegated scope. Do not turn discussion examples or discarded ideas into obligations.
 
 ## Align without unnecessary interruption
 
@@ -18,7 +22,7 @@ Ask at most three coupled questions when the answers materially change the promi
 
 If the user declines to provide images or explicitly delegates the visual direction, record `ORIGINAL_DELEGATED`, select a coherent original baseline, and proceed. Do not keep requesting references. If pixel-accurate use targets third-party protected expression and rights are unconfirmed, exact copying remains unresolved; continue only with safe original or partial-reference work.
 
-After the prototype content is sufficiently concrete, resolve the `Pre-development Route` before formal implementation. If the user has not locked the technology, compare Godot with a simple H5/browser-native route against the same acceptance contract. Ask only when H5 is materially simpler/faster without losing a required capability. A recommendation to switch is a real user decision, not delegated taste. Once resolved, run the reuse-before-build scan and record whether the project will copy/adapt a compatible pinned source, use a candidate only as reference, build new, or change stack by user choice. See `prototype-routing-and-reuse.md`.
+After the prototype content is sufficiently concrete, resolve the `Pre-development Route` before formal implementation. If the user has not selected a technology and the request is genuinely stack-open, compare Godot with a simple H5/browser-native route against the same acceptance contract. If the user asked for Godot, the repository is already Godot, or game-exp binds a Godot prototype, do not reopen the stack choice. Ask only when H5 is materially simpler/faster without losing a required capability. A recommendation to switch is a real user decision, not delegated taste. Once resolved, run the reuse-before-build scan and record whether the project will copy/adapt a compatible pinned source, use a candidate only as reference, build new, or change stack by user choice. See `prototype-routing-and-reuse.md`.
 
 If no package form is specified, keep the tested in-place project for the selected stack. Add a Godot source ZIP, H5 source ZIP, Web export, desktop/Android build, or LAN share only when the request asks for that runtime, receiver, or handoff and the selected stack supports it. When Web is chosen, verify it in an actual served browser path and pick LOCAL_WEB_TEST or LAN_SHARE from the receiver context; LAN is not implied by near-release quality. Do not infer public web deployment, account upload, Android signing, or store release.
 

@@ -29,7 +29,7 @@ def command_version(binary: str | None) -> tuple[str | None, bool, str | None]:
     if not binary:
         return None, False, None
     try:
-        proc = subprocess.run([binary, "--version"], capture_output=True, text=True, timeout=10)
+        proc = subprocess.run([binary, "--version"], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=10)
     except Exception as exc:
         return None, False, str(exc)
     combined = (proc.stdout + "\n" + proc.stderr).strip()

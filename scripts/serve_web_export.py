@@ -89,7 +89,7 @@ def generate_certificate(cert: Path, key: Path, ip: str, days: int) -> None:
         "-addext", "keyUsage=digitalSignature,keyEncipherment",
         "-addext", "extendedKeyUsage=serverAuth",
     ]
-    run = subprocess.run(cmd, text=True, capture_output=True)
+    run = subprocess.run(cmd, text=True, encoding="utf-8", errors="replace", capture_output=True)
     if run.returncode != 0:
         raise ValueError("openssl certificate generation failed: " + (run.stderr.strip() or run.stdout.strip()))
     try:

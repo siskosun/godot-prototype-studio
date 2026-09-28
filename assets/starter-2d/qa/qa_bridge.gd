@@ -4,6 +4,14 @@ const MAX_EVENTS: int = 200
 const MAX_TRACE_ACTIONS: int = 10000
 const TRACE_SCHEMA_VERSION: String = "1.0"
 
+func _qa_enabled() -> bool:
+    return OS.is_debug_build() or OS.has_feature("qa")
+
+func _ready() -> void:
+    if not _qa_enabled():
+        set_process_input(false)
+        queue_free()
+
 var _events: Array[Dictionary] = []
 var _recording: bool = false
 var _trace_start_physics_frame: int = 0
@@ -38,6 +46,8 @@ func snapshot() -> Dictionary:
     }
 
 func setup_scenario(scenario_name: StringName) -> bool:
+    if not _qa_enabled():
+        return false
     var current_scene := get_tree().current_scene
     if current_scene != null and current_scene.has_method("qa_setup_scenario"):
         var ok := bool(current_scene.qa_setup_scenario(scenario_name))
@@ -48,6 +58,8 @@ func setup_scenario(scenario_name: StringName) -> bool:
     return false
 
 func configure_seed(seed_value: int) -> Dictionary:
+    if not _qa_enabled():
+        return {"value": null, "mode": "DISABLED_IN_RELEASE"}
     var current_scene := get_tree().current_scene
     var mode := "GLOBAL_RNG_ONLY"
     if current_scene != null and current_scene.has_method("qa_set_seed"):
@@ -60,6 +72,8 @@ func configure_seed(seed_value: int) -> Dictionary:
     return _seed_record.duplicate(true)
 
 func start_input_recording(clear_existing: bool = true) -> Dictionary:
+    if not _qa_enabled():
+        return {"recording": false, "reason": "DISABLED_IN_RELEASE"}
     if clear_existing:
         _trace_actions.clear()
     _trace_start_physics_frame = Engine.get_physics_frames()
@@ -86,12 +100,14 @@ func replay_trace_record() -> Dictionary:
         "scenario": _scenario_name,
         "framePolicy": {
             "clock": "physics_frame_offset",
-            "captureMode": "INPUT_EVENT_ACTION",
+            "captureMode": "INPUT_MAP_ACTIONS",
         },
         "actions": _trace_actions.duplicate(true),
     }
 
 func inject_action(action: StringName, pressed: bool, strength: float = 1.0) -> bool:
+    if not _qa_enabled():
+        return false
     if not InputMap.has_action(action):
         record_event("qa_input_injection_rejected", {"action": String(action)})
         return false
@@ -103,6 +119,8 @@ func inject_action(action: StringName, pressed: bool, strength: float = 1.0) -> 
     return true
 
 func step_frames(frame_count: int) -> Dictionary:
+    if not _qa_enabled():
+        return {"status": "FAIL", "mode": "DISABLED_IN_RELEASE", "frames": frame_count}
     if frame_count < 0:
         return {"status": "FAIL", "mode": "INVALID", "frames": frame_count}
     var current_scene := get_tree().current_scene
@@ -124,6 +142,8 @@ func step_frames(frame_count: int) -> Dictionary:
     }
 
 func replay_trace(trace: Dictionary) -> Dictionary:
+    if not _qa_enabled():
+        return {"status": "FAIL", "classification": "TEST_HARNESS", "reason": "QA disabled in release"}
     var validation := _validate_trace(trace)
     if validation.get("status") != "PASS":
         return validation
@@ -191,23 +211,26 @@ func print_trace() -> void:
     print(JSON.stringify(replay_trace_record()))
 
 func _input(event: InputEvent) -> void:
-    if not _recording:
+    if not _recording or not _qa_enabled():
         return
-    if event is not InputEventAction:
+    if event is InputEventKey and event.echo:
         return
-    if _trace_actions.size() >= MAX_TRACE_ACTIONS:
-        _recording = false
-        record_event("qa_input_recording_limit_reached", {
-            "max_actions": MAX_TRACE_ACTIONS,
+    for action in InputMap.get_actions():
+        if String(action).begins_with("ui_") or not event.is_action(action):
+            continue
+        if _trace_actions.size() >= MAX_TRACE_ACTIONS:
+            _recording = false
+            record_event("qa_input_recording_limit_reached", {
+                "max_actions": MAX_TRACE_ACTIONS,
+            })
+            return
+        _trace_actions.append({
+            "frame": maxi(0, Engine.get_physics_frames() - _trace_start_physics_frame),
+            "action": String(action),
+            "pressed": event.is_action_pressed(action),
+            "strength": event.get_action_strength(action),
+            "source": event.get_class(),
         })
-        return
-    var action_event := event as InputEventAction
-    _trace_actions.append({
-        "frame": maxi(0, Engine.get_physics_frames() - _trace_start_physics_frame),
-        "action": String(action_event.action),
-        "pressed": action_event.pressed,
-        "strength": action_event.strength,
-    })
 
 func _validate_trace(trace: Dictionary) -> Dictionary:
     if String(trace.get("schemaVersion", "")) != TRACE_SCHEMA_VERSION:

@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.0 - 2026-09-28
+
+- Fix real InputMap event recording in the starter QA bridge and retain event source provenance.
+- Remove QA control hooks from ordinary release runtime unless debug/custom QA mode is enabled.
+- Set the starter minimum to Godot 4.3+.
+- Make Godot subprocess output UTF-8-safe on Windows and add a Windows CI matrix.
+- Add game-exp integration with an explicit authority split and Candidate/human-gate boundary.
+- Stop reopening H5 routing when Godot is already selected.
+- Replace model-specific reuse priority with configurable discovery sources.
+- Add a concrete Godot 4.3+ practical guide and shorten runtime SKILL.md.
+- Add runtime-only skill packaging and exclude development/audit/test history from skill.zip.
+- Rename version-numbered tests by function.
+- Do not claim the controlled seven-task agent comparison has run; engineering regressions are not creative-effect evidence.
+
+
 ## 0.9.0 - 2026-09-28
 
 - Added Evaluation Interface v1 to the starter QA bridge: scenario setup, explicit seed-control identity, named input recording/injection, trace replay and honest frame-step modes.

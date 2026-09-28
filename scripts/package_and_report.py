@@ -53,7 +53,7 @@ def write_zip(tree: Path, archive: Path) -> None:
 def _run_validator(script: str, args: list[str]) -> dict[str, Any]:
     result = subprocess.run(
         [sys.executable, str(SKILL_SCRIPTS / script), *args],
-        text=True, capture_output=True, timeout=60)
+        text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=60)
     payload: Any
     try:
         payload = json.loads(result.stdout) if result.stdout.strip().startswith("{") else {

@@ -1,4 +1,4 @@
-"""0.7 route/reuse and runtime-identity utility tests; not live gameplay or multi-device validation."""
+"""route/reuse and runtime-identity utility tests; not live gameplay or multi-device validation."""
 from __future__ import annotations
 
 import functools
