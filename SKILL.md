@@ -1,6 +1,6 @@
 ---
 name: godot-prototype-studio
-description: Build, improve, debug, test, polish, and deliver small Godot game prototypes and near-release slices. Use for Godot gameplay/experience design, runtime logic, visual work, playtests, multiplayer/LAN, Web export, QA, reuse-before-build, and tested delivery. If the user has already chosen Godot, stay on Godot; compare stacks only when the technology is genuinely open.
+description: Build, improve, debug, test, polish, and deliver small Godot game prototypes and near-release slices. Use for Godot gameplay, experience design, runtime logic, visuals, playtests, multiplayer/LAN, Web export, QA, reuse, and tested delivery. Stay on Godot when already selected; compare stacks only when genuinely open.
 ---
 
 # Godot Prototype Studio
