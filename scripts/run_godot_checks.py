@@ -42,7 +42,7 @@ def run_command(name: str, command: list[str], report_dir: Path, timeout: int) -
     timed_out = False
     launch_error = None
     try:
-        proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout)
+        proc = subprocess.run(command, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout)
         returncode: int | None = proc.returncode
         stdout = proc.stdout
         stderr = proc.stderr
