@@ -1,6 +1,6 @@
 # Pre-development route and reuse gate
 
-Use for a new prototype after the player-facing content is clear and before scaffolding or substantive implementation. Do not reopen an explicit user-locked stack. The goal is to choose the cheapest adequate implementation and avoid rebuilding a prototype that already exists.
+Use for a new prototype after the player-facing content is clear and before scaffolding or substantive implementation. If the user explicitly chose Godot, the existing project is Godot, or game-exp binds a Godot subject, skip stack comparison and go directly to the reuse gate. The goal is to choose the cheapest adequate implementation without reopening an already-set technology decision.
 
 ## Gate 1: decide whether Godot is actually needed
 
@@ -28,12 +28,7 @@ Record the resolved route in the brief's `Pre-development Route` section. `H5_CA
 
 After the stack choice is resolved and before substantive custom code, search for public source that already implements the same interaction or state model. Search by player verbs, information, viewpoint, input, session/social relationship and state transitions rather than by theme alone.
 
-Search in this order while results can still change the implementation decision:
-
-1. User-provided repositories, prior project links and known internal/local prototypes.
-2. Current GPT-6/Astra game indexes, especially `MartinDelophy/awesome-gpt-6-astra`, then follow each promising entry to the original author/repository. Treat community lists as discovery indexes, not proof of quality, model attribution, license or source availability.
-3. GitHub/GitLab and other open-source hosts using mechanic + stack terms such as `Godot`, `GDScript`, `HTML`, `Canvas`, `Three.js`, `WebSocket`, `multiplayer`, plus `GPT-6`, `Astra` when relevant.
-4. Godot demos/Asset Library or other engine/community examples when they reduce implementation risk without importing unrelated product scope.
+Use [reuse-sources.md](reuse-sources.md) for discovery order. Keep community/model-specific indexes configurable rather than hard-coding one vendor or model family into the core workflow.
 
 Use current web/GitHub connectors when available. If external search is unavailable after trying authorized alternatives, record the gap and proceed from user/local/known sources unless reuse research itself is an explicit deliverable; do not fabricate a negative search result.
 
@@ -56,4 +51,3 @@ Before executing external code, inspect its license, dependency manifests, setup
 
 After copying, establish a baseline with the candidate's documented route. If the baseline does not actually run or the relevant mechanic is absent, downgrade the reuse decision instead of forcing the project to fit the source.
 
-Astra provenance is useful for finding examples of strong-agent workflows; it is not evidence that the code is correct, maintainable, original or appropriate for this project.
