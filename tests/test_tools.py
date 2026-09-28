@@ -373,16 +373,16 @@ class PackageTests(unittest.TestCase):
     def test_scripts_parse(self):
         for file in SCRIPTS.glob('*.py'):
             with self.subTest(file=file.name):
-                ast.parse(file.read_text(), filename=str(file))
+                ast.parse(file.read_text(encoding='utf-8'), filename=str(file))
 
     def test_json_templates_parse(self):
         for file in (ROOT / 'templates').glob('*.json'):
             with self.subTest(file=file.name):
-                self.assertIsInstance(json.loads(file.read_text()), dict)
+                self.assertIsInstance(json.loads(file.read_text(encoding='utf-8')), dict)
 
     def test_local_markdown_links_resolve(self):
         for file in ROOT.rglob('*.md'):
-            for link in re.findall(r'\[[^\]]*\]\(([^)]+)\)', file.read_text()):
+            for link in re.findall(r'\[[^\]]*\]\(([^)]+)\)', file.read_text(encoding='utf-8')):
                 link = link.split('#', 1)[0]
                 if not link or '://' in link or link.startswith('mailto:'):
                     continue
@@ -390,7 +390,7 @@ class PackageTests(unittest.TestCase):
                     self.assertTrue((file.parent / link).exists())
 
     def test_root_is_compact_router(self):
-        text = (ROOT / 'SKILL.md').read_text()
+        text = (ROOT / 'SKILL.md').read_text(encoding='utf-8')
         self.assertTrue(text.startswith('---\nname: godot-prototype-studio\n'))
         self.assertLess(len(text.split()), 1200)
         description = re.search(r'^description: (.+)$', text, re.MULTILINE).group(1)
