@@ -1,8 +1,12 @@
-# Godot Prototype Studio 1.0.0
+# Godot Prototype Studio 1.0.1
 
 [English](README.md) | [中文](README.zh-CN.md)
 
 1.0 是一次收敛版升级，不再继续叠加流程。Godot 已被用户、现有项目或 game-exp 选定时，GPS 直接使用 Godot，不再主动比较 H5；只有技术栈真正开放时才做路线比较。
+
+## 1.0.1
+
+当技术栈已经确定为 H5 时，GPS 明确把“玩家体验目标、路由决定、复用检索结论”交给 `h5-game-prototype-agent`，不在 GPS 内维护第二套 H5 流程。运行时打包同时改为严格白名单，避免临时测试输出混入 `skill.zip`。
 
 ## 1.0.0
 

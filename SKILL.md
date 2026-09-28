@@ -23,6 +23,8 @@ If the user explicitly asks for Godot, the repository is already Godot, or game-
 
 Only compare Godot with H5/browser-native implementation when the user has not selected a stack and the request is genuinely stack-open. See [route and reuse](references/prototype-routing-and-reuse.md).
 
+If the resolved stack is H5, hand the player-experience goal, route decision, and reuse conclusion to the `h5-game-prototype-agent` skill. If that skill is unavailable, tell the user and let them choose whether to install it or stay on Godot; do not recreate an H5 workflow inside GPS.
+
 Before substantial new implementation, search for reusable same-stack source when reuse could materially save work. Use [reuse sources](references/reuse-sources.md) as discovery guidance; original source and license remain authoritative.
 
 ## 3. Build the playable path first
