@@ -11,7 +11,8 @@ class ExperienceValidationUpgradeTests(unittest.TestCase):
         skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("experience-validation-loop.md", skill)
         self.assertIn("runtime-logic-verification.md", skill)
-        self.assertIn("Core requirements all pass", skill)
+        runtime = (ROOT / "references" / "runtime-logic-verification.md").read_text(encoding="utf-8")
+        self.assertIn("Core requirements all pass", runtime)
 
     def test_experience_loop_preserves_evidence_boundary(self):
         text = (ROOT / "references" / "experience-validation-loop.md").read_text(encoding="utf-8")
