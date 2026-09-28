@@ -12,7 +12,7 @@ class ExperienceValidationUpgradeTests(unittest.TestCase):
         self.assertIn("experience-validation-loop.md", skill)
         self.assertIn("runtime-logic-verification.md", skill)
         runtime = (ROOT / "references" / "runtime-logic-verification.md").read_text(encoding="utf-8")
-        self.assertIn("Core requirements all pass", runtime)
+        self.assertIn("acceptance is conjunctive", runtime)
 
     def test_experience_loop_preserves_evidence_boundary(self):
         text = (ROOT / "references" / "experience-validation-loop.md").read_text(encoding="utf-8")
