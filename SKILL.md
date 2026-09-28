@@ -11,7 +11,7 @@ Deliver a small but finished-feeling game when requested. Preserve creative inte
 
 Recover the current brief, progress and relevant repository instructions before editing. For new games or material redesigns, read [brief and authority](references/brief-and-authority.md). State the player promise, complete play path, target/input, delivery, quality, exclusions, evidence and delegated choices. The brief remains the single acceptance contract.
 
-For every new prototype, resolve visual-reference mode in the first response using [visual reference intake](references/visual-reference-intake.md). With no usable image, ask once for 1-3 reference images and partial versus pixel-accurate use; offer original delegation. With images already present, ask only how to use them. If mode/scope are clear, proceed without repeating. Preserve explicit diagnostic/no-image intent and retained visual decisions.
+For every new prototype, resolve visual-reference mode in the first response using [visual reference intake](references/visual-reference-intake.md). With no usable image, ask once for 1-3 reference images and partial versus pixel-accurate use; offer original delegation. With images already present, ask only how to use them. If mode/scope are clear, proceed. Preserve diagnostic/no-image intent and retained visual decisions.
 
 Once content and acceptance are clear, use [route and reuse](references/prototype-routing-and-reuse.md) before substantial implementation. If H5 is materially simpler with no important acceptance loss and the stack is open, recommend it and ask once; never switch silently. After the stack is resolved, search current reusable source. Reuse compatible pinned same-stack source when it saves work; ask once before switching for a close cross-stack source. Unknown/incompatible licensing is reference-only.
 
@@ -63,7 +63,7 @@ For multi-system or repeated design work, retain only a lightweight experience s
 
 For consequential stateful rules, define observable behavior and only the temporal invariants that matter. Use representative perturbations; when an evaluator controls acceptance, prove it rejects a known-bad disposable case. Core requirements all pass. See [runtime logic verification](references/runtime-logic-verification.md).
 
-Expose useful authoritative state, actions, outcome reasons, scenarios and captures through working tools. Record actual input provenance; state injection cannot prove normal-path reachability. For reproducible comparison, use the Evaluation Interface and preserve actual seed/step mode. Use a separate reviewer when useful and available; otherwise label a fresh-start self-review honestly. Hold the brief, scenario and artifact stable during review. Checksums detect drift, not execution, independence or enjoyment.
+Expose useful authoritative state, actions, outcome reasons, scenarios and captures through working tools. Record actual input provenance; state injection cannot prove normal-path reachability. Use a separate reviewer when useful and available; otherwise label a fresh-start self-review honestly. Hold the brief, scenario and artifact stable during review. Checksums detect drift, not execution, independence or enjoyment.
 
 Run the intended target early, as soon as representative interaction, required-language text and promised audio exist. Inspect the first generated sample's alpha, pivot, scale, occlusion and action before batching. Validate a representative live composition before expanding content, then check shared-rule regressions and critical variants.
 
