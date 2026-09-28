@@ -1,5 +1,5 @@
 ; Engine configuration file.
-; Thin instrumented 2D starter for Godot 4.x.
+; Thin instrumented 2D starter for Godot 4.3+.
 config_version=5
 
 [application]
