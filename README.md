@@ -1,8 +1,12 @@
-# Godot Prototype Studio 1.0.0
+# Godot Prototype Studio 1.0.1
 
 [English](README.md) | [Chinese](README.zh-CN.md)
 
 Build, improve, test, and deliver small Godot prototypes and near-release slices. When Godot is already selected, GPS stays on Godot; stack comparison is only for genuinely open-stack requests. The runtime skill is model-agnostic and now integrates explicitly with game-exp without duplicating its lifecycle or human selection gates.
+
+## 1.0.1
+
+When H5 is the resolved stack, GPS hands the player-experience goal, route decision, and reuse conclusion to `h5-game-prototype-agent` rather than maintaining a second H5 workflow. Runtime packaging now uses a strict allowlist so stray test outputs cannot enter `skill.zip`.
 
 ## 1.0.0
 
