@@ -1,6 +1,21 @@
-# Godot Prototype Studio 0.9.0
+# Godot Prototype Studio 1.0.0
 
 [English](README.md) | [中文](README.zh-CN.md)
+
+1.0 是一次收敛版升级，不再继续叠加流程。Godot 已被用户、现有项目或 game-exp 选定时，GPS 直接使用 Godot，不再主动比较 H5；只有技术栈真正开放时才做路线比较。
+
+## 1.0.0
+
+- 修复 QA 只能录到 `InputEventAction` 的问题：真人键盘、手柄等 InputMap 映射输入现在会被记录，并保存输入事件来源。
+- 普通正式版中关闭 QA 场景控制、输入注入和回放入口；starter 明确最低 Godot 4.3+。
+- Godot 相关 Python 子进程统一按 UTF-8 容错解码，补 Windows CI。
+- 新增 game-exp 托管模式：game-exp 管 Ledger、Manifest、生命周期、Candidate 与人工门；GPS 只管实现和证据，不重复做晋级系统。
+- 移除核心规则里对 GPT-6/Astra 等特定模型索引的绑定，复用来源改为可配置发现源。
+- 新增 Godot 4.3+ 实操手册，覆盖 InputMap、Control 焦点、TileMapLayer、Tween、无头测试、Web 导出和常见故障。
+- 精简运行时 `SKILL.md`；发布 `skill.zip` 排除 audit、tests、CHANGELOG、研究历史和维护文档。
+- 测试文件由版本号改为按功能命名。
+
+尚未宣称完成旧版与 1.0 的“同模型、同预算、7 个代表任务”效果对照。现有回归只能证明工程契约与工具行为，没有证明创作效果提升。
 
 把一个想法做成小而完整的游戏原型或接近发行品质的切片：默认擅长 Godot 2D，但当简单 H5 明显更合适时先让用户选择技术路线。本版保留 0.5.0 的基础：0.5.0 在 0.4.4“完成度、交付形式、证据分离”的基础上增加两条强智能体工作流：所有新原型都进行一次性的视觉参考约定；对新玩法则使用机制实验流程，主动寻找并证伪真正改变决策关系的玩法，而不是只给熟悉循环换皮。
 
