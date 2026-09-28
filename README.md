@@ -1,12 +1,28 @@
-# Godot Prototype Studio 0.9.0
+# Godot Prototype Studio 1.0.0
 
 [English](README.md) | [Chinese](README.zh-CN.md)
 
-Build a small, complete game prototype or near-release slice with task-sized design, implementation, repair and verified delivery. Godot remains the primary engine, but new prototypes can route to simple browser-native H5 when that is clearly cheaper and sufficient. The skill is model-agnostic. It does not promise a full commercial game, historical originality or validated audience appeal.
+Build, improve, test, and deliver small Godot prototypes and near-release slices. When Godot is already selected, GPS stays on Godot; stack comparison is only for genuinely open-stack requests. The runtime skill is model-agnostic and now integrates explicitly with game-exp without duplicating its lifecycle or human selection gates.
 
-## What changed
+## 1.0.0
 
-0.9.0 adds a small Evaluation Interface for reproducible comparison without pretending that agent play equals human experience.
+1.0 is a consolidation release rather than another workflow layer.
+
+- Fix real-player QA trace recording: mapped keyboard/gamepad events are recorded with input source provenance.
+- Disable QA mutation/control hooks in ordinary release builds; the starter requires Godot 4.3+.
+- Make Godot-related subprocess decoding UTF-8-safe on Chinese Windows and add Windows CI.
+- Add explicit game-exp managed mode: game-exp owns Ledger/Manifest/lifecycle/Candidates/human gates; GPS owns implementation and evidence.
+- Keep Godot when the user/project already chose it; H5 comparison is no longer a default interruption.
+- Move model/vendor-specific reuse indexes out of the core policy and make discovery sources configurable.
+- Add a concrete Godot 4.3+ practical guide and make the runtime `SKILL.md` shorter.
+- Build a runtime-only `skill.zip` that excludes audit, tests, changelog, research history, and maintenance documents.
+- Rename version-numbered tests by function.
+
+The controlled seven-task old-vs-new agent evaluation is still not claimed as run. Repository regression and packaging tests verify engineering behavior, not creative uplift.
+
+## 0.9.0
+
+0.9.0 added a small Evaluation Interface for reproducible comparison without pretending that agent play equals human experience.
 
 - **Replay Trace v1:** record named input actions with physics-frame offsets, scenario and seed-control identity.
 - **Seed truthfulness:** distinguish scene-owned deterministic seed control from global-RNG-only fallback.
