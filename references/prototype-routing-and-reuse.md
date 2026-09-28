@@ -20,7 +20,7 @@ Compare routes on the **same acceptance contract**:
 - test and delivery friction;
 - expected amount of custom infrastructure.
 
-If H5 is materially faster/simpler with no important acceptance loss and the stack is not user-locked, ask one explicit question before formal development: recommend H5, state the concrete reason and tradeoff, and ask whether to switch. Do not silently switch. If the user declines, continue Godot without repeatedly reopening the choice. If the user chooses H5, stop creating Godot-specific scaffolding and route to an H5/browser implementation workflow when available; preserve the same brief and evidence boundaries.
+If H5 is materially faster/simpler with no important acceptance loss and the stack is not user-locked, ask one explicit question before formal development: recommend H5, state the concrete reason and tradeoff, and ask whether to switch. Do not silently switch. If the user declines, continue Godot without repeatedly reopening the choice. If the user chooses H5, stop creating Godot-specific scaffolding and hand off to `h5-game-prototype-agent`. Pass the player-experience goal, the resolved route decision, and the reuse-search conclusion. If that skill is unavailable, tell the user and let them choose whether to install it or continue in Godot; GPS must not improvise a parallel H5 implementation workflow.
 
 Record the resolved route in the brief's `Pre-development Route` section. `H5_CANDIDATE` or another unresolved offer is not authority to start the full implementation.
 
