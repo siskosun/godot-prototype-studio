@@ -1,4 +1,4 @@
-# Godot Prototype Studio 0.8.0
+# Godot Prototype Studio 0.9.0
 
 [English](README.md) | [中文](README.zh-CN.md)
 
@@ -17,6 +17,19 @@
 - **真人试玩以行为观察为主**：提前定义会改变决策的问题，记录冷启动行为、犹豫、预期落差、策略变化和恢复路径，并分开记录观察、玩家陈述、运行事实与解释。不采用固定 5 人、3/5 投票门槛或根据表情直接推断情绪的硬规则。
 
 参见[体验验证闭环](references/experience-validation-loop.md)、[运行时逻辑验证](references/runtime-logic-verification.md)和[0.8.0 升级审计](audit/v0.8.0-experience-validation.md)。0.7 的技术路线、复用和多人验证规则继续有效。
+
+## 0.9.0：可复现评测接口
+
+本版新增一个小型 Evaluation Interface，用于在固定条件下记录和回放操作，但不把“智能体会玩”包装成“真人体验证据”。
+
+- Replay Trace v1 记录场景、种子控制方式、按 physics frame 偏移的命名输入动作。
+- 区分场景自己控制随机数的 `SCENE_CONTROLLED` 与只设置 Godot 全局随机种子的 `GLOBAL_RNG_ONLY`。
+- 区分项目自己实现的逐帧控制与普通实时 physics frame 等待；后者不得宣称为确定性手动步进。
+- 证据来源明确分为可信流程实际观测、智能体/测试者自报、真人报告。
+- 筛查保留“通过 / 产品缺陷失败 / 不确定”三类，测试工具或环境失败不得对产品下结论。
+- 2—4 个原型内部变体继续复用现有 `compare_prototypes.py` 与 `MACHINE_DOMINATED`；不引入 Elo 或通用“好玩分”。
+
+参见[评测接口与回放证据](references/evaluation-interface.md)和[游戏 QA / 回放](references/game-qa-and-replay.md)。
 
 ## 首轮视觉参考约定
 
