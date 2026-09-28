@@ -24,9 +24,10 @@ class EvaluationInterfaceUpgradeTests(unittest.TestCase):
         self.assertEqual((ROOT / "VERSION").read_text().strip(), "1.0.0")
         skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("evaluation-interface.md", skill)
-        self.assertIn("TRUSTED_OBSERVED", skill)
-        self.assertIn("PARTICIPANT_REPORTED", skill)
-        self.assertIn("HUMAN_REPORTED", skill)
+        contract = (ROOT / "references" / "evaluation-interface.md").read_text(encoding="utf-8")
+        self.assertIn("TRUSTED_OBSERVED", contract)
+        self.assertIn("PARTICIPANT_REPORTED", contract)
+        self.assertIn("HUMAN_REPORTED", contract)
 
     def test_starter_exposes_truthful_evaluation_interface(self):
         bridge = (
