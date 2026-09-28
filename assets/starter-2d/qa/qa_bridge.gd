@@ -10,6 +10,7 @@ func _qa_enabled() -> bool:
 func _ready() -> void:
     if not _qa_enabled():
         set_process_input(false)
+        queue_free()
 
 var _events: Array[Dictionary] = []
 var _recording: bool = false
