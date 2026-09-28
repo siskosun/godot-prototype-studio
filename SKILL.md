@@ -43,6 +43,7 @@ Judge separately:
 | Godot architecture/runtime | [architecture](references/godot-architecture.md), [production lessons](references/godot-production-lessons.md) |
 | Tool/engine uncertainty | [capabilities](references/capability-adaptation.md), [engine evidence](references/godot-engine-intelligence.md) |
 | Risk/replay/player probes | [game QA](references/game-qa-and-replay.md) |
+| Reproducible evaluation / replay traces | [evaluation interface](references/evaluation-interface.md) |
 | Evidence/variants | [implementation testing](references/implementation-testing.md), [variants](references/variant-experiments.md) |
 | Scope/debug/resume | [scope](references/scope-discipline.md), [debugging](references/debugging-and-experiments.md) |
 | Web/first-target/LAN | [web delivery](references/web-delivery.md) |
@@ -62,7 +63,7 @@ For multi-system or repeated design work, retain only a lightweight experience s
 
 For consequential stateful rules, define observable behavior and only the temporal invariants that matter. Use representative perturbations; when an evaluator controls acceptance, prove it rejects a known-bad disposable case. Core requirements all pass. See [runtime logic verification](references/runtime-logic-verification.md).
 
-Expose useful authoritative state, actions, outcome reasons, scenarios and captures through working tools. Record actual input provenance; state injection cannot prove normal-path reachability. Use a separate reviewer when useful and available; otherwise label a fresh-start self-review honestly. Hold the brief, scenario and artifact stable during review. Checksums detect drift, not execution, independence or enjoyment.
+Expose useful authoritative state, actions, outcome reasons, scenarios and captures through working tools. Record actual input provenance; state injection cannot prove normal-path reachability. When a comparison or external evaluation needs reproducible execution, prefer the project QA hook or the starter Evaluation Interface v1: bind seed/scenario/trace identity, distinguish exploratory runs from replay runs, and preserve actual stepping mode. Do not upgrade realtime frame waiting into deterministic manual stepping. Use a separate reviewer when useful and available; otherwise label a fresh-start self-review honestly. Hold the brief, scenario and artifact stable during review. Checksums detect drift, not execution, independence or enjoyment.
 
 Run the intended target early, as soon as representative interaction, required-language text and promised audio exist. Inspect the first generated sample's alpha, pivot, scale, occlusion and action before batching. Validate a representative live composition before expanding content, then check shared-rule regressions and critical variants.
 
@@ -78,6 +79,6 @@ Repair material evidenced gaps within authority; change the hypothesis or observ
 
 ## Evidence and handoff
 
-Keep source, editor, logic, runtime, normal-input, presentation, browser and human evidence distinct. Automated policies are not participants; consistent records do not prove truthful execution. Preserve failure identities and affected retests.
+Keep source, editor, logic, runtime, normal-input, presentation, browser and human evidence distinct. Also keep `TRUSTED_OBSERVED`, `PARTICIPANT_REPORTED`, and `HUMAN_REPORTED` evidence classes distinct. Agent exploration can propose a failing trace; only an independent trusted replay may upgrade that runtime fact to trusted observed evidence. Automated policies are not participants; consistent records do not prove truthful execution. Preserve failure identities and affected retests.
 
 Lead with the deliverable/run path, then DONE/BLOCKED, scope, observed checks, exact artifact identity and limits. Do not claim installation, a tested export, pixel accuracy, historical originality, player preference or commercial readiness without corresponding evidence.
