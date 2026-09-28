@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 - 2026-09-28
+
+- Route a resolved H5 stack explicitly to `h5-game-prototype-agent` with the player-experience goal, route decision, and reuse conclusion.
+- Keep H5 probe mechanics out of GPS; when the H5 skill is unavailable, ask the user to install it or remain on Godot.
+- Replace exclusion-only skill packaging with an explicit runtime allowlist so stray test outputs such as `ut-*.txt` cannot leak into `skill.zip`.
+- Add regression coverage for the named H5 handoff and runtime package boundary.
+
+
 ## 1.0.0 - 2026-09-28
 
 - Fix real InputMap event recording in the starter QA bridge and retain event source provenance.
