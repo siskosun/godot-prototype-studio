@@ -69,7 +69,7 @@ Keep these classes distinct when handing evidence to an external control plane s
 
 ### TRUSTED_OBSERVED
 
-A trusted workflow starts from an identified build, runs a declared replay or check in a fresh environment, observes the result itself, and binds the evidence to the build/profile/trace identities.
+A trusted clean workflow starts from an identified build, runs a declared replay or check in a fresh environment, observes the result itself, and binds the evidence to the build/profile/trace identities.
 
 ### PARTICIPANT_REPORTED
 
