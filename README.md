@@ -1,4 +1,4 @@
-# Godot Prototype Studio 0.8.0
+# Godot Prototype Studio 0.9.0
 
 [English](README.md) | [Chinese](README.zh-CN.md)
 
@@ -6,15 +6,16 @@ Build a small, complete game prototype or near-release slice with task-sized des
 
 ## What changed
 
-0.8.0 keeps the 0.7 routing, reuse and multiplayer baseline and closes the gap between "the feature runs" and "the intended player experience is actually supported."
+0.9.0 adds a small Evaluation Interface for reproducible comparison without pretending that agent play equals human experience.
 
-- **Experience spine, only when useful:** preserve the player promise, core tension/verb, existing loop layers, retained design pillars and non-goals across repeated multi-system edits. Do not create a second GDD or force progression/meta onto games that do not need it.
-- **Experience claims become hypotheses:** connect design intent -> observable player behavior -> correct runtime behavior -> human evidence when the claim is subjective. Model opinion, a bot policy or a green logic test cannot certify fun.
-- **Runtime logic can be temporal:** for consequential stateful rules, define observable behavior contracts and inspect relevant ticks/transitions so a valid final state cannot hide an invalid path. Use baseline plus meaningful perturbations and treat every core requirement as required.
-- **Test the evaluator too:** when an automated oracle materially controls acceptance, confirm it rejects a disposable deliberately broken fixture/mutant. Do not require this ceremony for narrow low-risk edits.
-- **Behavior-first human playtests:** predeclare the question, observe cold-start behavior and expectation mismatches, and keep observations, participant statements, runtime facts and interpretation separate. No universal tester count or vote threshold is imposed.
+- **Replay Trace v1:** record named input actions with physics-frame offsets, scenario and seed-control identity.
+- **Seed truthfulness:** distinguish scene-owned deterministic seed control from global-RNG-only fallback.
+- **Step truthfulness:** distinguish project-controlled stepping from ordinary realtime physics-frame waiting; the latter is never labeled deterministic manual stepping.
+- **Evidence provenance:** keep trusted workflow observation, agent/player reports and human reports separate.
+- **Three-way screening:** tool/environment uncertainty stays INCONCLUSIVE instead of being misreported as a product defect.
+- **Reuse existing comparison tools:** 2-4 local variants still use `compare_prototypes.py` and `MACHINE_DOMINATED`; no Elo or generic fun score is added.
 
-See [experience validation](references/experience-validation-loop.md), [runtime logic verification](references/runtime-logic-verification.md), and the [0.8.0 audit](audit/v0.8.0-experience-validation.md). The 0.7 routing/reuse and multiplayer guidance remains in place.
+See [evaluation interface](references/evaluation-interface.md) and [game QA / replay](references/game-qa-and-replay.md). Existing experience-validation, routing, reuse and multiplayer guidance remains in force.
 
 ## Use
 

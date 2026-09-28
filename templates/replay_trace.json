@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "seed": {
+    "value": 12345,
+    "mode": "SCENE_CONTROLLED"
+  },
+  "scenario": "replace_with_scenario",
+  "framePolicy": {
+    "clock": "physics_frame_offset",
+    "captureMode": "INPUT_EVENT_ACTION"
+  },
+  "actions": [
+    {
+      "frame": 0,
+      "action": "move_right",
+      "pressed": true,
+      "strength": 1.0
+    },
+    {
+      "frame": 30,
+      "action": "move_right",
+      "pressed": false,
+      "strength": 0.0
+    }
+  ]
+}

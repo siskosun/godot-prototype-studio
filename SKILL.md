@@ -5,13 +5,13 @@ description: Build, route, improve, debug, and verify small game prototypes. Pri
 
 # Godot Prototype Studio
 
-Deliver a small but finished-feeling game when requested. Preserve creative intent, project version/language/conventions/assets and unrelated work. Keep the user's scope, not an unbounded commercial production.
+Deliver a finished-feeling game when requested. Preserve creative intent, project version/language/conventions/assets and unrelated work. Keep the user's scope, not an unbounded commercial production.
 
 ## Establish the result and visual intent
 
 Recover the current brief, progress and relevant repository instructions before editing. For new games or material redesigns, read [brief and authority](references/brief-and-authority.md). State the player promise, complete play path, target/input, delivery, quality, exclusions, evidence and delegated choices. The brief remains the single acceptance contract.
 
-For every new prototype, resolve visual-reference mode in the first response using [visual reference intake](references/visual-reference-intake.md). With no usable image, ask once for 1-3 reference images and partial versus pixel-accurate use; offer original delegation. With images already present, ask only how to use them. If mode/scope are clear, proceed without repeating. Preserve explicit diagnostic/no-image intent and retained visual decisions.
+For every new prototype, resolve visual-reference mode in the first response using [visual reference intake](references/visual-reference-intake.md). With no usable image, ask once for 1-3 reference images and partial versus pixel-accurate use; offer original delegation. With images already present, ask only how to use them. If mode/scope are clear, proceed. Preserve diagnostic/no-image intent and visual decisions.
 
 Once content and acceptance are clear, use [route and reuse](references/prototype-routing-and-reuse.md) before substantial implementation. If H5 is materially simpler with no important acceptance loss and the stack is open, recommend it and ask once; never switch silently. After the stack is resolved, search current reusable source. Reuse compatible pinned same-stack source when it saves work; ask once before switching for a close cross-stack source. Unknown/incompatible licensing is reference-only.
 
@@ -43,6 +43,7 @@ Judge separately:
 | Godot architecture/runtime | [architecture](references/godot-architecture.md), [production lessons](references/godot-production-lessons.md) |
 | Tool/engine uncertainty | [capabilities](references/capability-adaptation.md), [engine evidence](references/godot-engine-intelligence.md) |
 | Risk/replay/player probes | [game QA](references/game-qa-and-replay.md) |
+| Reproducible evaluation / replay traces | [evaluation interface](references/evaluation-interface.md) |
 | Evidence/variants | [implementation testing](references/implementation-testing.md), [variants](references/variant-experiments.md) |
 | Scope/debug/resume | [scope](references/scope-discipline.md), [debugging](references/debugging-and-experiments.md) |
 | Web/first-target/LAN | [web delivery](references/web-delivery.md) |
@@ -78,6 +79,6 @@ Repair material evidenced gaps within authority; change the hypothesis or observ
 
 ## Evidence and handoff
 
-Keep source, editor, logic, runtime, normal-input, presentation, browser and human evidence distinct. Automated policies are not participants; consistent records do not prove truthful execution. Preserve failure identities and affected retests.
+Keep source, editor, logic, runtime, normal-input, presentation, browser and human evidence distinct. Keep `TRUSTED_OBSERVED`, `PARTICIPANT_REPORTED`, and `HUMAN_REPORTED` distinct. Automated policies are not participants; consistent records do not prove truthful execution. Preserve failure identities and affected retests.
 
 Lead with the deliverable/run path, then DONE/BLOCKED, scope, observed checks, exact artifact identity and limits. Do not claim installation, a tested export, pixel accuracy, historical originality, player preference or commercial readiness without corresponding evidence.
