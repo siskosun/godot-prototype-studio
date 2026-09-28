@@ -24,6 +24,20 @@ If preconditions changed, mark the replay STALE and decide whether its expectati
 
 Before trusting a harness, include a known-success case and an intentionally invalid case in disposable fixtures. Confirm it fails when its oracle is violated. Do not introduce the defect into user production files. Keep evaluation fixtures/logs separate from implementation, and do not rewrite an oracle merely to improve a score.
 
+## Evaluation-interface handoff
+
+When the same scenario must be compared across variants or consumed by an external trusted evaluator, use [evaluation interface](evaluation-interface.md).
+
+Keep the evidence boundary explicit:
+
+- an agent discovering a path or failure is `PARTICIPANT_REPORTED`;
+- a trusted clean workflow replaying a declared trace against an identified artifact can become `TRUSTED_OBSERVED`;
+- real-player behavior/statements remain `HUMAN_REPORTED`.
+
+A replay contract must retain the actual seed-control and stepping modes. `GLOBAL_RNG_ONLY` is weaker than project-owned seed control. `REALTIME_PHYSICS_WAIT` is not deterministic manual stepping.
+
+Do not rerun exploration until it produces the desired verdict. If the tool/harness cannot execute or the run is unstable, classify the result as `INCONCLUSIVE` rather than a product failure.
+
 ## Exploratory probes
 
 Choose the highest unresolved risk, not a persona quota. Useful policies include rapid/contradictory input, hesitant first actions, resource optimization, boundary exploration, idle/focus interruption, or reduced-input accessibility paths. These are algorithms and constraints, not simulated evidence from novice/disabled humans.
