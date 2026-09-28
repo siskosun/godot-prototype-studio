@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.0 - 2026-09-28
+
+- Added Evaluation Interface v1 to the starter QA bridge: scenario setup, explicit seed-control identity, named input recording/injection, trace replay and honest frame-step modes.
+- Added Replay Trace v1 template and validator; schema validation never claims execution occurred.
+- Separated exploratory agent evidence from trusted replay evidence and human evidence.
+- Added three-way screening guidance so harness/environment failures remain INCONCLUSIVE.
+- Reused existing 2-4 variant comparison and MACHINE_DOMINATED logic instead of adding Elo or a generic fun score.
+
+
 ## 0.8.0 - 2026-09-22
 
 - Add a conditional experience-validation loop: lightweight player promise/core tension/loop-stack memory for multi-system work, causal experience hypotheses, and explicit separation between design intent, observable behavior, runtime correctness and human experience.
