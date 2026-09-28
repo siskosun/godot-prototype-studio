@@ -89,7 +89,7 @@ When evidence is later used for screening, preserve three outcomes:
 - `FAIL_PRODUCT_DEFECT`: a required product condition failed under trusted observation.
 - `INCONCLUSIVE`: harness/environment/tooling failure, unavailable evidence, unresolved flake, or an exploratory agent failing to discover a path.
 
-An agent failing to find a route is not automatically a product defect. If a trusted replay proves the route is reachable, the failure may be a discoverability design risk instead.
+An agent failing to find a route is not a product defect by itself. If a trusted replay proves the route is reachable, the failure may be a discoverability design risk instead.
 
 ## Comparable variants
 
