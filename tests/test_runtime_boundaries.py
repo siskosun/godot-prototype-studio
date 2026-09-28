@@ -70,6 +70,20 @@ class RuntimePackageTests(unittest.TestCase):
             self.assertFalse(any(name.startswith("tests/") for name in names))
             self.assertNotIn("references/research-basis.md", names)
             self.assertNotIn("references/instruction-audit.md", names)
+            allowed_files = {"SKILL.md", "VERSION"}
+            allowed_top = {"agents", "assets", "references", "scripts", "templates"}
+            for name in names:
+                top = name.split("/", 1)[0]
+                self.assertTrue(name in allowed_files or top in allowed_top, name)
+            self.assertFalse(any(Path(name).name.startswith("ut-") and name.endswith(".txt") for name in names))
+
+    def test_h5_handoff_is_named(self):
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        route = (ROOT / "references/prototype-routing-and-reuse.md").read_text(encoding="utf-8")
+        workflow = (ROOT / "references/workflow.md").read_text(encoding="utf-8")
+        self.assertIn("h5-game-prototype-agent", skill)
+        self.assertIn("h5-game-prototype-agent", route)
+        self.assertIn("h5-game-prototype-agent", workflow)
 
 if __name__ == "__main__":
     unittest.main()
