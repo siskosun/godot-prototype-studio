@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.4 - 2026-09-29
+
+- Move GitHub Pages deployment from the legacy Pages build queue to the managed game-exp GitHub Actions Pages workflow.
+- Keep `gh-pages` as an immutable static version store, but require the default branch to contain `.github/workflows/game-exp-pages.yml`.
+- Dispatch and bind to the exact workflow run for the requested version key, wait for successful deployment, then verify the served immutable marker/page.
+- Safely migrate only the legacy `gh-pages` configuration previously created by this publisher; unrelated Pages configurations remain untouched.
+
 ## 1.0.3 - 2026-09-29
 
 - Add immutable GitHub Pages publishing for compatible public-repository Godot Web builds requested through game-exp.

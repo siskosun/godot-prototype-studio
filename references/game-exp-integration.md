@@ -115,11 +115,11 @@ python <skill-root>/scripts/publish_github_pages.py \
   --json
 ```
 
-The publisher writes only the dedicated `gh-pages` delivery branch. It never edits the canonical experiment branch, protected Ledger, Candidate refs, or lifecycle state. Each version is retained under `play/<result_source_sha>/`; the same version key with different bytes is rejected instead of overwritten.
+The publisher writes only the dedicated `gh-pages` delivery branch, then dispatches the managed `.github/workflows/game-exp-pages.yml` workflow from the repository default branch. It never edits the canonical experiment branch, protected Ledger, Candidate refs, or lifecycle state. Each version is retained under `play/<result_source_sha>/`; the same version key with different bytes is rejected instead of overwritten.
 
 The publisher's served marker/index check proves deployment identity, not Godot runtime behavior. Open the returned HTTPS URL in a real browser and run `WEB_PREFLIGHT` against that URL with the matching browser report before returning `playable.kind=SHAREABLE_URL` with `verified=true`.
 
-GitHub Pages is not the route for a Web export that requires thread support/cross-origin isolation. If Pages is unavailable, already configured to another source, permission is insufficient, the Web target is incompatible, or remote browser verification fails, do not rewrite unrelated hosting. Return the strongest actually verified fallback: `LOCAL_URL`, `ARTIFACT_ONLY`, or `MISSING`.
+GitHub Pages is not the route for a Web export that requires thread support/cross-origin isolation. If Pages is unavailable, the managed Pages workflow is missing, already configured to another source, permission is insufficient, the Web target is incompatible, or remote browser verification fails, do not rewrite unrelated hosting. Return the strongest actually verified fallback: `LOCAL_URL`, `ARTIFACT_ONLY`, or `MISSING`.
 
 ## Handoff
 
