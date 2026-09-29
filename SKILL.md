@@ -106,3 +106,5 @@ python -m unittest discover -s tests -v
 ```
 
 Utility tests do not substitute for live Godot/browser/player evidence.
+
+For a game-exp-managed implementation pass, return one structured `iteration_delivery` object after completed source work. Include 1-8 player-visible changes, a verified playable descriptor or explicit `MISSING`, 1-3 playtest focus points, `producer=godot-prototype-studio`, optional build identity, and an optional real prior Candidate id. It is participant-reported implementation context only and never authorizes Review, PROMISING, SELECTED, REJECTED, Integration, or Archive.

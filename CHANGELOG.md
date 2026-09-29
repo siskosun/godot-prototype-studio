@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2 - 2026-09-29
+
+- Add the game-exp `iteration_delivery` return contract after completed managed implementation passes.
+- Distinguish verified shareable URLs, environment-bound local URLs, downloadable artifacts, and an explicit missing-playable state.
+- Bind the handoff to player-visible changes, 1-3 human focus points, producer/build identity, and an optional real prior Candidate.
+- Keep delivery evidence participant-reported; it cannot record Review or change game-exp lifecycle.
+
 ## 1.0.1 - 2026-09-28
 
 - Route a resolved H5 stack explicitly to `h5-game-prototype-agent` with the player-experience goal, route decision, and reuse conclusion.
