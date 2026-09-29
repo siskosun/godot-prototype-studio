@@ -96,6 +96,7 @@ python scripts/run_godot_checks.py PROJECT --mode all
 python scripts/detect_capabilities.py PROJECT --write
 python scripts/change_impact.py --before-tree OLD --after-tree NEW
 python scripts/serve_web_export.py export/web --runtime-record .prototype/evidence/web-server.json
+python scripts/publish_github_pages.py --repo owner/repo --source export/web --version-key <source_sha> --producer godot-prototype-studio --json
 python scripts/package_and_report.py PROJECT --out RELEASE_DIR
 ```
 
@@ -107,4 +108,4 @@ python -m unittest discover -s tests -v
 
 Utility tests do not substitute for live Godot/browser/player evidence.
 
-For a game-exp-managed implementation pass, return one structured `iteration_delivery` object after completed source work. Include 1-8 player-visible changes, a verified playable descriptor or explicit `MISSING`, 1-3 playtest focus points, `producer=godot-prototype-studio`, optional build identity, and an optional real prior Candidate id. It is participant-reported implementation context only and never authorizes Review, PROMISING, SELECTED, REJECTED, Integration, or Archive.
+For a game-exp-managed implementation pass, return one structured `iteration_delivery` object after completed source work. Include 1-8 player-visible changes, a verified playable descriptor or explicit `MISSING`, 1-3 playtest focus points, `producer=godot-prototype-studio`, optional build identity, and an optional real prior Candidate id. When the game-exp handoff requests a shareable URL for a public repository and the project has a compatible non-threaded Web export, prefer the bundled immutable GitHub Pages publisher, then run WEB_PREFLIGHT and real-browser player input against the deployed URL before setting `verified=true`. It is participant-reported implementation context only and never authorizes Review, PROMISING, SELECTED, REJECTED, Integration, or Archive.

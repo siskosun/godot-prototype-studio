@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.3 - 2026-09-29
+
+- Add immutable GitHub Pages publishing for compatible public-repository Godot Web builds requested through game-exp.
+- Retain each playable under `play/<result_source_sha>/`, reject version-key byte drift, and preserve older URLs for comparison.
+- Keep deployment identity separate from gameplay evidence: the deployed URL still requires WEB_PREFLIGHT and real-browser input before `SHAREABLE_URL verified=true`.
+- Refuse automatic Pages reconfiguration and keep thread-dependent Web exports on hosts that can satisfy their isolation requirements.
+
 ## 1.0.2 - 2026-09-29
 
 - Add the game-exp `iteration_delivery` return contract after completed managed implementation passes.
