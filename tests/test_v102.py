@@ -8,7 +8,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 class IterationDeliveryV102Tests(unittest.TestCase):
     def test_version_and_skill_contract(self):
-        self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "1.0.2")
+        self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "1.0.3")
         skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("iteration_delivery", skill)
         self.assertIn("participant-reported implementation context", skill)
@@ -22,6 +22,10 @@ class IterationDeliveryV102Tests(unittest.TestCase):
             "participant_reported",
             "experiment_panel.delivery_card",
             "never invent a URL",
+            "publish_github_pages.py",
+            "play/<result_source_sha>/",
+            "WEB_PREFLIGHT",
+            "thread_support=false",
         ):
             self.assertIn(phrase, text)
         for gate in ("Review", "PROMISING", "SELECTED", "REJECTED"):
