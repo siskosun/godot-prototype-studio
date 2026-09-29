@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 - 2026-09-29
+
+- Stop explicitly requesting a second GitHub Pages build after updating `gh-pages`; the branch update already triggers deployment.
+- Remove duplicate same-commit Pages builds observed in the live canary while preserving immutable-path and served-marker verification.
+
 ## 1.0.3 - 2026-09-29
 
 - Add immutable GitHub Pages publishing for compatible public-repository Godot Web builds requested through game-exp.
