@@ -95,6 +95,32 @@ Rules:
 
 When releasing the game-exp Work Claim, place this object under `delivery`. game-exp may project it as `experiment_panel.delivery_card`.
 
+## Public shareable playable
+
+When the game-exp handoff includes `delivery_request.prefer_shareable_url=true`, the repository is public, and this implementation pass has a compatible Web target:
+
+1. export the exact pushed source to `export/web/`;
+2. finish all post-export mutations and stamp the final BUILD_ID;
+3. run the normal local Web/browser checks first;
+4. require a non-threaded Pages-compatible Web preset (`variant/thread_support=false`);
+5. use the exact pushed `result_source_sha` as the immutable version key;
+6. publish with:
+
+```bash
+python <skill-root>/scripts/publish_github_pages.py \
+  --repo owner/repo \
+  --source export/web \
+  --version-key <result_source_sha> \
+  --producer godot-prototype-studio \
+  --json
+```
+
+The publisher writes only the dedicated `gh-pages` delivery branch. It never edits the canonical experiment branch, protected Ledger, Candidate refs, or lifecycle state. Each version is retained under `play/<result_source_sha>/`; the same version key with different bytes is rejected instead of overwritten.
+
+The publisher's served marker/index check proves deployment identity, not Godot runtime behavior. Open the returned HTTPS URL in a real browser and run `WEB_PREFLIGHT` against that URL with the matching browser report before returning `playable.kind=SHAREABLE_URL` with `verified=true`.
+
+GitHub Pages is not the route for a Web export that requires thread support/cross-origin isolation. If Pages is unavailable, already configured to another source, permission is insufficient, the Web target is incompatible, or remote browser verification fails, do not rewrite unrelated hosting. Return the strongest actually verified fallback: `LOCAL_URL`, `ARTIFACT_ONLY`, or `MISSING`.
+
 ## Handoff
 
 Report the current experiment/Candidate identity alongside GPS evidence. If game-exp is unavailable, preserve the evidence locally but mark Candidate/lifecycle linkage as unverified rather than inventing experiment state.
