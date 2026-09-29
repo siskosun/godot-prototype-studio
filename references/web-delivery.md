@@ -8,9 +8,10 @@ Keep these modes separate:
 
 - **LOCAL_WEB_TEST**: developer-machine browser check. `http://localhost` or `http://127.0.0.1` is acceptable for local testing when the required browser features work. This is not shareable to another device.
 - **WEB_SHARE**: lightweight handoff during development. Export Web, stamp a BUILD_ID, serve it, run `WEB_PREFLIGHT`, give the playable URL and limitations. Do not create a full `release_evidence.json` merely because the user asks “网页呢” or wants someone to try the current build.
+- **PUBLIC_PAGES_SHARE**: durable cross-device handoff for a public GitHub repository when the user explicitly requests public hosting or a game-exp handoff sets `delivery_request.prefer_shareable_url=true`. It reuses an already verified non-threaded Web export, publishes immutable bytes under `play/<result_source_sha>/`, and then requires WEB_PREFLIGHT plus a real browser smoke against the deployed HTTPS URL.
 - **LAN_SHARE**: share with another device on the same LAN without public hosting. Bind the server to `0.0.0.0`, use HTTPS for the non-loopback address, serve the game at `/`, and give second-computer instructions. Use this when the brief asks for another-device/local-network sharing or when it is the chosen handoff route. Near-release quality alone does not require LAN.
 - **FIRST_TARGET**: early smoke on the intended Web target. Run as soon as one character, one required-language string, one button, and one sound exist. It checks engine start, display fit, visibility, a clickable control, and the promised glyphs/audio. It is not a complete level or a final release record.
-- **NEAR_RELEASE**: final browser-verification profile for a release-like Web artifact. It may run on localhost for local final verification or on LAN HTTPS when LAN sharing is part of delivery. Public hosting remains separately authorized.
+- **NEAR_RELEASE**: final browser-verification profile for a release-like Web artifact. It may run on localhost for local final verification or on LAN HTTPS when LAN sharing is part of delivery. Public hosting remains separately authorized except for an explicit game-exp shareable-delivery request on a public repository.
 
 Do not substitute `file://`, a folder listing, a headless native run, or a desktop screenshot for a served Web build.
 
@@ -61,6 +62,31 @@ For LAN sharing also check:
 - the URL is `https://<LAN-IP>:<port>/`, not `http://`, `127.0.0.1`, or `file://`;
 - `/` returns the game HTML, not a directory index;
 - hard refresh after a new export, especially if PWA/service-worker caching exists.
+
+## Public GitHub Pages publishing
+
+Use this only for `PUBLIC_PAGES_SHARE`. It is a delivery helper, not a new game-exp authority surface.
+
+```bash
+python <skill-root>/scripts/publish_github_pages.py \
+  --repo owner/repo \
+  --source export/web \
+  --version-key <result_source_sha> \
+  --producer godot-prototype-studio \
+  --json
+```
+
+Requirements and boundaries:
+
+- repository visibility must be public and `gh` must already be authenticated;
+- the Web payload must already be frozen/stamped and locally checked;
+- use the exact pushed source SHA as the version key;
+- the publisher creates/updates only `gh-pages`, preserves older version directories, and refuses to overwrite a version key with different bytes;
+- if the repository already has a different Pages source/build mode, stop rather than reconfigure it automatically;
+- use this path only for non-threaded Web exports. GitHub Pages project hosting does not provide the project-specific COOP/COEP control assumed by GPS threaded Web delivery, so a thread-dependent build needs a different host;
+- a successful marker/index check is deployment evidence only. Run WEB_PREFLIGHT against the returned HTTPS URL with a real browser report before claiming the playable is verified.
+
+The root Pages URL redirects to the latest published build, but game-exp delivery evidence should retain the immutable version URL.
 
 ## WEB_PREFLIGHT
 
