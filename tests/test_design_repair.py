@@ -69,8 +69,11 @@ class DesignRepairTests(DesignRepairFixture, unittest.TestCase):
         self.assertEqual(result["failures"][0]["localization"], "RESOURCE_PATH_CANDIDATES")
 
     def test_normal_output_resource_path_cannot_localize_unknown_error(self):
-        report = self.observed("Loaded res://scripts/game_model.gd\nERROR: unrelated failure")
-        self.assertEqual(create_plan(self.root, self.design, report)["status"], "INCONCLUSIVE")
+        for text in ("Loaded res://scripts/game_model.gd\nERROR: unrelated failure",
+                     "ERROR: unrelated failure\nNormal progress output\n at: res://scripts/game_model.gd:23"):
+            with self.subTest(text=text):
+                report = self.observed(text)
+                self.assertEqual(create_plan(self.root, self.design, report)["status"], "INCONCLUSIVE")
 
     def test_mapped_resource_error_cannot_hide_an_unmapped_error(self):
         report = self.observed("SCRIPT ERROR: Invalid call\n at: res://scripts/game_model.gd:23\nERROR: unrelated failure")
@@ -313,7 +316,7 @@ class DesignRepairTests(DesignRepairFixture, unittest.TestCase):
 
     def test_harness_directory_exclusion_is_case_insensitive(self):
         target = self.root / "Tests/model.gd"
-        target.parent.mkdir()
+        target.parent.mkdir(exist_ok=True)
         (self.root / "scripts/game_model.gd").rename(target)
         for kind in ("elements", "interactions"):
             for row in self.design[kind]:

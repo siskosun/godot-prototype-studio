@@ -191,11 +191,15 @@ def binding_paths(rows: list[dict[str, Any]]) -> set[str]:
 def error_blocks(text: str) -> list[str]:
     from run_godot_checks import ACTIONABLE_ERROR
     blocks: list[list[str]] = []
+    in_stack = False
     for line in text.splitlines():
         if ACTIONABLE_ERROR.search(line):
             blocks.append([line])
-        elif blocks and re.match(r"\s*(?:at:|GDScript backtrace|\[\d+\])", line):
+            in_stack = True
+        elif in_stack and re.match(r"\s*(?:at:|GDScript backtrace|\[\d+\])", line):
             blocks[-1].append(line)
+        elif line.strip():
+            in_stack = False
     return ["\n".join(block) for block in blocks]
 
 
