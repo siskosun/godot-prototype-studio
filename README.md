@@ -1,4 +1,4 @@
-# Godot Prototype Studio 1.0.1
+# Godot Prototype Studio 1.0.5
 
 [English](README.md) | [Chinese](README.zh-CN.md)
 

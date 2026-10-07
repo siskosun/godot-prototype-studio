@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class ExperienceValidationUpgradeTests(unittest.TestCase):
     def test_version_and_routes(self):
-        self.assertIn((ROOT / "VERSION").read_text().strip(), {"0.8.0", "1.0.0", "1.0.1", "1.0.2", "1.0.3", "1.0.4"})
+        self.assertIn((ROOT / "VERSION").read_text().strip(), {"0.8.0", "1.0.0", "1.0.1", "1.0.2", "1.0.3", "1.0.4", "1.0.5"})
         skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("experience-validation-loop.md", skill)
         self.assertIn("runtime-logic-verification.md", skill)

@@ -49,6 +49,8 @@ Injected state or input is diagnostic evidence, not proof that the normal player
 
 For consequential stateful rules, use [runtime logic verification](references/runtime-logic-verification.md). For repeated experience work, use [experience validation](references/experience-validation-loop.md). For replay/input evidence, use [evaluation interface](references/evaluation-interface.md) and [game QA](references/game-qa-and-replay.md).
 
+When repeated repairs lose object/interaction ownership, use the optional [design-to-source repair loop](references/design-repair-loop.md): stable semantic IDs, source bindings, identity-bound execution feedback, smallest authorized patch, and the same checks again. This index never replaces the brief, expands game-exp scope, or grants Review/selection authority. Skip it for a trivial isolated edit.
+
 The starter QA bridge is a **debug/test interface**. It must be unavailable in ordinary release play unless an explicit QA export feature is enabled.
 
 ## 5. Compare variants without stealing human decisions

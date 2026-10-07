@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-from _common import utc_now, write_json
+from _common import load_json, sha256_file, utc_now, write_json
 from detect_capabilities import command_version, find_godot
 
 # Godot can print script/runtime errors while a later normal quit returns zero.
@@ -74,6 +74,7 @@ def run_command(name: str, command: list[str], report_dir: Path, timeout: int) -
         "exitCode": returncode,
         "durationSeconds": duration,
         "logPath": str(log_path),
+        "logSha256": sha256_file(log_path),
         "outputTail": combined[-2000:],
     }
 
@@ -108,6 +109,17 @@ def preflight(root: Path) -> tuple[dict[str, Any], list[str]]:
     return result, errors
 
 
+def finish_report(report: dict[str, Any], report_path: Path, design: dict[str, Any] | None) -> None:
+    if design is not None:
+        from design_repair import create_plan
+        try:
+            report["localRepair"] = create_plan(Path(report["projectRoot"]), design, report)
+        except (OSError, ValueError, TypeError, KeyError) as exc:
+            report["localRepair"] = {"status": "INCONCLUSIVE", "errors": [str(exc)]}
+    write_json(report_path, report)
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run structured Godot import, test, and headless smoke checks.")
     parser.add_argument("project_root")
@@ -117,6 +129,7 @@ def main() -> int:
     parser.add_argument("--smoke-frames", type=int, default=120)
     parser.add_argument("--timeout", type=int, default=90)
     parser.add_argument("--report", help="JSON report path.")
+    parser.add_argument("--design-map", help="Optional design/source map; attach identity-bound local repair diagnostics.")
     args = parser.parse_args()
 
     if args.timeout <= 0 or args.smoke_frames <= 0:
@@ -138,20 +151,28 @@ def main() -> int:
         "overall": "FAIL",
     }
 
+    design = None
+    if args.design_map:
+        from design_repair import capture_context
+        try:
+            design = load_json(Path(args.design_map).expanduser().resolve())
+            report["designMapEvidence"] = capture_context(root, design)
+        except (OSError, ValueError, TypeError, KeyError) as exc:
+            report["designMapError"] = str(exc)
+            finish_report(report, report_path, None)
+            return 1
+
     if preflight_errors:
-        write_json(report_path, report)
-        print(json.dumps(report, ensure_ascii=False, indent=2))
+        finish_report(report, report_path, design)
         return 1
     if not binary:
         report["checks"].append({"name": "godot", "status": "FAIL", "classification": "TOOL_MISSING", "message": "Godot binary not detected"})
-        write_json(report_path, report)
-        print(json.dumps(report, ensure_ascii=False, indent=2))
+        finish_report(report, report_path, design)
         return 2
 
     if not version_ok:
         report["checks"].append({"name": "godot-version", "status": "FAIL", "classification": "EXECUTION_UNAVAILABLE", "message": version_error or "--version failed"})
-        write_json(report_path, report)
-        print(json.dumps(report, ensure_ascii=False, indent=2))
+        finish_report(report, report_path, design)
         return 2
 
     selected = [args.mode] if args.mode != "all" else ["import", "test", "smoke"]
@@ -183,8 +204,7 @@ def main() -> int:
         report["overall"] = "PARTIAL"
     else:
         report["overall"] = "PASS"
-    write_json(report_path, report)
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    finish_report(report, report_path, design)
     return 1 if failures else (3 if skipped else 0)
 
 

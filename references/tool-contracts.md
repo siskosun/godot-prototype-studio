@@ -4,10 +4,11 @@ Read when running or maintaining a listed utility. Scripts are conveniences, not
 
 | Tool | Purpose / invocation | Limit |
 |---|---|---|
-| init_workspace.py | `PROJECT [--with-starter] [--reuse-scan] [--multiplayer]` | Minimal brief/progress by default; optional route/session records; starter is instrumentation, not finished art |
+| init_workspace.py | `PROJECT [--with-starter] [--reuse-scan] [--multiplayer] [--design-map]` | Minimal brief/progress by default; optional route/session/design indexes; starter is instrumentation, not finished art |
 | detect_capabilities.py | `PROJECT --write` | Detection is not a successful runtime/input test |
 | inspect_engine_context.py | `PROJECT --write` | Text declarations, not full engine parsing/live observation |
-| run_godot_checks.py | `PROJECT --mode import|test|smoke|all` | Engine/log checks, not an end-to-end player test |
+| run_godot_checks.py | `PROJECT --mode import|test|smoke|all [--design-map MAP]` | Engine/log checks; optional identity-bound local repair diagnostic, not an end-to-end player test |
+| design_repair.py | `validate|plan|verify PROJECT --map MAP [--report REPORT] [--plan PLAN]` | Static source correspondence and local file-scope/same-command regression; participant-reported, no source editing or Review authority |
 | inspect_asset_set.py | `MANIFEST --root PROJECT [--contact-sheet FILE]` | Image/declared-pivot/real-alpha/checkerboard consistency, no aesthetic score |
 | package_and_report.py | `PROJECT --out DIR [--web-export DIR]` | Stage/hash/ZIP/identity report; does not invent visual PASS |
 | change_impact.py | `--before-tree A --after-tree B` or `--changed-paths ...` | Suite selection and reuse proof, not a playtest |

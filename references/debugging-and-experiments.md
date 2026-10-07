@@ -2,6 +2,8 @@
 
 Observe the actual failure; state a cause hypothesis; make the smallest responsible change; repeat the relevant scenario; keep or revert. Preserve the first useful reproduction, seed, input, log, or clip. Fix related root causes without broadening into unrelated cleanup.
 
+For repeated object/interaction ownership failures, use the optional [design-to-source repair loop](design-repair-loop.md). Bind the actual check run to current source and stable semantic IDs, inspect the localized candidates, preserve the oracle, then verify the smallest patch against the same commands. Unknown diagnostics and environment failures remain inconclusive.
+
 A failed repair needs new evidence or a different justified hypothesis. Repeating the same command or patch without new information is not persistence. There is no fixed number of attempts that automatically excuses stopping. When all reasonable authorized paths are exhausted or an actual environment/resource boundary is reached, report BLOCKED with evidence and the next unblock action.
 
 For meaningful balance or feel changes, compare the same scenario and separate measured observations from aesthetic preference. Use `experiment_log.py` only when several experiments need durable history; a small repair does not need an experiment record. Automated players provide coverage, not a claim that humans enjoy the game.

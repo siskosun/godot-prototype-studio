@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "objective": {
+    "success": "Move the player into the target radius and terminate the loop.",
+    "failure": "Movement cannot change authoritative state or the target does not terminate the loop."
+  },
+  "elements": [
+    {
+      "id": "player",
+      "role": "The player position in authoritative game state.",
+      "bindings": [{"path": "scripts/game_model.gd", "anchor": "var player_x:"}]
+    },
+    {
+      "id": "goal",
+      "role": "The target region that ends the session.",
+      "bindings": [{"path": "scripts/game_model.gd", "anchor": "const TARGET_X:"}]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "move-player",
+      "participants": ["player"],
+      "trigger": "The move action is dispatched.",
+      "preconditions": "The target has not yet been reached.",
+      "stateChange": "Player position changes within bounds; move count increments once.",
+      "bindings": [{"path": "scripts/game_model.gd", "anchor": "func apply_action("}]
+    },
+    {
+      "id": "reach-goal",
+      "participants": ["player", "goal"],
+      "trigger": "The game advances a positive simulation step.",
+      "preconditions": "The player is inside the target radius.",
+      "stateChange": "The run terminates and emits the target_reached event.",
+      "bindings": [{"path": "scripts/game_model.gd", "anchor": "func step("}]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "movement-state",
+      "interactions": ["move-player"],
+      "check": "test",
+      "failureMarker": "FAIL: move action changes authoritative state",
+      "bindings": [{"path": "tests/test_runner.gd", "anchor": "\"move action changes authoritative state\""}]
+    },
+    {
+      "id": "movement-count",
+      "interactions": ["move-player"],
+      "check": "test",
+      "failureMarker": "FAIL: move count increments",
+      "bindings": [{"path": "tests/test_runner.gd", "anchor": "\"move count increments\""}]
+    },
+    {
+      "id": "target-termination",
+      "interactions": ["reach-goal"],
+      "check": "test",
+      "failureMarker": "FAIL: target condition terminates the loop",
+      "bindings": [{"path": "tests/test_runner.gd", "anchor": "\"target condition terminates the loop\""}]
+    },
+    {
+      "id": "target-observation",
+      "interactions": ["reach-goal"],
+      "check": "test",
+      "failureMarker": "FAIL: snapshot exposes terminal state",
+      "bindings": [{"path": "tests/test_runner.gd", "anchor": "\"snapshot exposes terminal state\""}]
+    }
+  ]
+}
