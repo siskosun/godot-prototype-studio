@@ -60,6 +60,7 @@ def main() -> int:
     parser.add_argument("--with-memory", action="store_true", help="Add an empty optional project-memory record; no facts are inferred.")
     parser.add_argument("--reuse-scan", action="store_true", help="Add the optional pre-development reuse-scan record for a new prototype.")
     parser.add_argument("--multiplayer", action="store_true", help="Add the optional multi-client/session acceptance matrix.")
+    parser.add_argument("--design-map", action="store_true", help="Add the optional starter design/source map; adapt it for an existing project.")
     args = parser.parse_args()
 
     root = Path(args.project_root).expanduser().resolve()
@@ -85,6 +86,8 @@ def main() -> int:
         template_map["reuse_scan.md"] = ".prototype/research/reuse_scan.md"
     if args.multiplayer:
         template_map["multiplayer_session_matrix.md"] = ".prototype/spec/multiplayer_session_matrix.md"
+    if args.design_map:
+        template_map["design_map.json"] = ".prototype/spec/design_map.json"
     if args.legacy_full:
         template_map.update(LEGACY_TEMPLATE_MAP)
     created: list[str] = []

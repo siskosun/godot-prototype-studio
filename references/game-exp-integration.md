@@ -56,6 +56,8 @@ Do not relabel agent/self-reported observations as trusted human evidence.
 
 GPS checks may establish implementation or runtime facts. They never by themselves authorize Review PASS/FAIL, PROMISING, SELECTED, or REJECTED.
 
+An optional [design/source repair map](design-repair-loop.md) stays in GPS execution state. Its diagnostic candidates never expand Manifest scope. `LOCAL_REPAIR_VERIFIED` is participant-reported implementation evidence; use the existing exact-source evidence handoff and trusted checks. Do not add it as a Ledger lifecycle, Review outcome or immutable-playable mutation.
+
 ## Variant rule
 
 Local implementation variants inside one Candidate may be resolved by GPS when the choice is delegated and evidence is adequate.

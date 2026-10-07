@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5 - 2026-10-07
+
+- Add an optional design/source map with stable semantic element, interaction and scenario IDs.
+- Bind actual Godot checks to the map and source snapshot; localize failure markers or resource-path candidates without guessing a root cause.
+- Verify a local repair only with unchanged design, bounded file changes and the original executed check commands; reject stale evidence, changed oracles and smoke-only substitutes.
+- Keep all repair records participant-reported. Preserve game-exp human gates, protected state, immutable playable rules and the default lightweight workflow.
+- Add a live-engine mutant/repair regression and a bounded Code2Games mechanism audit; do not claim measured iteration-speed improvement.
+
 ## 1.0.4 - 2026-09-29
 
 - Move GitHub Pages deployment from the legacy Pages build queue to the managed game-exp GitHub Actions Pages workflow.

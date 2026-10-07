@@ -1,6 +1,28 @@
-# Godot Prototype Studio 1.0.1
+# Godot Prototype Studio 1.0.5
 
 [English](README.md) | [中文](README.zh-CN.md)
+
+## 1.0.5：设计与源码的局部修复闭环
+
+新增可选的 `design_map.json`，把设计对象、交互规则、负责源码和测试场景连接起来。检查失败后，工具给出需要调查的局部文件；修改后要求同一测试命令复测。它只提供实现证据，人工 Review、实验选择和不可变发布仍由现有流程负责。
+
+新项目可用 `python scripts/init_workspace.py PROJECT --with-starter --design-map` 生成示例。现有项目需要把示例里的对象、源码路径、唯一锚点和失败标记改成实际内容；小修复不必创建映射。直接使用时：
+
+```bash
+python scripts/design_repair.py validate PROJECT --map PROJECT/.prototype/spec/design_map.json
+python scripts/run_godot_checks.py PROJECT --mode all --design-map PROJECT/.prototype/spec/design_map.json
+python scripts/design_repair.py plan PROJECT --map PROJECT/.prototype/spec/design_map.json --report PROJECT/.prototype/evidence/godot-checks/report.json --write PROJECT/.prototype/evidence/repair-before.json
+```
+
+保存计划后，只修改已经确认负责故障、且在授权范围内的源码。重新运行同一 `run_godot_checks.py` 命令，再检查：
+
+```bash
+python scripts/design_repair.py verify PROJECT --map PROJECT/.prototype/spec/design_map.json --plan PROJECT/.prototype/evidence/repair-before.json --report PROJECT/.prototype/evidence/godot-checks/report.json --write PROJECT/.prototype/evidence/repair-after.json
+```
+
+`LOCAL_REPAIR_VERIFIED` 表示局部文件改动与同命令检查相符。运行时对象绑定、真实玩家输入、浏览器表现和好玩程度仍需要各自的证据。旧报告、未知错误、环境故障、修改测试文件或替换测试命令都不能据此证明修复。
+
+详见[操作与边界](references/design-repair-loop.md)和[Code2Games 逐项映射](audit/code2games-2026-10-07.md)。本次没有引入 Blender、UE5、模型服务或自动裁决。
 
 1.0 是一次收敛版升级，不再继续叠加流程。Godot 已被用户、现有项目或 game-exp 选定时，GPS 直接使用 Godot，不再主动比较 H5；只有技术栈真正开放时才做路线比较。
 
