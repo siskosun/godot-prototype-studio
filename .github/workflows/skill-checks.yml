@@ -22,10 +22,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 8
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.12'
       - name: Prepare Python
@@ -35,7 +35,7 @@ jobs:
       - name: Build runtime skill package
         run: python scripts/build_skill_package.py --out skill.zip
       - name: Upload runtime skill package
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: skill-${{ matrix.os }}-${{ github.sha }}
           path: skill.zip
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 4
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
       - name: Capture exact tracked source and provenance
@@ -56,7 +56,7 @@ jobs:
           git rev-parse HEAD^{tree} > "${RUNNER_TEMP}/tree.txt"
           sha256sum "${RUNNER_TEMP}/source.zip" > "${RUNNER_TEMP}/archive-sha256.txt"
       - name: Retain source provenance
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: source-provenance-${{ github.sha }}
           path: |
