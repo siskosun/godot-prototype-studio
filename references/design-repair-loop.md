@@ -25,7 +25,9 @@ Keep semantic IDs when a file, Node or implementation changes. Update bindings o
 
 The command snapshots editable project files plus a separate design-map digest before execution. An old/unbound report, changed full log, source change during the run, unknown failure or environment/tool failure cannot produce a verified repair. First Godot import may create `.gd.uid` files; establish that import baseline, then rerun checks to bind evidence to the resulting source.
 
-`verify` requires a fresh source-bound report, unchanged map, changes only in the suggested implementation files, the original check commands, and executed PASS for required checks. A skipped test, alternate always-passing script or smoke-only rerun cannot replace the original gameplay test. Scenario/oracle files are excluded from suggested repair paths. A confirmed harness defect needs its own diagnosis and baseline.
+`verify` requires a fresh source-bound report, unchanged map, changes only in the suggested implementation files, the original check commands, and executed PASS for required checks. The retained full log must match exact argv, execution ID/times, executable digest and diagnostics. Every required rerun must start after the complete failing baseline; restoring source cannot reuse an earlier PASS. Legacy logs/plans without this execution metadata require a new baseline.
+
+A skipped test, alternate always-passing script or smoke-only rerun cannot replace the original gameplay test. Scenario/oracle files and the actual `--script` target are excluded from suggested repair paths. Repair evidence requires a project-source `res://` script; external, UID-only or state/generated test scripts remain inconclusive. A confirmed harness defect needs its own diagnosis and baseline. Resource-path candidates must come from error lines or their adjacent engine stack, and cannot conceal another unmapped error.
 
 Statuses:
 

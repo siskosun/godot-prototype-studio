@@ -23,10 +23,18 @@ class DesignRepairFixture:
         self.root = Path(self.temp.name).resolve()
         shutil.copytree(ROOT / "assets/starter-2d", self.root, dirs_exist_ok=True)
         self.design = json.loads((ROOT / "templates/design_map.json").read_text())
+        self.control = self.root / ".prototype/fixture-response.json"
+        self.control.parent.mkdir(parents=True)
+        # A fixed executed harness reads fixture input; tests never rewrite argv
+        # to pretend that two different commands are the same regression.
+        self.command = [sys.executable, "-c",
+                        "import json,sys; r=json.load(open(sys.argv[1])); print(r['text']); sys.exit(r['code'])",
+                        str(self.control)]
 
     def observed(self, text="ERROR: FAIL: move action changes authoritative state", returncode=1):
         context = capture_context(self.root, self.design)
-        check = run_command("test", [sys.executable, "-c", f"import sys; print({text!r}); sys.exit({returncode})"],
+        self.control.write_text(json.dumps({"text": text, "code": returncode}))
+        check = run_command("test", self.command,
                             self.root / ".prototype/evidence/godot-checks", 10)
         return {"projectRoot": str(self.root), "designMapEvidence": context, "checks": [check],
                 "overall": "PASS" if check["status"] == "PASS" else "FAIL"}
@@ -37,8 +45,6 @@ class DesignRepairFixture:
         with (self.root / "scripts/game_model.gd").open("a") as handle:
             handle.write("\n# local implementation change\n")
         after = self.observed("TESTS PASS", 0)
-        # Unit fixtures simulate two executions of the same harness command.
-        after["checks"][0]["command"] = plan["checkCommands"]["test"]
         return plan, after
 
 class DesignRepairTests(DesignRepairFixture, unittest.TestCase):
@@ -61,6 +67,14 @@ class DesignRepairTests(DesignRepairFixture, unittest.TestCase):
         result = create_plan(self.root, self.design, report)
         self.assertEqual(result["status"], "REPAIRABLE")
         self.assertEqual(result["failures"][0]["localization"], "RESOURCE_PATH_CANDIDATES")
+
+    def test_normal_output_resource_path_cannot_localize_unknown_error(self):
+        report = self.observed("Loaded res://scripts/game_model.gd\nERROR: unrelated failure")
+        self.assertEqual(create_plan(self.root, self.design, report)["status"], "INCONCLUSIVE")
+
+    def test_mapped_resource_error_cannot_hide_an_unmapped_error(self):
+        report = self.observed("SCRIPT ERROR: Invalid call\n at: res://scripts/game_model.gd:23\nERROR: unrelated failure")
+        self.assertEqual(create_plan(self.root, self.design, report)["status"], "INCONCLUSIVE")
 
     def test_unmapped_failure_does_not_recommend_whole_project(self):
         result = create_plan(self.root, self.design, self.observed("ERROR: unrelated failure"))
@@ -172,7 +186,6 @@ class DesignRepairTests(DesignRepairFixture, unittest.TestCase):
                 with (self.root / path).open("a") as handle:
                     handle.write("\n# unrelated edit\n")
                 report = self.observed("TESTS PASS", 0)
-                report["checks"][0]["command"] = plan["checkCommands"]["test"]
                 result = verify_repair(self.root, self.design, plan, report)
                 self.assertEqual(result["status"], "INCONCLUSIVE")
                 self.assertIn(path, result["outsidePlan"])
@@ -208,6 +221,122 @@ class DesignRepairTests(DesignRepairFixture, unittest.TestCase):
         plan = create_plan(self.root, self.design, self.observed())
         report = self.observed("TESTS PASS", 0)
         self.assertEqual(verify_repair(self.root, self.design, plan, report)["status"], "INCONCLUSIVE")
+
+    def test_verify_rejects_missing_or_changed_passing_log(self):
+        for missing in (False, True):
+            with self.subTest(missing=missing):
+                plan, report = self.repaired()
+                log = Path(report["checks"][0]["logPath"])
+                if missing:
+                    log.unlink()
+                else:
+                    log.write_text("TESTS PASS")
+                result = verify_repair(self.root, self.design, plan, report)
+                self.assertEqual(result["status"], "INCONCLUSIVE")
+                self.assertIn("missing or changed", result["invalidCheckEvidence"]["test"])
+
+    def test_old_passing_run_cannot_verify_restored_source(self):
+        original = (self.root / "scripts/game_model.gd").read_text()
+        old_report = self.observed("TESTS PASS", 0)
+        log = Path(old_report["checks"][0]["logPath"])
+        retained = log.read_bytes()
+        (self.root / "scripts/game_model.gd").write_text(original + "\n# broken version\n")
+        plan = create_plan(self.root, self.design, self.observed())
+        (self.root / "scripts/game_model.gd").write_text(original)
+        log.write_bytes(retained)
+        result = verify_repair(self.root, self.design, plan, old_report)
+        self.assertEqual(result["status"], "INCONCLUSIVE")
+        self.assertIn("new execution", result["invalidCheckEvidence"]["test"])
+        fresh = self.observed("TESTS PASS", 0)
+        self.assertEqual(verify_repair(self.root, self.design, plan, fresh)["status"], "LOCAL_REPAIR_VERIFIED")
+
+    def test_report_cannot_relabel_alternate_executed_command(self):
+        plan, report = self.repaired()
+        alternate = run_command("test", [sys.executable, "-c", "print('TESTS PASS')"],
+                                self.root / ".prototype/evidence/godot-checks", 10)
+        alternate["command"] = plan["checkCommands"]["test"]
+        report["checks"] = [alternate]
+        result = verify_repair(self.root, self.design, plan, report)
+        self.assertEqual(result["status"], "INCONCLUSIVE")
+        self.assertIn("metadata differs", result["invalidCheckEvidence"]["test"])
+
+    def test_hidden_error_lines_cannot_localize_a_mixed_failure(self):
+        report = self.observed("ERROR: FAIL: move action changes authoritative state\nERROR: unrelated failure")
+        report["checks"][0]["actionableErrorLines"].pop()
+        with self.assertRaisesRegex(ValueError, "diagnostics differ"):
+            create_plan(self.root, self.design, report)
+
+    def test_legacy_log_or_missing_log_cannot_bind_a_plan(self):
+        for legacy in (False, True):
+            with self.subTest(legacy=legacy):
+                report = self.observed()
+                check = report["checks"][0]
+                if legacy:
+                    from _common import sha256_file
+                    log = Path(check["logPath"])
+                    log.write_text(log.read_text().split("\n", 1)[1])
+                    check["logSha256"] = sha256_file(log)
+                else:
+                    del check["logPath"]
+                with self.assertRaisesRegex(ValueError, "unbound check log|full log is required"):
+                    create_plan(self.root, self.design, report)
+
+    def test_duplicate_check_names_cannot_override_execution(self):
+        report = self.observed()
+        report["checks"].append(copy.deepcopy(report["checks"][0]))
+        with self.assertRaisesRegex(ValueError, "unique names"):
+            create_plan(self.root, self.design, report)
+        plan, after = self.repaired()
+        after["checks"].append(copy.deepcopy(after["checks"][0]))
+        with self.assertRaisesRegex(ValueError, "unique names"):
+            verify_repair(self.root, self.design, plan, after)
+
+    def test_actual_test_script_is_excluded_even_when_not_scenario_bound(self):
+        self.command += ["--script", "res://scripts/game_model.gd"]
+        result = create_plan(self.root, self.design, self.observed())
+        self.assertEqual(result["status"], "INCONCLUSIVE")
+        self.assertEqual(result["repairPaths"], [])
+
+    @unittest.skipUnless(os.name == "nt", "Windows case-insensitive path alias")
+    def test_actual_test_script_case_alias_is_also_excluded(self):
+        self.command += ["--script", "res://scripts/GAME_MODEL.gd"]
+        result = create_plan(self.root, self.design, self.observed())
+        self.assertEqual(result["status"], "INCONCLUSIVE")
+        self.assertEqual(result["repairPaths"], [])
+
+    def test_external_or_excluded_test_script_cannot_bind_a_plan(self):
+        for script in ("res://.prototype/oracle.gd", "res://../oracle.gd", "uid://123", str(self.root / "tests/test_runner.gd")):
+            with self.subTest(script=script):
+                self.command = self.command[:4] + ["--script", script]
+                with self.assertRaises(ValueError):
+                    create_plan(self.root, self.design, self.observed())
+
+    def test_harness_directory_exclusion_is_case_insensitive(self):
+        target = self.root / "Tests/model.gd"
+        target.parent.mkdir()
+        (self.root / "scripts/game_model.gd").rename(target)
+        for kind in ("elements", "interactions"):
+            for row in self.design[kind]:
+                for binding in row["bindings"]:
+                    binding["path"] = "Tests/model.gd"
+        result = create_plan(self.root, self.design, self.observed())
+        self.assertEqual(result["status"], "INCONCLUSIVE")
+        self.assertEqual(result["repairPaths"], [])
+
+    @unittest.skipIf(os.name == "nt", "POSIX executable replacement fixture")
+    def test_replacing_executable_at_same_path_cannot_verify(self):
+        executable = self.root / ".prototype/check-runner"
+        executable.write_text("#!/bin/sh\necho 'ERROR: FAIL: move action changes authoritative state'\nexit 1\n")
+        executable.chmod(0o755)
+        self.command = [str(executable)]
+        plan = create_plan(self.root, self.design, self.observed())
+        with (self.root / "scripts/game_model.gd").open("a") as handle:
+            handle.write("\n# implementation change\n")
+        executable.write_text("#!/bin/sh\necho 'TESTS PASS'\nexit 0\n")
+        report = self.observed("TESTS PASS", 0)
+        result = verify_repair(self.root, self.design, plan, report)
+        self.assertEqual(result["status"], "INCONCLUSIVE")
+        self.assertIn("executable changed", result["invalidCheckEvidence"]["test"])
 
 
 @unittest.skipUnless(os.environ.get("GPS_TEST_GODOT"), "set GPS_TEST_GODOT for live engine integration")
