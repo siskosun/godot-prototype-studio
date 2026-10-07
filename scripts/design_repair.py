@@ -5,7 +5,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
+from datetime import datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -114,26 +116,91 @@ def require_current_report(root: Path, design: dict[str, Any], report: Any) -> d
         raise ValueError("report belongs to a different project")
     if not isinstance(report.get("checks"), list):
         raise ValueError("report.checks must be a list")
+    names = [row.get("name") for row in report["checks"] if isinstance(row, dict)]
+    if len(names) != len(report["checks"]) or any(not isinstance(name, str) for name in names) or len(set(names)) != len(names):
+        raise ValueError("report checks require unique names")
     return current
+
+
+def execution_time(value: Any) -> datetime:
+    parsed = datetime.fromisoformat(require_text(value, "execution time"))
+    if parsed.tzinfo is None:
+        raise ValueError("execution time must include a timezone")
+    return parsed
 
 
 def diagnostic_text(root: Path, check: dict[str, Any]) -> str:
     # Use the retained full log, not a possibly truncated tail. Never read an arbitrary path.
     if check.get("logPath"):
-        path = Path(check["logPath"]).resolve()
+        raw_path = Path(check["logPath"])
+        path = raw_path.resolve()
         if not path.is_relative_to((root / ".prototype/evidence/godot-checks").resolve()):
             raise ValueError("check log must be inside .prototype/evidence/godot-checks")
-        if path.is_symlink() or not path.is_file() or check.get("logSha256") != sha256_file(path):
+        if any(part.is_symlink() for part in [raw_path, *raw_path.parents]) or not path.is_file() or check.get("logSha256") != sha256_file(path):
             raise ValueError("check log is missing or changed")
         text = path.read_text(encoding="utf-8")
         if "\n\n--- stdout ---\n" not in text:
             raise ValueError("unsupported check log format")
-        return text.split("\n\n--- stdout ---\n", 1)[1]
-    return "\n".join(check.get("actionableErrorLines", [])) + "\n" + str(check.get("outputTail", ""))
+        header = text.splitlines()[0]
+        if not header.startswith("# execution: "):
+            raise ValueError("unbound check log: rerun checks with execution metadata")
+        metadata = json.loads(header[len("# execution: "):])
+        for key in ("name", "command", "executionId", "startedAt", "completedAt", "executable",
+                    "executed", "exitCode", "status", "classification"):
+            if key not in metadata or metadata[key] != check.get(key):
+                raise ValueError(f"check log metadata differs from report: {key}")
+        require_text(check.get("executionId"), "executionId")
+        if execution_time(check.get("completedAt")) < execution_time(check.get("startedAt")):
+            raise ValueError("check completion precedes execution")
+        executable = check.get("executable")
+        if not isinstance(executable, dict) or executable.get("sha256") != sha256_file(Path(executable["path"])):
+            raise ValueError("check executable is missing or changed")
+        prefix = header + "\n$ " + " ".join(check["command"]) + "\n\n--- stdout ---\n"
+        if not text.startswith(prefix):
+            raise ValueError("check command header differs from exact argv")
+        output = text[len(prefix):]
+        from run_godot_checks import ACTIONABLE_ERROR
+        observed_errors = [line for line in output.splitlines() if ACTIONABLE_ERROR.search(line)]
+        if check.get("actionableErrorLines") != observed_errors:
+            raise ValueError("check diagnostics differ from full log")
+        if check.get("status") == "PASS" and (check.get("executed") is not True or check.get("exitCode") != 0 or observed_errors):
+            raise ValueError("check PASS contradicts execution evidence")
+        return output
+    raise ValueError("check full log is required")
+
+
+def command_oracles(root: Path, check: dict[str, Any]) -> set[str]:
+    command = check.get("command")
+    if not isinstance(command, list) or not command or any(not isinstance(arg, str) for arg in command):
+        raise ValueError("executed check requires exact command argv")
+    paths: set[str] = set()
+    if "--script" in command:
+        index = command.index("--script") + 1
+        if index >= len(command) or not command[index].startswith("res://"):
+            raise ValueError("repair checks require a project-source res:// test script")
+        relative = command[index][len("res://"):]
+        source_path(root, relative)
+        paths.add(relative)
+    return paths
 
 
 def binding_paths(rows: list[dict[str, Any]]) -> set[str]:
     return {binding["path"] for row in rows for binding in row["bindings"]}
+
+
+def error_blocks(text: str) -> list[str]:
+    from run_godot_checks import ACTIONABLE_ERROR
+    blocks: list[list[str]] = []
+    in_stack = False
+    for line in text.splitlines():
+        if ACTIONABLE_ERROR.search(line):
+            blocks.append([line])
+            in_stack = True
+        elif in_stack and re.match(r"\s*(?:at:|GDScript backtrace|\[\d+\])", line):
+            blocks[-1].append(line)
+        elif line.strip():
+            in_stack = False
+    return ["\n".join(block) for block in blocks]
 
 
 def create_plan(root: Path, design: dict[str, Any], report: dict[str, Any]) -> dict[str, Any]:
@@ -149,6 +216,14 @@ def create_plan(root: Path, design: dict[str, Any], report: dict[str, Any]) -> d
         result["status"] = "NO_FAILURES" if report.get("overall") == "PASS" else "INCONCLUSIVE"
         return result
     repair_paths: set[str] = set()
+    command_paths: set[str] = set()
+    result["checkExecutions"] = {}
+    for check in report["checks"]:
+        if check.get("executed") is True and check.get("name") in CHECKS and check.get("classification") not in ENVIRONMENT:
+            diagnostic_text(root, check)
+            command_paths.update(command_oracles(root, check))
+            result["checkExecutions"][check["name"]] = {key: check[key] for key in
+                                                        ("executionId", "completedAt", "executable")}
     retest = {row["name"] for row in report["checks"] if row.get("name") in CHECKS}
     unresolved = False
     for check in failures:
@@ -175,7 +250,16 @@ def create_plan(root: Path, design: dict[str, Any], report: dict[str, Any]) -> d
                 item["unmappedErrorLines"] = unknown
                 unresolved = True
         else:
-            paths = set(RESOURCE_PATH.findall(text))
+            # A resource mentioned in normal output is not a failure location.
+            # Every observed error needs a mapped candidate, not just one of them.
+            blocks = error_blocks(text)
+            mapped_paths = binding_paths(list(tables["elements"].values()) + list(tables["interactions"].values()))
+            paths: set[str] = set()
+            for block in blocks:
+                candidates = set(RESOURCE_PATH.findall(block)) & mapped_paths
+                paths.update(candidates)
+                if not candidates:
+                    unresolved = True
             elements = {key for key, row in tables["elements"].items() if binding_paths([row]) & paths}
             interactions = {key for key, row in tables["interactions"].items() if binding_paths([row]) & paths}
             interactions.update(key for key, row in tables["interactions"].items() if set(row["participants"]) & elements)
@@ -187,15 +271,16 @@ def create_plan(root: Path, design: dict[str, Any], report: dict[str, Any]) -> d
         paths = binding_paths([tables["elements"][key] for key in elements] +
                               [tables["interactions"][key] for key in interactions])
         # Test-oracle files are observations, not default repair targets.
-        oracle_paths = binding_paths(list(tables["scenarios"].values()))
-        paths = {path for path in paths if path not in oracle_paths
-                 and not path.startswith(("tests/", "test/", "qa/"))}
+        oracle_paths = {os.path.normcase(path) for path in binding_paths(list(tables["scenarios"].values())) | command_paths}
+        paths = {path for path in paths if os.path.normcase(path) not in oracle_paths
+                 and not path.lower().startswith(("tests/", "test/", "qa/"))}
         item.update(elements=sorted(elements), interactions=sorted(interactions),
                     scenarios=sorted(row["id"] for row in related), suspectPaths=sorted(paths),
                     checkPaths=sorted(binding_paths(related)))
         repair_paths.update(paths)
         if not paths:
             unresolved = True
+    unresolved = unresolved or not retest.issubset(result["checkExecutions"])
     result.update(status="INCONCLUSIVE" if unresolved else "REPAIRABLE", repairPaths=sorted(repair_paths),
                   retestChecks=sorted(retest), changedClasses=classify_changes(repair_paths)["changedClasses"])
     return result
@@ -216,10 +301,28 @@ def verify_repair(root: Path, design: dict[str, Any], plan: dict[str, Any], repo
                or checks.get(name, {}).get("executed") is not True]
     changed_commands = [name for name, command in plan["checkCommands"].items()
                         if command != checks.get(name, {}).get("command")]
-    passed = bool(changed) and not outside and not missing and not changed_commands and report.get("overall") == "PASS"
+    invalid_evidence: dict[str, str] = {}
+    executions = plan.get("checkExecutions", {})
+    baseline_end = max((execution_time(row["completedAt"]) for row in executions.values()), default=None)
+    for name in plan["retestChecks"]:
+        if name in missing or name in changed_commands:
+            continue
+        try:
+            check = checks[name]
+            diagnostic_text(root, check)
+            command_oracles(root, check)
+            baseline = executions.get(name)
+            if not baseline or baseline_end is None or check["executionId"] == baseline["executionId"] or execution_time(check["startedAt"]) <= baseline_end:
+                raise ValueError("retest must be a new execution after the failing baseline")
+            if check["executable"] != baseline["executable"]:
+                raise ValueError("original check executable changed")
+        except (OSError, ValueError, TypeError, KeyError) as exc:
+            invalid_evidence[name] = str(exc)
+    passed = bool(changed) and not outside and not missing and not changed_commands and not invalid_evidence and report.get("overall") == "PASS"
     return {"schemaVersion": 1, "status": "LOCAL_REPAIR_VERIFIED" if passed else "INCONCLUSIVE",
             "changedPaths": changed, "outsidePlan": outside, "missingOrFailedChecks": missing,
             "changedCheckCommands": changed_commands,
+            "invalidCheckEvidence": invalid_evidence,
             "sourceChanged": bool(changed), "before": before, "after": current,
             "evidenceClass": "PARTICIPANT_REPORTED", "validationScope": SCOPE}
 

@@ -4,8 +4,10 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
 import subprocess
 import time
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -38,6 +40,11 @@ def classify_failure(text: str, returncode: int | None, timed_out: bool) -> str:
 
 def run_command(name: str, command: list[str], report_dir: Path, timeout: int) -> dict[str, Any]:
     report_dir.mkdir(parents=True, exist_ok=True)
+    started_at = utc_now()
+    execution_id = uuid.uuid4().hex
+    executable_path = shutil.which(command[0])
+    executable = ({"path": str(Path(executable_path).resolve()), "sha256": sha256_file(Path(executable_path))}
+                  if executable_path else None)
     started = time.monotonic()
     timed_out = False
     launch_error = None
@@ -58,13 +65,9 @@ def run_command(name: str, command: list[str], report_dir: Path, timeout: int) -
     duration = round(time.monotonic() - started, 3)
     combined = (stdout + "\n" + stderr).strip()
     log_path = report_dir / f"{name}.log"
-    log_path.write_text(
-        "$ " + " ".join(command) + "\n\n--- stdout ---\n" + stdout + "\n--- stderr ---\n" + stderr,
-        encoding="utf-8",
-    )
     error_lines = [line for line in combined.splitlines() if ACTIONABLE_ERROR.search(line)]
     passed = returncode == 0 and not timed_out and not error_lines and not launch_error
-    return {
+    result = {
         "name": name,
         "status": "PASS" if passed else "FAIL",
         "classification": None if passed else ("EXECUTION_UNAVAILABLE" if launch_error else classify_failure("\n".join(error_lines) or combined, returncode, timed_out)),
@@ -74,9 +77,23 @@ def run_command(name: str, command: list[str], report_dir: Path, timeout: int) -
         "exitCode": returncode,
         "durationSeconds": duration,
         "logPath": str(log_path),
-        "logSha256": sha256_file(log_path),
         "outputTail": combined[-2000:],
+        "executionId": execution_id,
+        "startedAt": started_at,
+        "completedAt": utc_now(),
+        "executable": executable,
     }
+    # Retain exact argv and execution metadata, so editing only the report cannot
+    # relabel a different command or an older run as the required regression.
+    metadata = {key: result[key] for key in ("name", "command", "executionId", "startedAt", "completedAt",
+                                           "executable", "executed", "exitCode", "status", "classification")}
+    log_path.write_text(
+        "# execution: " + json.dumps(metadata, ensure_ascii=False) + "\n$ " + " ".join(command)
+        + "\n\n--- stdout ---\n" + stdout + "\n--- stderr ---\n" + stderr,
+        encoding="utf-8",
+    )
+    result["logSha256"] = sha256_file(log_path)
+    return result
 
 
 def resolve_res_path(root: Path, value: str) -> Path | None:

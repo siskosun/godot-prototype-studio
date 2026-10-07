@@ -5,6 +5,7 @@
 - Add an optional design/source map with stable semantic element, interaction and scenario IDs.
 - Bind actual Godot checks to the map and source snapshot; localize failure markers or resource-path candidates without guessing a root cause.
 - Verify a local repair only with unchanged design, bounded file changes and the original executed check commands; reject stale evidence, changed oracles and smoke-only substitutes.
+- Recheck full logs and execution order during verification; reject reused PASS reports, relabeled commands, replaced executables and actual test-script edits.
 - Keep all repair records participant-reported. Preserve game-exp human gates, protected state, immutable playable rules and the default lightweight workflow.
 - Add a live-engine mutant/repair regression and a bounded Code2Games mechanism audit; do not claim measured iteration-speed improvement.
 
