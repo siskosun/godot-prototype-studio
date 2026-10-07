@@ -4,6 +4,18 @@
 
 Build, improve, test, and deliver small Godot prototypes and near-release slices. When Godot is already selected, GPS stays on Godot; stack comparison is only for genuinely open-stack requests. The runtime skill is model-agnostic and now integrates explicitly with game-exp without duplicating its lifecycle or human selection gates.
 
+## 1.0.5
+
+Optional design/source maps connect stable semantic IDs to source files and test scenarios. Godot checks bind the map and source snapshot; local repair verification requires unchanged design, bounded file changes, and fresh execution of the original check commands. Stale reports, changed test scripts, and substitute commands are rejected.
+
+Repair records remain participant-reported. Existing game-exp human gates and immutable playable rules remain in force; measured iteration-speed improvement is not claimed. See [CHANGELOG](CHANGELOG.md) and the [design repair guide](references/design-repair-loop.md).
+
+## 1.0.2–1.0.4
+
+- **1.0.2:** add the game-exp `iteration_delivery` return contract with playable availability, player-visible changes, human focus points, and producer/build identity.
+- **1.0.3:** publish compatible Godot Web builds as immutable public-repository GitHub Pages playables at `play/<result_source_sha>/`. A deployed URL still needs WEB_PREFLIGHT and real-browser input before `SHAREABLE_URL verified=true`.
+- **1.0.4:** deploy through the managed game-exp GitHub Actions Pages workflow, bind to the requested version's exact run, and verify the served immutable marker/page after successful deployment.
+
 ## 1.0.1
 
 When H5 is the resolved stack, GPS hands the player-experience goal, route decision, and reuse conclusion to `h5-game-prototype-agent` rather than maintaining a second H5 workflow. Runtime packaging now uses a strict allowlist so stray test outputs cannot enter `skill.zip`.
@@ -102,6 +114,8 @@ Memory checker exit codes: 0 current/empty, 1 stale/unverified, 2 invalid. Check
 ```bash
 python -m unittest discover -s tests -v
 ```
+
+The unit tests check that both README titles and current version sections, and the latest CHANGELOG entry, match `VERSION`.
 
 CI runs utility tests and retains exact tracked-source/log artifacts. A pre-existing 0.5.0 checkerboard fixture overwrote its own test image; this release fixes setup order without changing the detector or relaxing assertions.
 

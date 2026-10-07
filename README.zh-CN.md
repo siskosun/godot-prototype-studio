@@ -26,6 +26,14 @@ python scripts/design_repair.py verify PROJECT --map PROJECT/.prototype/spec/des
 
 1.0 是一次收敛版升级，不再继续叠加流程。Godot 已被用户、现有项目或 game-exp 选定时，GPS 直接使用 Godot，不再主动比较 H5；只有技术栈真正开放时才做路线比较。
 
+## 1.0.2–1.0.4
+
+- **1.0.2：**新增 game-exp `iteration_delivery` 返回契约，说明可玩交付状态、玩家可见变化、人工关注点和生产者／构建身份。
+- **1.0.3：**兼容的 Godot Web 构建可发布到公开仓库的 GitHub Pages，保留 `play/<result_source_sha>/` 下的不可变版本。部署 URL 仍需通过 WEB_PREFLIGHT 和真实浏览器输入检查，才能声明 `SHAREABLE_URL verified=true`。
+- **1.0.4：**改用 game-exp 管理的 GitHub Actions Pages 工作流，绑定所请求版本的准确运行，部署成功后核验实际页面与不可变标记。
+
+完整变化见 [CHANGELOG](CHANGELOG.md)。交付证据仍为实现方自报，不代替人工 Review 或实验生命周期裁定。
+
 ## 1.0.1
 
 当技术栈已经确定为 H5 时，GPS 明确把“玩家体验目标、路由决定、复用检索结论”交给 `h5-game-prototype-agent`，不在 GPS 内维护第二套 H5 流程。运行时打包同时改为严格白名单，避免临时测试输出混入 `skill.zip`。
@@ -159,6 +167,8 @@ python scripts/validate_release_evidence.py ARTIFACT --evidence RELEASE.json
 ```bash
 python -m unittest discover -s tests -v
 ```
+
+单元测试会检查两份 README 的主标题与当前版本段，以及 CHANGELOG 最新版本是否与 `VERSION` 一致。
 
 参见[0.5.0 升级审计](audit/novel-gameplay-upgrade.md)、[强智能体过度约束审计](audit/gpt6-overconstraint-audit.md)、[研究依据](references/research-basis.md)、[行为场景](tests/scenarios.md)和[工具约定](references/tool-contracts.md)。现有测试属于工具夹具和静态指令检查，不是真实的 Godot、GPT-6/Astra、Codex、浏览器或目标玩家试玩。
 
