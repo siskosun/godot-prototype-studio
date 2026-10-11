@@ -1,6 +1,10 @@
-# Godot Prototype Studio 1.0.5
+# Godot Prototype Studio 1.0.6
 
 [English](README.md) | [中文](README.zh-CN.md)
+
+## 1.0.6：可选试玩接口与素材关联
+
+新增[试玩能力说明](references/interactive-playtest.md)和[素材来源关联](references/asset-lineage.md)。仅在有真实适配器时执行交互操作；可以按需检查素材派生关系及截图哈希，未实测的 Godot 原生交互仍标记未验证。保留旧版局部修复和 game-exp 人工决策边界。
 
 ## 1.0.5：设计与源码的局部修复闭环
 

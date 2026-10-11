@@ -80,13 +80,14 @@ Do not add unrelated systems or more process after the current decision has enou
 Load only what the current task needs:
 
 - gameplay/UX: [gameplay and UX](references/gameplay-and-ux.md)
-- art/assets/audio: [art direction](references/art-direction.md), [assets and visuals](references/assets-and-visuals.md)
+- art/assets/audio: [art direction](references/art-direction.md), [assets and visuals](references/assets-and-visuals.md), [optional lineage](references/asset-lineage.md)
 - architecture: [Godot architecture](references/godot-architecture.md)
 - text/localization: [text rendering](references/text-rendering.md)
 - persistence: [persistence](references/persistence.md)
 - project memory: [project memory](references/project-memory.md)
 - change-based retesting: [change impact](references/change-impact.md)
 - tool behavior: [tool contracts](references/tool-contracts.md)
+- interactive input and screenshot checks: [capability-probed playtest](references/interactive-playtest.md)
 
 ## Core utilities
 

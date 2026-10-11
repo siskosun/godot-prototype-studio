@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.6 - 2026-10-11
+
+- Forward-port optional capability-probed interactive-playtest operations inspired by OhMyGame, without claiming an uninstalled native Godot driver.
+- Add optional asset design/derivation/runtime evidence links and a read-only lineage validator for IDs, parent cycles, project-local paths and screenshot checksums.
+- Preserve 1.0.5 source-repair safeguards, game-exp gates and runtime-only packaging.
+
+
 ## 1.0.5 - 2026-10-07
 
 - Add an optional design/source map with stable semantic element, interaction and scenario IDs.
