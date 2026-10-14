@@ -34,5 +34,14 @@ class ExperienceValidationUpgradeTests(unittest.TestCase):
         self.assertIn("Known-bad disposable fixture or mutant", text)
 
 
+    def test_optional_opportunity_v04_preserves_real_player_boundary(self):
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        playtest = (ROOT / "references/playtest-and-player-qa.md").read_text(encoding="utf-8")
+        for phrase in ("game-opportunity", "unique players", "human Review", "digest"):
+            self.assertIn(phrase.casefold(), (skill + playtest).casefold())
+        self.assertIn("never average conflicting aggregates", playtest)
+        self.assertIn("normal Godot playtest schema unchanged", playtest)
+
+
 if __name__ == "__main__":
     unittest.main()
