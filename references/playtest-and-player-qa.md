@@ -31,6 +31,10 @@ After play, ask neutral questions tied to the tested decision: what were you try
 
 Optional `playtest_plan.md`, `playtest_report.json`, and the validator support a real test. Do not invent participants or subjective ratings. If no participant is available and human testing is not required for delivery, finish the agent-verifiable work and disclose the remaining experience hypothesis without stopping for approval.
 
+## Optional upstream game-opportunity player validation
+
+When a developer supplies a `game-opportunity` v0.4 preregistered plan, preserve the plan ID and digest **as reported**, record the exact build/source SHA and only count **actual, consented, distinct eligible players** in the matching window/cohort. Confirm numerator/denominator definitions before comparing any observed behavior with a claimed continue/stop bound. Synthetic Godot input/replay, agent QA and participant opinions do not establish unique-player choice, replay, retention or a representative market rate. Different populations, periods, sources and variants require separate analyses: never average conflicting aggregates. The output is ordinary research; it does not update the game-exp protected Ledger or authorize human Review/selection. Keep the normal Godot playtest schema unchanged.
+
 ## Turn findings into the next experiment
 
 Prioritize findings by player impact and decision relevance, not by a fixed vote threshold. Preserve the observation that supports each material finding, plausible alternative explanations, and the smallest change expected to alter the behavior. Re-run comparable conditions after the change when the decision matters.
