@@ -1,6 +1,10 @@
-# Godot Prototype Studio 1.0.5
+# Godot Prototype Studio 1.0.6
 
 [English](README.md) | [中文](README.zh-CN.md)
+
+## 1.0.6：玩家验证证据适配与正式发布
+
+新增对 game-opportunity 机会卡与真人验证汇总的可选衔接说明，区分真实玩家行为、机器 QA、报告推断及人工 Review。保持 Godot 原有原型验证、报告格式和 game-exp 可信决策权限不变。本次补齐经测试的语义版本标签和正式 Skill Release 发布工作流。
 
 ## 1.0.5：设计与源码的局部修复闭环
 

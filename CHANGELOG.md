@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.6 - 2026-10-14
+
+- Publish optional game-opportunity provenance and player validation: preserve target cohort, unique eligible participants, observation window and reported source IDs.
+- Do not treat Godot synthetic/replay/agent QA as human audience evidence, nor research continue signals as game-exp Review decisions.
+- Preserve existing Godot brief, implementation, playtest schema and trusted game-exp control plane. Add version-gated stable Skill Release publishing after CI checks.
+
+
 ## 1.0.5 - 2026-10-07
 
 - Add an optional design/source map with stable semantic element, interaction and scenario IDs.
