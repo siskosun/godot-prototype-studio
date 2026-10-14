@@ -15,6 +15,8 @@ If the project is managed by **game-exp**, read [game-exp integration](reference
 
 Otherwise the mission brief is the delivery acceptance contract. See [brief and authority](references/brief-and-authority.md).
 
+If the user supplies a `game-opportunity` card, use its stable identifier/source link and player-outcome context as optional brief evidence. It does not replace the brief, justify market claims, or become a required prerequisite for Godot work. When the next step tests a different question (such as mechanic feel after a concept-interest test), state that new falsifiable hypothesis explicitly. Do not reopen market research for ordinary Godot implementation, QA, or repair work.
+
 For a new prototype or material visual redesign, resolve visual-reference mode once using [visual reference intake](references/visual-reference-intake.md). Do not repeat the question after it is settled.
 
 ## 2. Keep the selected stack
