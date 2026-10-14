@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - VERSION
+      - '.github/workflows/publish-skill-release.yml'
 
 permissions:
   contents: read
@@ -31,6 +32,7 @@ jobs:
       - name: Verify packaged Godot Skill
         run: |
           python -m unittest discover -s tests -v
+          mkdir -p dist
           python scripts/build_skill_package.py --out dist/skill.zip
       - name: Validate stable release name and source identity
         shell: bash

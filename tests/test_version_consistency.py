@@ -29,5 +29,11 @@ class VersionConsistencyTests(unittest.TestCase):
         self.assertEqual(latest.group(1), version, "CHANGELOG.md: latest release differs from VERSION")
 
 
+    def test_stable_release_build_creates_its_output_directory(self):
+        workflow = (ROOT / ".github/workflows/publish-skill-release.yml").read_text(encoding="utf-8")
+        self.assertIn("mkdir -p dist", workflow)
+        self.assertIn("python scripts/build_skill_package.py --out dist/skill.zip", workflow)
+        self.assertIn("'.github/workflows/publish-skill-release.yml'", workflow)
+
 if __name__ == "__main__":
     unittest.main()
