@@ -15,6 +15,9 @@ If the project is managed by **game-exp**, read [game-exp integration](reference
 
 Otherwise the mission brief is the delivery acceptance contract. See [brief and authority](references/brief-and-authority.md).
 
+
+For an optional upstream `game-opportunity` v0.4 validation-cycle plan/result, distinguish **real observed unique players** from synthetic/agent gameplay, retain the plan/source digest and actual population/window/denominator in ordinary brief context, and mark independent pretest timing or source identity unverified unless checked. Local continue/stop research signals never record human playtest, game-exp Review PASS/FAIL, PROMISING, SELECTED or REJECTED. Do not add mandatory Godot brief, report or game-exp fields.
+
 If the user supplies a `game-opportunity` card, use its stable identifier/source link and player-outcome context as optional brief evidence. It does not replace the brief, justify market claims, or become a required prerequisite for Godot work. When the next step tests a different question (such as mechanic feel after a concept-interest test), state that new falsifiable hypothesis explicitly. Do not reopen market research for ordinary Godot implementation, QA, or repair work.
 
 For a new prototype or material visual redesign, resolve visual-reference mode once using [visual reference intake](references/visual-reference-intake.md). Do not repeat the question after it is settled.
