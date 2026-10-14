@@ -1,8 +1,12 @@
-# Godot Prototype Studio 1.0.5
+# Godot Prototype Studio 1.0.6
 
 [English](README.md) | [Chinese](README.zh-CN.md)
 
 Build, improve, test, and deliver small Godot prototypes and near-release slices. When Godot is already selected, GPS stays on Godot; stack comparison is only for genuinely open-stack requests. The runtime skill is model-agnostic and now integrates explicitly with game-exp without duplicating its lifecycle or human selection gates.
+
+## 1.0.6
+
+This maintenance release adds optional game-opportunity player-evidence context. Real-player cohort and source provenance stay distinct from Godot synthetic checks, and research threshold signals never count as game-exp human Review. Version-tagged stable Skill Releases follow testing; existing Godot project and game-exp contracts are unchanged.
 
 ## 1.0.5
 
