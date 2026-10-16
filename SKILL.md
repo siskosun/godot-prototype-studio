@@ -5,6 +5,8 @@ description: Build, improve, debug, test, polish, and deliver small Godot game p
 
 # Godot Prototype Studio
 
+Before a version-dependent cross-Skill handoff, read [four-Skill version checks](references/version-check.md). Check once when possible, never auto-update, and allow ordinary offline Godot work to continue.
+
 Build the smallest complete Godot result that satisfies the player's intended experience. Preserve the existing project version, language, conventions, assets, and unrelated work.
 
 ## 1. Start from authority

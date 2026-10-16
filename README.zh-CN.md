@@ -1,6 +1,10 @@
-# Godot Prototype Studio 1.0.6
+# Godot Prototype Studio 1.0.7
 
 [English](README.md) | [中文](README.zh-CN.md)
+
+## 1.0.7：四技能独立版本检查
+
+增加只读的最新正式版本及兼容锁检查；只有跨技能交接需要使用阻断模式，独立开发不受缺网影响，不会自动安装或覆盖用户文件。受信任的 game-exp 实验评审和人工决策流程未变。
 
 ## 1.0.6：玩家验证证据适配与正式发布
 

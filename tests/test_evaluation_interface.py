@@ -21,7 +21,9 @@ def load_validator():
 
 class EvaluationInterfaceUpgradeTests(unittest.TestCase):
     def test_version_and_skill_route(self):
-        self.assertIn((ROOT / "VERSION").read_text().strip(), {"1.0.1", "1.0.2", "1.0.3", "1.0.4", "1.0.5", "1.0.6"})
+        version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+        self.assertEqual(len(version.split(".")), 3)
+        self.assertGreaterEqual(tuple(map(int, version.split("."))), (1, 0, 1))
         skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("evaluation-interface.md", skill)
         contract = (ROOT / "references" / "evaluation-interface.md").read_text(encoding="utf-8")

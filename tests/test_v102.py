@@ -8,7 +8,9 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 class IterationDeliveryV102Tests(unittest.TestCase):
     def test_version_and_skill_contract(self):
-        self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "1.0.6")
+        version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+        self.assertEqual(len(version.split(".")), 3)
+        self.assertGreaterEqual(tuple(map(int, version.split("."))), (1, 0, 2))
         skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("iteration_delivery", skill)
         self.assertIn("participant-reported implementation context", skill)

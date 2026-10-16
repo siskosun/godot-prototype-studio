@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.7 - 2026-10-16
+
+- Add read-only per-Skill published-version and vetted-compatibility preflight, including optional dependent handoff gate.
+- Check exact version, pinned SKILL.md Git blob and optional installed peers; unverified newer releases and unavailable network never auto-promote.
+- Preserve standalone development without version gates and all game-exp trusted lifecycle and human Review authority.
+
+
 ## 1.0.6 - 2026-10-14
 
 - Publish optional game-opportunity provenance and player validation: preserve target cohort, unique eligible participants, observation window and reported source IDs.

@@ -1,0 +1,7 @@
+# Four-Skill version check
+
+On the first version-sensitive task in a local Python Harness, use `python <skill-root>/scripts/standalone_version_check.py --json` to compare this installed Skill entrypoint with game-opportunity's vetted `compatibility.lock.json` and the latest published GitHub Release. When invoking another Skill, use `--harness codex --peer game-exp --gate --json` (replace codex with the actual Harness and select the required peer). A required peer must be locally verifiable; do not infer it from its GitHub availability.
+
+`CURRENT` matches the exact vetted pin; `UPDATE_AVAILABLE` is advisory for that vetted copy. `UNVERIFIED` includes missing network, newer unreviewed versions and unknown installed bytes; `INCOMPATIBLE` includes a known version below minimum or a modified pinned SKILL.md entrypoint. The explicit `--gate` blocks only version-dependent handoffs; ordinary independent development proceeds regardless. Never install or modify users' Skills automatically. A static Skill cannot force its own startup checks on an unsupported host.
+
+On ChatGPT web, compare the same public compatibility lock and published stable Release through available GitHub tools; unless the host exposes installed files, report local installed identity as unverified. This is read-only static provenance, not game-exp runtime/repository version handshake, trusted Doctor, Ledger integrity or human Review authorization. Use it once per task, not once per reasoning turn.
