@@ -5,11 +5,7 @@ description: Build, improve, debug, test, polish, and deliver small Godot game p
 
 # Godot Prototype Studio
 
-## Read-only four-Skill version check
-
-When a task begins and an authorized network/connector tool exists, perform one version-awareness check per task. Local Python Harnesses: `python <skill-root>/scripts/standalone_version_check.py --json`. For an actual dependent handoff to game-exp, run the same command with `--harness codex --peer game-exp --gate --json` (replace codex with the selected Harness). In ChatGPT web, compare the vetted public game-opportunity `compatibility.lock.json` with published stable Releases using an available GitHub connector, without claiming local installed-file verification.
-
-`UPDATE_AVAILABLE` is a notice, not a mandate to upgrade. `UNVERIFIED` or `INCOMPATIBLE` blocks only version-dependent cross-Skill handoff or trusted mutations; continue ordinary standalone gameplay creation and fixes without making version claims. Network failure never becomes a guessed PASS. Do not install/update Skills silently. A static ZIP cannot enforce invocation when host hooks are absent; this check never substitutes for game-exp status/Doctor, Ledger or human Review.
+Before a version-dependent cross-Skill handoff, read [four-Skill version checks](references/version-check.md). Check once when possible, never auto-update, and allow ordinary offline Godot work to continue.
 
 Build the smallest complete Godot result that satisfies the player's intended experience. Preserve the existing project version, language, conventions, assets, and unrelated work.
 
