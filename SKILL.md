@@ -5,13 +5,13 @@ description: Build, improve, debug, test, polish, and deliver small Godot game p
 
 # Godot Prototype Studio
 
-Before a version-dependent cross-Skill handoff, read [four-Skill version checks](references/version-check.md). Check once when possible, never auto-update, and allow ordinary offline Godot work to continue.
+At task start, use [four-Skill update policy](references/four-skill-update.md) once when the host permits; standalone offline Godot work remains available.
 
 Build the smallest complete Godot result that satisfies the player's intended experience. Preserve the existing project version, language, conventions, assets, and unrelated work.
 
-## Four-Skill stable Release update on invocation
+## Startup update
 
-At the start of each task, perform a single four-component published stable Release check using [four-Skill update policy](references/four-skill-update.md). In a user-authorized local Codex/Cursor/Qoder harness with an installed game-opportunity bundle, invoke `python <game-opportunity-skill-root>/scripts/auto_update_bundle.py --harness <codex|cursor|qoder> --apply --json`; run this once per task, not recursively when delegating to peer Skills. This user requested automatic stable updates. Respect vetted compatibility lock, official installer, rollback and post-install verification: do not install unvetted latest releases, silently change the active harness, or claim updated before verification. In ChatGPT web, report update availability and manual installation requirement; never claim hosted Skill auto-installation. If updater is missing or remote metadata is unavailable, continue standalone work and mark update status UNVERIFIED. Do not bypass game-exp Doctor or human Review.
+At task start follow [four-Skill update](references/four-skill-update.md), once per task. Use the authorized local updater; ChatGPT web can only check Releases. Do not bypass compatibility or game-exp gates.
 
 ## 1. Start from authority
 
@@ -125,4 +125,4 @@ For a game-exp-managed implementation pass, return one structured `iteration_del
 
 ## Playable-path completion evidence
 
-For consequential mechanics and near-release work, use [completion checkpoints](references/completion-checkpoints.md) and the optional `scripts/completion_checkpoints.py` consistency validator. Preserve a clean-launch normal-input completion path, dependency-aware invalidation on changed files, and protected regression/revert on an isolated candidate. A valid evidence report does not replace real gameplay or human playtesting.
+For consequential gameplay changes, use [completion checkpoints](references/completion-checkpoints.md) and `scripts/completion_checkpoints.py` for normal-player completion evidence and changed-file invalidation. Evidence integrity is not proof of play or enjoyment.
