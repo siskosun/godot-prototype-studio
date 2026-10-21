@@ -9,6 +9,10 @@ Before a version-dependent cross-Skill handoff, read [four-Skill version checks]
 
 Build the smallest complete Godot result that satisfies the player's intended experience. Preserve the existing project version, language, conventions, assets, and unrelated work.
 
+## Four-Skill stable Release update on invocation
+
+At the start of each task, perform a single four-component published stable Release check using [four-Skill update policy](references/four-skill-update.md). In a user-authorized local Codex/Cursor/Qoder harness with an installed game-opportunity bundle, invoke `python <game-opportunity-skill-root>/scripts/auto_update_bundle.py --harness <codex|cursor|qoder> --apply --json`; run this once per task, not recursively when delegating to peer Skills. This user requested automatic stable updates. Respect vetted compatibility lock, official installer, rollback and post-install verification: do not install unvetted latest releases, silently change the active harness, or claim updated before verification. In ChatGPT web, report update availability and manual installation requirement; never claim hosted Skill auto-installation. If updater is missing or remote metadata is unavailable, continue standalone work and mark update status UNVERIFIED. Do not bypass game-exp Doctor or human Review.
+
 ## 1. Start from authority
 
 Recover the user's brief, current project state, and repository instructions before editing.
@@ -118,3 +122,7 @@ python -m unittest discover -s tests -v
 Utility tests do not substitute for live Godot/browser/player evidence.
 
 For a game-exp-managed implementation pass, return one structured `iteration_delivery` object after completed source work. Include 1-8 player-visible changes, a verified playable descriptor or explicit `MISSING`, 1-3 playtest focus points, `producer=godot-prototype-studio`, optional build identity, and an optional real prior Candidate id. When the game-exp handoff requests a shareable URL for a public repository and the project has a compatible non-threaded Web export, prefer the bundled immutable GitHub Pages publisher backed by the managed game-exp Pages workflow, then run WEB_PREFLIGHT and real-browser player input against the deployed URL before setting `verified=true`. It is participant-reported implementation context only and never authorizes Review, PROMISING, SELECTED, REJECTED, Integration, or Archive.
+
+## Playable-path completion evidence
+
+For consequential mechanics and near-release work, use [completion checkpoints](references/completion-checkpoints.md) and the optional `scripts/completion_checkpoints.py` consistency validator. Preserve a clean-launch normal-input completion path, dependency-aware invalidation on changed files, and protected regression/revert on an isolated candidate. A valid evidence report does not replace real gameplay or human playtesting.
