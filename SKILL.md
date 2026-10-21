@@ -9,9 +9,9 @@ At task start, use [four-Skill update policy](references/four-skill-update.md) o
 
 Build the smallest complete Godot result that satisfies the player's intended experience. Preserve the existing project version, language, conventions, assets, and unrelated work.
 
-## Startup update
+## Four-Skill startup update
 
-At task start follow [four-Skill update](references/four-skill-update.md), once per task. Use the authorized local updater; ChatGPT web can only check Releases. Do not bypass compatibility or game-exp gates.
+On the first invocation of this Skill in a task, check all four stable GitHub Releases once. If authorized in the local Codex/Cursor/Qoder Harness, run `python <this-skill-root>/scripts/bootstrap_auto_update.py --harness <codex|cursor|qoder> --apply --json`. This is an explicitly invoked operation, not an automatic import hook. Only vetted compatible stable releases may install; errors remain UNVERIFIED, with standalone work allowed. See [four-Skill update policy](references/four-skill-update.md). On ChatGPT web, perform only a read-only Release check and never claim the hosted Skill was updated. After UPDATED, restart cached Harness/runtime before dependent work.
 
 ## 1. Start from authority
 
