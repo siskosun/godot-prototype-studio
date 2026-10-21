@@ -5,9 +5,13 @@ description: Build, improve, debug, test, polish, and deliver small Godot game p
 
 # Godot Prototype Studio
 
-Before a version-dependent cross-Skill handoff, read [four-Skill version checks](references/version-check.md). Check once when possible, never auto-update, and allow ordinary offline Godot work to continue.
+At task start, use [four-Skill update policy](references/four-skill-update.md) once when the host permits; standalone offline Godot work remains available.
 
 Build the smallest complete Godot result that satisfies the player's intended experience. Preserve the existing project version, language, conventions, assets, and unrelated work.
+
+## Four-Skill startup update
+
+At task start, run `python scripts/bootstrap_auto_update.py --harness codex --apply --json` in an authorized local Harness (use its actual name). Follow [the update policy](references/four-skill-update.md); web can only inspect Releases. Restart cached runtimes after an update.
 
 ## 1. Start from authority
 
@@ -118,3 +122,7 @@ python -m unittest discover -s tests -v
 Utility tests do not substitute for live Godot/browser/player evidence.
 
 For a game-exp-managed implementation pass, return one structured `iteration_delivery` object after completed source work. Include 1-8 player-visible changes, a verified playable descriptor or explicit `MISSING`, 1-3 playtest focus points, `producer=godot-prototype-studio`, optional build identity, and an optional real prior Candidate id. When the game-exp handoff requests a shareable URL for a public repository and the project has a compatible non-threaded Web export, prefer the bundled immutable GitHub Pages publisher backed by the managed game-exp Pages workflow, then run WEB_PREFLIGHT and real-browser player input against the deployed URL before setting `verified=true`. It is participant-reported implementation context only and never authorizes Review, PROMISING, SELECTED, REJECTED, Integration, or Archive.
+
+## Playable-path completion evidence
+
+For consequential gameplay changes, use [completion checkpoints](references/completion-checkpoints.md) and `scripts/completion_checkpoints.py` for normal-player completion evidence and changed-file invalidation. Evidence integrity is not proof of play or enjoyment.

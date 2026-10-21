@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.8 - 2026-10-21
+
+- Add official stable Release bootstrap for the four game Skills, with validated digest and vetted bundle rollback.
+- Add reusable player-path completion checkpoints and changed-file dependency invalidation, with actual input provenance.
+- Preserve web read-only limitations, game-exp Doctor and human Review authority.
+
 ## 1.0.7 - 2026-10-16
 
 - Add read-only per-Skill published-version and vetted-compatibility preflight, including optional dependent handoff gate.
