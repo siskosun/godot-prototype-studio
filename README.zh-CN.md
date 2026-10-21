@@ -1,6 +1,10 @@
-# Godot Prototype Studio 1.0.7
+# Godot Prototype Studio 1.0.8
 
 [English](README.md) | [中文](README.zh-CN.md)
+
+## 1.0.8：四技能自动更新与完整游玩路径验收
+
+增加验证正式 Release 的本地引导器，四技能中的任意一个可以触发统一版本检查，并在授权及兼容性校验通过后安装更新。新增玩家路径检查点、证据哈希和修改依赖失效检测。ChatGPT 网页端仍然只能检查，不能自动安装。
 
 ## 1.0.7：四技能独立版本检查
 
